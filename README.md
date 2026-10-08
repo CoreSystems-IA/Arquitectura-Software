@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- 👇 Coloca tu logo en assets/logo.png -->
-<img src="./assets/logo.png" alt="CoreSystems-AI Logo" width="260"/>
+<img src="Logo.jpeg" alt="CoreSystems-AI Logo" width="260"/>
 
 # 🧠 CoreSystems-AI
 
