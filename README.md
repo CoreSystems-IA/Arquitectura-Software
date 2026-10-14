@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- 👇 Coloca tu logo en assets/logo.png -->
-<img src="Logo.jpeg" alt="CoreSystems-AI Logo" width="260"/>
+<img src="./assets/logo.png" alt="CoreSystems-AI Logo" width="260"/>
 
 # 🧠 CoreSystems-AI
 
@@ -25,6 +25,7 @@
 [![Misión](https://img.shields.io/badge/🎯_Misión-0ea5e9?style=for-the-badge)](#mision)
 [![Visión](https://img.shields.io/badge/🔭_Visión-8b5cf6?style=for-the-badge)](#vision)
 [![DevOps](https://img.shields.io/badge/♾️_DevOps-10b981?style=for-the-badge)](#devops)
+[![Stack](https://img.shields.io/badge/🧱_Stack-475569?style=for-the-badge)](#stack)
 
 [![Arquitecto](https://img.shields.io/badge/🏗️_Arquitecto-1d4ed8?style=for-the-badge)](#arquitecto)
 [![Seguridad](https://img.shields.io/badge/🛡️_Seguridad-dc2626?style=for-the-badge)](#seguridad)
@@ -134,9 +135,25 @@ flowchart LR
 
 ---
 
+<a id="stack"></a>
+## 🧱 Stack tecnológico (aplicación web + móvil)
+
+Una sola base de conocimiento y de código compartido para llegar a **web** y **móvil**, con agentes de IA integrados en el núcleo.
+
+| Rol | 🌐 Web | 📱 Móvil | 🤖 Agentes / IA |
+|---|---|---|---|
+| 🏗️ Arquitectura | Monolito modular → microservicios | API-first compartida con web | Orquestación y MCP |
+| 🛡️ Seguridad | OWASP ASVS, OAuth 2.0 / OIDC | OWASP MASVS, almacenamiento seguro | Guardrails y auditoría |
+| 🗄️ Base de datos | PostgreSQL, Redis | SQLite local (modo offline) | Memoria y búsqueda vectorial |
+| ⚙️ Backend | FastAPI, NestJS | Misma API REST / WebSockets | Bucle de agente y herramientas |
+| 🖥️ Frontend | Next.js, React | React Native + Expo | Paneles de supervisión |
+| 🎨 UI/UX | Figma, sistema de diseño | Guías iOS y Android | Diseño de confianza |
+
+---
+
 ## 👥 Nuestro equipo
 
-Cada integrante aporta su punto de vista y su "granito de arena" para que los sistemas agénticos sean **bien diseñados, seguros, rápidos y agradables de usar**. Cada rol se apoya en **normas ISO** como referencia de calidad.
+Cada integrante aporta su punto de vista y su "granito de arena" para que los sistemas agénticos sean **bien diseñados, seguros, rápidos y agradables de usar**. Cada rol se apoya en **normas ISO** como referencia de calidad y en un **stack tecnológico** para web y móvil.
 
 ---
 
@@ -146,8 +163,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<!-- 👇 Reemplaza con la foto real: assets/team/carlos-sanchez.jpg -->
-<img src="https://placehold.co/200x200/1d4ed8/ffffff?text=Foto" alt="Carlos Sánchez" width="200"/>
+<img src="./Carlos.jpeg" alt="Carlos Sánchez" width="200"/>
 <br/><b>Carlos Sánchez</b>
 <br/><i>Arquitecto de Software</i>
 </td>
@@ -171,6 +187,16 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 | **ISO/IEC 25010** | Modelo de calidad del software (fiabilidad, mantenibilidad, rendimiento) |
 | **ISO/IEC/IEEE 12207** | Procesos del ciclo de vida del software |
 
+**🧱 Stack tecnológico:**
+
+| Área | Tecnologías |
+|---|---|
+| 🌐 **Web y móvil** | ![OpenAPI](https://img.shields.io/badge/OpenAPI-6BA539?style=flat-square&logo=openapiinitiative&logoColor=white) ![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=flat-square&logo=graphql&logoColor=white) ![WebSockets](https://img.shields.io/badge/WebSockets-010101?style=flat-square&logo=socketdotio&logoColor=white) |
+| ☁️ **Infraestructura** | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white) ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white) |
+| 📨 **Mensajería** | ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white) ![Kafka](https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white) |
+| 🤖 **Agentes** | ![MCP](https://img.shields.io/badge/MCP-000000?style=flat-square) ![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C?style=flat-square&logo=langchain&logoColor=white) ![Claude](https://img.shields.io/badge/Claude_API-D97757?style=flat-square&logo=anthropic&logoColor=white) |
+| 📐 **Documentación** | ![Mermaid](https://img.shields.io/badge/Mermaid-FF3670?style=flat-square&logo=mermaid&logoColor=white) ![C4 Model](https://img.shields.io/badge/C4_Model-08427B?style=flat-square) ![ADRs](https://img.shields.io/badge/ADRs-475569?style=flat-square) |
+
 </td>
 </tr>
 </table>
@@ -183,8 +209,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<!-- 👇 Reemplaza con la foto real: assets/team/alex-santiago.jpg -->
-<img src="https://placehold.co/200x200/dc2626/ffffff?text=Foto" alt="Alex Santiago" width="200"/>
+<img src="./Alex.jpeg" alt="Alex Santiago" width="200"/>
 <br/><b>Alex Santiago</b>
 <br/><i>Seguridad</i>
 </td>
@@ -209,6 +234,16 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 | **ISO/IEC 42001** | Sistema de gestión de inteligencia artificial responsable |
 | **ISO/IEC 27034** | Seguridad en las aplicaciones |
 
+**🧱 Stack tecnológico:**
+
+| Área | Tecnologías |
+|---|---|
+| 🌐 **Web** | ![OWASP](https://img.shields.io/badge/OWASP_ASVS-000000?style=flat-square&logo=owasp&logoColor=white) ![OAuth](https://img.shields.io/badge/OAuth_2.0_/_OIDC-EB5424?style=flat-square&logo=auth0&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white) ![Cloudflare](https://img.shields.io/badge/Cloudflare_WAF-F38020?style=flat-square&logo=cloudflare&logoColor=white) |
+| 📱 **Móvil** | ![MASVS](https://img.shields.io/badge/OWASP_MASVS-000000?style=flat-square&logo=owasp&logoColor=white) ![Biometría](https://img.shields.io/badge/Biometría-4285F4?style=flat-square) ![Cert Pinning](https://img.shields.io/badge/Certificate_Pinning-475569?style=flat-square) ![Keychain](https://img.shields.io/badge/Keychain_/_Keystore-000000?style=flat-square&logo=apple&logoColor=white) |
+| 🔎 **Análisis (DevSecOps)** | ![Semgrep](https://img.shields.io/badge/Semgrep-3DDC84?style=flat-square) ![SonarQube](https://img.shields.io/badge/SonarQube-4E9BCD?style=flat-square&logo=sonarqube&logoColor=white) ![Trivy](https://img.shields.io/badge/Trivy-1904DA?style=flat-square&logo=aqua&logoColor=white) ![OWASP ZAP](https://img.shields.io/badge/OWASP_ZAP-00549E?style=flat-square&logo=zap&logoColor=white) |
+| 🔑 **Secretos e identidad** | ![Vault](https://img.shields.io/badge/HashiCorp_Vault-FFEC6E?style=flat-square&logo=vault&logoColor=black) ![Keycloak](https://img.shields.io/badge/Keycloak-4D4D4D?style=flat-square&logo=keycloak&logoColor=white) |
+| 🤖 **Seguridad de agentes** | ![LLM Top 10](https://img.shields.io/badge/OWASP_Top_10_for_LLMs-000000?style=flat-square&logo=owasp&logoColor=white) ![Sandboxing](https://img.shields.io/badge/Sandboxing-DC2626?style=flat-square) ![Audit Logs](https://img.shields.io/badge/Audit_Logs-475569?style=flat-square) |
+
 </td>
 </tr>
 </table>
@@ -221,8 +256,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<!-- 👇 Reemplaza con la foto real: assets/team/aaron-robles.jpg -->
-<img src="https://placehold.co/200x200/0891b2/ffffff?text=Foto" alt="Aaron Robles" width="200"/>
+<img src="./Aaron.jpeg" alt="Aaron Robles" width="200"/>
 <br/><b>Aaron Robles</b>
 <br/><i>Base de Datos</i>
 </td>
@@ -247,6 +281,16 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 | **ISO 8000** | Calidad e integridad de datos |
 | **ISO/IEC 27701** | Gestión de privacidad de la información |
 
+**🧱 Stack tecnológico:**
+
+| Área | Tecnologías |
+|---|---|
+| 🌐 **Web (servidor)** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) |
+| 📱 **Móvil (local / offline)** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) ![MMKV](https://img.shields.io/badge/MMKV-475569?style=flat-square) ![Sync](https://img.shields.io/badge/Sincronización_offline-0891B2?style=flat-square) |
+| 🧠 **Memoria de agentes** | ![pgvector](https://img.shields.io/badge/pgvector-4169E1?style=flat-square&logo=postgresql&logoColor=white) ![Qdrant](https://img.shields.io/badge/Qdrant-DC244C?style=flat-square) |
+| 🔄 **Migraciones y ORM** | ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white) ![Alembic](https://img.shields.io/badge/Alembic-6BA81E?style=flat-square) ![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=flat-square&logo=flyway&logoColor=white) |
+| ☁️ **Archivos y respaldos** | ![S3](https://img.shields.io/badge/Amazon_S3-569A31?style=flat-square&logo=amazons3&logoColor=white) ![pgBackRest](https://img.shields.io/badge/pgBackRest-336791?style=flat-square) |
+
 </td>
 </tr>
 </table>
@@ -259,8 +303,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<!-- 👇 Reemplaza con la foto real: assets/team/juan-cueva.jpg -->
-<img src="https://placehold.co/200x200/16a34a/ffffff?text=Foto" alt="Juan Cueva" width="200"/>
+<img src="./Juan.jpeg" alt="Juan Cueva" width="200"/>
 <br/><b>Juan Cueva</b>
 <br/><i>Backend</i>
 </td>
@@ -285,6 +328,16 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 | **ISO/IEC/IEEE 12207** | Procesos del ciclo de vida |
 | **ISO/IEC 5338** | Ciclo de vida de sistemas de IA |
 
+**🧱 Stack tecnológico:**
+
+| Área | Tecnologías |
+|---|---|
+| 🧠 **Lenguajes y frameworks** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white) |
+| 🔌 **APIs (web y móvil)** | ![REST](https://img.shields.io/badge/REST-009688?style=flat-square) ![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=flat-square&logo=graphql&logoColor=white) ![WebSockets](https://img.shields.io/badge/WebSockets-010101?style=flat-square&logo=socketdotio&logoColor=white) ![Push](https://img.shields.io/badge/Push_Notifications-FFCA28?style=flat-square&logo=firebase&logoColor=black) |
+| 🤖 **Agentes e IA** | ![Claude](https://img.shields.io/badge/Claude_API-D97757?style=flat-square&logo=anthropic&logoColor=white) ![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C?style=flat-square&logo=langchain&logoColor=white) ![MCP](https://img.shields.io/badge/MCP-000000?style=flat-square) |
+| ⏱️ **Tareas en segundo plano** | ![Celery](https://img.shields.io/badge/Celery-37814A?style=flat-square&logo=celery&logoColor=white) ![BullMQ](https://img.shields.io/badge/BullMQ-DC382D?style=flat-square) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) |
+| 🧪 **Pruebas y CI/CD** | ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white) ![Jest](https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) |
+
 </td>
 </tr>
 </table>
@@ -297,7 +350,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<!-- 👇 Reemplaza con la foto real: assets/team/jean-pool.jpg -->
+<!-- 👇 Reemplaza con la foto real: assets/team/Jean.jpeg -->
 <img src="https://placehold.co/200x200/ea580c/ffffff?text=Foto" alt="Jean Pool" width="200"/>
 <br/><b>Jean Pool</b>
 <br/><i>Frontend</i>
@@ -322,6 +375,16 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 | **ISO/IEC 25010** | Usabilidad y eficiencia de uso |
 | **ISO 9241-11** | Usabilidad: efectividad, eficiencia y satisfacción |
 
+**🧱 Stack tecnológico:**
+
+| Área | Tecnologías |
+|---|---|
+| 🌐 **Web** | ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white) |
+| 📱 **Móvil** | ![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=flat-square&logo=react&logoColor=black) ![Expo](https://img.shields.io/badge/Expo-000020?style=flat-square&logo=expo&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) |
+| 🔄 **Estado y datos** | ![TanStack Query](https://img.shields.io/badge/TanStack_Query-FF4154?style=flat-square&logo=reactquery&logoColor=white) ![Zustand](https://img.shields.io/badge/Zustand-433E38?style=flat-square) ![WebSockets](https://img.shields.io/badge/Tiempo_real-010101?style=flat-square&logo=socketdotio&logoColor=white) |
+| 🧩 **Componentes** | ![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000?style=flat-square&logo=shadcnui&logoColor=white) ![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=flat-square&logo=storybook&logoColor=white) |
+| 🧪 **Pruebas** | ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white) ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white) ![Detox](https://img.shields.io/badge/Detox_(móvil)-475569?style=flat-square) |
+
 </td>
 </tr>
 </table>
@@ -334,7 +397,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<!-- 👇 Reemplaza con la foto real: assets/team/luis-aguilar.jpg -->
+<!-- 👇 Reemplaza con la foto real: assets/team/Luis.jpeg -->
 <img src="https://placehold.co/200x200/db2777/ffffff?text=Foto" alt="Luis Aguilar" width="200"/>
 <br/><b>Luis Aguilar</b>
 <br/><i>UI/UX</i>
@@ -359,6 +422,16 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 | **ISO 9241-11** | Medición de usabilidad |
 | **ISO 9241-110** | Principios de interacción persona-sistema |
 
+**🧱 Stack tecnológico:**
+
+| Área | Tecnologías |
+|---|---|
+| 🎨 **Diseño y prototipado** | ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white) ![FigJam](https://img.shields.io/badge/FigJam-A259FF?style=flat-square&logo=figma&logoColor=white) ![Framer](https://img.shields.io/badge/Framer-0055FF?style=flat-square&logo=framer&logoColor=white) |
+| 🌐 **Web** | ![Design Tokens](https://img.shields.io/badge/Design_Tokens-db2777?style=flat-square) ![Responsive](https://img.shields.io/badge/Responsive_Design-0EA5E9?style=flat-square) ![WCAG](https://img.shields.io/badge/WCAG_2.2-005A9C?style=flat-square&logo=w3c&logoColor=white) |
+| 📱 **Móvil** | ![Material Design](https://img.shields.io/badge/Material_Design-757575?style=flat-square&logo=materialdesign&logoColor=white) ![HIG](https://img.shields.io/badge/Apple_HIG-000000?style=flat-square&logo=apple&logoColor=white) ![Lottie](https://img.shields.io/badge/Lottie-00DDB3?style=flat-square) |
+| 🔬 **Investigación de usuarios** | ![Maze](https://img.shields.io/badge/Maze-6C47FF?style=flat-square) ![Hotjar](https://img.shields.io/badge/Hotjar-FD3A5C?style=flat-square&logo=hotjar&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white) |
+| 🧩 **Entrega a desarrollo** | ![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=flat-square&logo=storybook&logoColor=white) ![Figma Dev Mode](https://img.shields.io/badge/Figma_Dev_Mode-F24E1E?style=flat-square&logo=figma&logoColor=white) |
+
 </td>
 </tr>
 </table>
@@ -371,6 +444,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 - 🙋 **Humano siempre en control:** autonomía supervisada, auditable y reversible.
 - 🛡️ **Seguridad desde el diseño:** DevSecOps y alineación con normas ISO.
 - 🤝 **Equipo completo:** arquitectura, seguridad, datos, backend, frontend y experiencia de usuario bajo un mismo techo.
+- 📱 **Web y móvil:** un solo ecosistema, dos plataformas.
 - 📈 **Mejora continua:** sistemas que aprenden de cada ejecución.
 
 ---
