@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://www.opengroup.org/xsd/archimate/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengroup.org/xsd/archimate/3.0/ http://www.opengroup.org/xsd/archimate/3.1/archimate3_Diagram.xsd" identifier="id-model-july-casos-de-uso">
+  <name xml:lang="es">July · Casos de uso (Cooperativa Padre Julián Lorente)</name>
+  <documentation xml:lang="es">Casos de uso del asistente July expresados en ArchiMate 3.1: cada caso de uso es un servicio de aplicación realizado por July, que sirve a los actores de negocio y realiza capacidades de nivel 3 del mapa de capacidades. «include» = agregación entre servicios; «extend» = asociación dirigida.</documentation>
+  <elements>
+    <element identifier="id-cap-1-1" xsi:type="Capability"><name xml:lang="es">1.1 Canales de contacto</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-1-2" xsi:type="Capability"><name xml:lang="es">1.2 Primer contacto</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-2-1" xsi:type="Capability"><name xml:lang="es">2.1 Perfilamiento</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-2-2" xsi:type="Capability"><name xml:lang="es">2.2 Simulación financiera</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-2-3" xsi:type="Capability"><name xml:lang="es">2.3 Precalificación</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-3-1" xsi:type="Capability"><name xml:lang="es">3.1 Entrega de oportunidades</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-3-2" xsi:type="Capability"><name xml:lang="es">3.2 Asignación y seguimiento</name><documentation xml:lang="es">Capacidad de nivel 1 del mapa de capacidades (etapa 1).</documentation></element>
+    <element identifier="id-cap-1-1-1" xsi:type="Capability"><name xml:lang="es">1.1.1 Recepción multicanal</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-1-1-2" xsi:type="Capability"><name xml:lang="es">1.1.2 Unificación de mensajes</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-1-2-1" xsi:type="Capability"><name xml:lang="es">1.2.1 Atención inmediata</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-1-2-2" xsi:type="Capability"><name xml:lang="es">1.2.2 Identificación del prospecto</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-2-1-1" xsi:type="Capability"><name xml:lang="es">2.1.1 Captura conversacional</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-2-1-2" xsi:type="Capability"><name xml:lang="es">2.1.2 Validación y continuidad</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-2-2-1" xsi:type="Capability"><name xml:lang="es">2.2.1 Cálculo del crédito</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-2-2-2" xsi:type="Capability"><name xml:lang="es">2.2.2 Productos y condiciones</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-2-3-1" xsi:type="Capability"><name xml:lang="es">2.3.1 Evaluación por reglas</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-2-3-2" xsi:type="Capability"><name xml:lang="es">2.3.2 Orientación y requisitos</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-3-1-1" xsi:type="Capability"><name xml:lang="es">3.1.1 Generación de la ficha</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-3-1-2" xsi:type="Capability"><name xml:lang="es">3.1.2 Integración con CRM</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-3-2-1" xsi:type="Capability"><name xml:lang="es">3.2.1 Asignación a asesor</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-3-2-2" xsi:type="Capability"><name xml:lang="es">3.2.2 Seguimiento y cierre</name><documentation xml:lang="es">Capacidad de nivel 2.</documentation></element>
+    <element identifier="id-cap-1-1-1-1" xsi:type="Capability"><name xml:lang="es">1.1.1.1 WhatsApp Business API</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-1-1-2" xsi:type="Capability"><name xml:lang="es">1.1.1.2 Widget web</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-1-1-3" xsi:type="Capability"><name xml:lang="es">1.1.1.3 Registro de origen</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-1-2-1" xsi:type="Capability"><name xml:lang="es">1.1.2.1 Formato común por canal</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-1-2-2" xsi:type="Capability"><name xml:lang="es">1.1.2.2 Absorción de picos</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-1-2-3" xsi:type="Capability"><name xml:lang="es">1.1.2.3 Verificación de webhooks</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-2-1-1" xsi:type="Capability"><name xml:lang="es">1.2.1.1 Respuesta automática</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-2-1-2" xsi:type="Capability"><name xml:lang="es">1.2.1.2 Consentimiento de datos</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-2-1-3" xsi:type="Capability"><name xml:lang="es">1.2.1.3 Derivación a asesor</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-2-2-1" xsi:type="Capability"><name xml:lang="es">1.2.2.1 Detección de intención</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-2-2-2" xsi:type="Capability"><name xml:lang="es">1.2.2.2 Reconocimiento de socio</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-1-2-2-3" xsi:type="Capability"><name xml:lang="es">1.2.2.3 Registro del lead</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-1-1-1" xsi:type="Capability"><name xml:lang="es">2.1.1.1 Identidad y contacto</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-1-1-2" xsi:type="Capability"><name xml:lang="es">2.1.1.2 Ingresos y actividad</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-1-1-3" xsi:type="Capability"><name xml:lang="es">2.1.1.3 Monto, plazo y destino</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-1-2-1" xsi:type="Capability"><name xml:lang="es">2.1.2.1 Validación de formatos</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-1-2-2" xsi:type="Capability"><name xml:lang="es">2.1.2.2 Guardado del avance</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-1-2-3" xsi:type="Capability"><name xml:lang="es">2.1.2.3 Retoma tras abandono</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-2-1-1" xsi:type="Capability"><name xml:lang="es">2.2.1.1 Cuota y amortización</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-2-1-2" xsi:type="Capability"><name xml:lang="es">2.2.1.2 Total a pagar</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-2-1-3" xsi:type="Capability"><name xml:lang="es">2.2.1.3 Comparación de escenarios</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-2-2-1" xsi:type="Capability"><name xml:lang="es">2.2.2.1 Catálogo de líneas</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-2-2-2" xsi:type="Capability"><name xml:lang="es">2.2.2.2 Tasas y plazos por línea</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-2-2-3" xsi:type="Capability"><name xml:lang="es">2.2.2.3 Requisitos por línea</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-3-1-1" xsi:type="Capability"><name xml:lang="es">2.3.1.1 Capacidad de pago</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-3-1-2" xsi:type="Capability"><name xml:lang="es">2.3.1.2 Edad, actividad y socio</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-3-1-3" xsi:type="Capability"><name xml:lang="es">2.3.1.3 Clasificación final</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-3-2-1" xsi:type="Capability"><name xml:lang="es">2.3.2.1 Explicación del resultado</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-3-2-2" xsi:type="Capability"><name xml:lang="es">2.3.2.2 Documentos a preparar</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-2-3-2-3" xsi:type="Capability"><name xml:lang="es">2.3.2.3 Afiliación y cita</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-1-1-1" xsi:type="Capability"><name xml:lang="es">3.1.1.1 Consolidación de datos</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-1-1-2" xsi:type="Capability"><name xml:lang="es">3.1.1.2 Priorización del lead</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-1-1-3" xsi:type="Capability"><name xml:lang="es">3.1.1.3 Historial de conversación</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-1-2-1" xsi:type="Capability"><name xml:lang="es">3.1.2.1 Alta o actualización</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-1-2-2" xsi:type="Capability"><name xml:lang="es">3.1.2.2 Control de duplicados</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-1-2-3" xsi:type="Capability"><name xml:lang="es">3.1.2.3 Reintentos ante fallos</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-2-1-1" xsi:type="Capability"><name xml:lang="es">3.2.1.1 Enrutamiento</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-2-1-2" xsi:type="Capability"><name xml:lang="es">3.2.1.2 Notificación al asesor</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-2-1-3" xsi:type="Capability"><name xml:lang="es">3.2.1.3 Traspaso con contexto</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-2-2-1" xsi:type="Capability"><name xml:lang="es">3.2.2.1 Recordatorios y reactivación</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-2-2-2" xsi:type="Capability"><name xml:lang="es">3.2.2.2 Confirmación de citas</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-cap-3-2-2-3" xsi:type="Capability"><name xml:lang="es">3.2.2.3 Estados y cierre</name><documentation xml:lang="es">Capacidad de nivel 3.</documentation></element>
+    <element identifier="id-act-prospecto" xsi:type="BusinessActor"><name xml:lang="es">Prospecto</name><documentation xml:lang="es">Persona interesada en un crédito, socia o no.</documentation></element>
+    <element identifier="id-act-asesor" xsi:type="BusinessActor"><name xml:lang="es">Asesor comercial</name><documentation xml:lang="es">Atiende los leads asignados y los cierra.</documentation></element>
+    <element identifier="id-act-jefe" xsi:type="BusinessActor"><name xml:lang="es">Jefe comercial</name><documentation xml:lang="es">Define prioridad y enrutamiento; supervisa el embudo.</documentation></element>
+    <element identifier="id-act-agencia" xsi:type="BusinessActor"><name xml:lang="es">Personal de agencia</name><documentation xml:lang="es">Gestiona la agenda y confirma citas.</documentation></element>
+    <element identifier="id-act-admin" xsi:type="BusinessActor"><name xml:lang="es">Administrador del asistente</name><documentation xml:lang="es">Edita guiones, intenciones, preguntas frecuentes y plantillas.</documentation></element>
+    <element identifier="id-act-productos" xsi:type="BusinessActor"><name xml:lang="es">Área de productos y crédito</name><documentation xml:lang="es">Jefe de productos, finanzas y analista de crédito.</documentation></element>
+    <element identifier="id-act-dpd" xsi:type="BusinessActor"><name xml:lang="es">Delegado de protección de datos</name><documentation xml:lang="es">Vigila el consentimiento y atiende los derechos del titular.</documentation></element>
+    <element identifier="id-july" xsi:type="ApplicationComponent"><name xml:lang="es">July · asistente virtual</name><documentation xml:lang="es">Chatbot de captación de prospectos por WhatsApp Business API y widget web.</documentation></element>
+    <element identifier="id-sys-whatsapp" xsi:type="ApplicationComponent"><name xml:lang="es">WhatsApp Business API</name><documentation xml:lang="es">Sistema externo (actor secundario en los casos de uso).</documentation></element>
+    <element identifier="id-sys-widget" xsi:type="ApplicationComponent"><name xml:lang="es">Widget web</name><documentation xml:lang="es">Sistema externo (actor secundario en los casos de uso).</documentation></element>
+    <element identifier="id-sys-core" xsi:type="ApplicationComponent"><name xml:lang="es">Sistema core</name><documentation xml:lang="es">Sistema externo (actor secundario en los casos de uso).</documentation></element>
+    <element identifier="id-sys-crm" xsi:type="ApplicationComponent"><name xml:lang="es">CRM de la cooperativa</name><documentation xml:lang="es">Sistema externo (actor secundario en los casos de uso).</documentation></element>
+    <element identifier="id-sys-notif" xsi:type="ApplicationComponent"><name xml:lang="es">Servicio de notificaciones</name><documentation xml:lang="es">Sistema externo (actor secundario en los casos de uso).</documentation></element>
+    <element identifier="id-evt-timer" xsi:type="ApplicationEvent"><name xml:lang="es">Temporizador: pendiente vencido</name><documentation xml:lang="es">Evento programado que dispara recordatorios y reactivaciones.</documentation></element>
+    <element identifier="id-cu01" xsi:type="ApplicationService"><name xml:lang="es">CU-01 Iniciar conversación</name><documentation xml:lang="es">Recibir la primera consulta por cualquier canal y responder como July en menos de 2 minutos.</documentation></element>
+    <element identifier="id-cu02" xsi:type="ApplicationService"><name xml:lang="es">CU-02 Aceptar aviso de privacidad</name><documentation xml:lang="es">Obtener el consentimiento expreso según la LOPDP antes de pedir datos personales.</documentation></element>
+    <element identifier="id-cu03" xsi:type="ApplicationService"><name xml:lang="es">CU-03 Registrar lead</name><documentation xml:lang="es">Crear el registro trazable del lead desde el primer contacto. Lo dispara CU-02.</documentation></element>
+    <element identifier="id-cu04" xsi:type="ApplicationService"><name xml:lang="es">CU-04 Identificar intención y responder preguntas frecuentes</name><documentation xml:lang="es">Saber qué línea de crédito busca la persona o resolver su duda.</documentation></element>
+    <element identifier="id-cu05" xsi:type="ApplicationService"><name xml:lang="es">CU-05 Reconocer socio existente</name><documentation xml:lang="es">Saber si la persona ya es socia o ya escribió antes. Lo dispara CU-07.</documentation></element>
+    <element identifier="id-cu06" xsi:type="ApplicationService"><name xml:lang="es">CU-06 Derivar a asesor humano</name><documentation xml:lang="es">Pasar la conversación a una persona cuando July no puede resolverla o el prospecto lo pide.</documentation></element>
+    <element identifier="id-cu07" xsi:type="ApplicationService"><name xml:lang="es">CU-07 Capturar datos del prospecto</name><documentation xml:lang="es">Reunir, conversando, los datos que necesitan la simulación y la precalificación.</documentation></element>
+    <element identifier="id-cu08" xsi:type="ApplicationService"><name xml:lang="es">CU-08 Retomar conversación abandonada</name><documentation xml:lang="es">Continuar donde la persona se quedó, sin volver a pedirle lo que ya dio.</documentation></element>
+    <element identifier="id-cu09" xsi:type="ApplicationService"><name xml:lang="es">CU-09 Simular crédito</name><documentation xml:lang="es">Mostrar cuánto pagaría la persona según la línea, el monto y el plazo.</documentation></element>
+    <element identifier="id-cu10" xsi:type="ApplicationService"><name xml:lang="es">CU-10 Comparar escenarios</name><documentation xml:lang="es">Recalcular con otro monto u otro plazo para elegir la opción que le conviene.</documentation></element>
+    <element identifier="id-cu11" xsi:type="ApplicationService"><name xml:lang="es">CU-11 Precalificar prospecto</name><documentation xml:lang="es">Dar una respuesta preliminar y no vinculante sobre la viabilidad del crédito.</documentation></element>
+    <element identifier="id-cu12" xsi:type="ApplicationService"><name xml:lang="es">CU-12 Consultar requisitos y agendar cita</name><documentation xml:lang="es">Decir qué documentos preparar, cómo hacerse socio y reservar una cita en agencia.</documentation></element>
+    <element identifier="id-cu13" xsi:type="ApplicationService"><name xml:lang="es">CU-13 Generar ficha del prospecto</name><documentation xml:lang="es">Consolidar todo lo que July sabe del prospecto en una ficha lista para trabajar.</documentation></element>
+    <element identifier="id-cu14" xsi:type="ApplicationService"><name xml:lang="es">CU-14 Sincronizar lead con el CRM</name><documentation xml:lang="es">Crear o actualizar el lead en el CRM sin intervención manual y sin duplicados.</documentation></element>
+    <element identifier="id-cu15" xsi:type="ApplicationService"><name xml:lang="es">CU-15 Asignar lead a asesor</name><documentation xml:lang="es">Poner cada lead en manos del asesor correcto y avisarle.</documentation></element>
+    <element identifier="id-cu16" xsi:type="ApplicationService"><name xml:lang="es">CU-16 Atender lead asignado</name><documentation xml:lang="es">Revisar la ficha y seguir la conversación sin pedir otra vez los datos.</documentation></element>
+    <element identifier="id-cu17" xsi:type="ApplicationService"><name xml:lang="es">CU-17 Enviar recordatorios y reactivar leads</name><documentation xml:lang="es">Recordar documentos o citas pendientes y reactivar conversaciones abandonadas.</documentation></element>
+    <element identifier="id-cu18" xsi:type="ApplicationService"><name xml:lang="es">CU-18 Confirmar cita en agencia</name><documentation xml:lang="es">Confirmar y recordar las citas reservadas por July.</documentation></element>
+    <element identifier="id-cu19" xsi:type="ApplicationService"><name xml:lang="es">CU-19 Actualizar estado y cerrar lead</name><documentation xml:lang="es">Mover el lead por sus estados hasta el desembolso o la pérdida y registrar el motivo.</documentation></element>
+    <element identifier="id-cu20" xsi:type="ApplicationService"><name xml:lang="es">CU-20 Configurar guiones, intenciones y plantillas</name><documentation xml:lang="es">Cambiar lo que July dice y entiende sin programar.</documentation></element>
+    <element identifier="id-cu21" xsi:type="ApplicationService"><name xml:lang="es">CU-21 Gestionar líneas, tasas y requisitos</name><documentation xml:lang="es">Mantener el catálogo que usan el simulador y la orientación.</documentation></element>
+    <element identifier="id-cu22" xsi:type="ApplicationService"><name xml:lang="es">CU-22 Configurar reglas de precalificación</name><documentation xml:lang="es">Ajustar la tabla de decisión aprobada por el comité de crédito.</documentation></element>
+    <element identifier="id-cu23" xsi:type="ApplicationService"><name xml:lang="es">CU-23 Configurar priorización y enrutamiento</name><documentation xml:lang="es">Definir qué es un lead caliente, tibio o frío y cómo se reparten.</documentation></element>
+    <element identifier="id-cu24" xsi:type="ApplicationService"><name xml:lang="es">CU-24 Consultar trazabilidad y embudo</name><documentation xml:lang="es">Reconstruir el recorrido de cada lead y medir el embudo.</documentation></element>
+    <element identifier="id-cu25" xsi:type="ApplicationService"><name xml:lang="es">CU-25 Atender derechos sobre datos personales</name><documentation xml:lang="es">Acceso, rectificación, eliminación y retiro del consentimiento según la LOPDP.</documentation></element>
+    <element identifier="id-pkg-p1" xsi:type="Grouping"><name xml:lang="es">Paquete 1 · Atención inicial</name><documentation xml:lang="es">Paquete de casos de uso.</documentation></element>
+    <element identifier="id-pkg-p2" xsi:type="Grouping"><name xml:lang="es">Paquete 2 · Perfilamiento, simulación y precalificación</name><documentation xml:lang="es">Paquete de casos de uso.</documentation></element>
+    <element identifier="id-pkg-p3" xsi:type="Grouping"><name xml:lang="es">Paquete 3 · Gestión comercial</name><documentation xml:lang="es">Paquete de casos de uso.</documentation></element>
+    <element identifier="id-pkg-p4" xsi:type="Grouping"><name xml:lang="es">Paquete 4 · Administración y cumplimiento</name><documentation xml:lang="es">Paquete de casos de uso.</documentation></element>
+  </elements>
+  <relationships>
+    <relationship identifier="id-rel-001" source="id-cap-1-1" target="id-cap-1-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-002" source="id-cap-1-1" target="id-cap-1-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-003" source="id-cap-1-2" target="id-cap-1-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-004" source="id-cap-1-2" target="id-cap-1-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-005" source="id-cap-2-1" target="id-cap-2-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-006" source="id-cap-2-1" target="id-cap-2-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-007" source="id-cap-2-2" target="id-cap-2-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-008" source="id-cap-2-2" target="id-cap-2-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-009" source="id-cap-2-3" target="id-cap-2-3-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-010" source="id-cap-2-3" target="id-cap-2-3-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-011" source="id-cap-3-1" target="id-cap-3-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-012" source="id-cap-3-1" target="id-cap-3-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-013" source="id-cap-3-2" target="id-cap-3-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-014" source="id-cap-3-2" target="id-cap-3-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-015" source="id-cap-1-1-1" target="id-cap-1-1-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-016" source="id-cap-1-1-1" target="id-cap-1-1-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-017" source="id-cap-1-1-1" target="id-cap-1-1-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-018" source="id-cap-1-1-2" target="id-cap-1-1-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-019" source="id-cap-1-1-2" target="id-cap-1-1-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-020" source="id-cap-1-1-2" target="id-cap-1-1-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-021" source="id-cap-1-2-1" target="id-cap-1-2-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-022" source="id-cap-1-2-1" target="id-cap-1-2-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-023" source="id-cap-1-2-1" target="id-cap-1-2-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-024" source="id-cap-1-2-2" target="id-cap-1-2-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-025" source="id-cap-1-2-2" target="id-cap-1-2-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-026" source="id-cap-1-2-2" target="id-cap-1-2-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-027" source="id-cap-2-1-1" target="id-cap-2-1-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-028" source="id-cap-2-1-1" target="id-cap-2-1-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-029" source="id-cap-2-1-1" target="id-cap-2-1-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-030" source="id-cap-2-1-2" target="id-cap-2-1-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-031" source="id-cap-2-1-2" target="id-cap-2-1-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-032" source="id-cap-2-1-2" target="id-cap-2-1-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-033" source="id-cap-2-2-1" target="id-cap-2-2-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-034" source="id-cap-2-2-1" target="id-cap-2-2-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-035" source="id-cap-2-2-1" target="id-cap-2-2-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-036" source="id-cap-2-2-2" target="id-cap-2-2-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-037" source="id-cap-2-2-2" target="id-cap-2-2-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-038" source="id-cap-2-2-2" target="id-cap-2-2-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-039" source="id-cap-2-3-1" target="id-cap-2-3-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-040" source="id-cap-2-3-1" target="id-cap-2-3-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-041" source="id-cap-2-3-1" target="id-cap-2-3-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-042" source="id-cap-2-3-2" target="id-cap-2-3-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-043" source="id-cap-2-3-2" target="id-cap-2-3-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-044" source="id-cap-2-3-2" target="id-cap-2-3-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-045" source="id-cap-3-1-1" target="id-cap-3-1-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-046" source="id-cap-3-1-1" target="id-cap-3-1-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-047" source="id-cap-3-1-1" target="id-cap-3-1-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-048" source="id-cap-3-1-2" target="id-cap-3-1-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-049" source="id-cap-3-1-2" target="id-cap-3-1-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-050" source="id-cap-3-1-2" target="id-cap-3-1-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-051" source="id-cap-3-2-1" target="id-cap-3-2-1-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-052" source="id-cap-3-2-1" target="id-cap-3-2-1-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-053" source="id-cap-3-2-1" target="id-cap-3-2-1-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-054" source="id-cap-3-2-2" target="id-cap-3-2-2-1" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-055" source="id-cap-3-2-2" target="id-cap-3-2-2-2" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-056" source="id-cap-3-2-2" target="id-cap-3-2-2-3" xsi:type="Composition"></relationship>
+    <relationship identifier="id-rel-057" source="id-july" target="id-cu01" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-058" source="id-pkg-p1" target="id-cu01" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-059" source="id-cu01" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-060" source="id-cu01" target="id-sys-whatsapp" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-061" source="id-cu01" target="id-sys-widget" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-062" source="id-july" target="id-cu02" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-063" source="id-pkg-p1" target="id-cu02" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-064" source="id-cu02" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-065" source="id-july" target="id-cu03" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-066" source="id-pkg-p1" target="id-cu03" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-067" source="id-july" target="id-cu04" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-068" source="id-pkg-p1" target="id-cu04" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-069" source="id-cu04" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-070" source="id-july" target="id-cu05" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-071" source="id-pkg-p1" target="id-cu05" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-072" source="id-cu05" target="id-sys-core" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-073" source="id-july" target="id-cu06" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-074" source="id-pkg-p1" target="id-cu06" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-075" source="id-cu06" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-076" source="id-cu06" target="id-act-asesor" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-077" source="id-july" target="id-cu07" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-078" source="id-pkg-p2" target="id-cu07" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-079" source="id-cu07" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-080" source="id-july" target="id-cu08" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-081" source="id-pkg-p2" target="id-cu08" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-082" source="id-cu08" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-083" source="id-july" target="id-cu09" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-084" source="id-pkg-p2" target="id-cu09" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-085" source="id-cu09" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-086" source="id-july" target="id-cu10" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-087" source="id-pkg-p2" target="id-cu10" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-088" source="id-cu10" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-089" source="id-july" target="id-cu11" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-090" source="id-pkg-p2" target="id-cu11" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-091" source="id-cu11" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-092" source="id-july" target="id-cu12" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-093" source="id-pkg-p2" target="id-cu12" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-094" source="id-cu12" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-095" source="id-cu12" target="id-act-agencia" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-096" source="id-july" target="id-cu13" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-097" source="id-pkg-p3" target="id-cu13" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-098" source="id-cu13" target="id-act-asesor" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-099" source="id-july" target="id-cu14" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-100" source="id-pkg-p3" target="id-cu14" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-101" source="id-cu14" target="id-sys-crm" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-102" source="id-july" target="id-cu15" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-103" source="id-pkg-p3" target="id-cu15" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-104" source="id-cu15" target="id-act-asesor" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-105" source="id-cu15" target="id-sys-notif" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-106" source="id-july" target="id-cu16" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-107" source="id-pkg-p3" target="id-cu16" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-108" source="id-cu16" target="id-act-asesor" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-109" source="id-cu16" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-110" source="id-cu16" target="id-sys-crm" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-111" source="id-july" target="id-cu17" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-112" source="id-pkg-p3" target="id-cu17" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-113" source="id-cu17" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-114" source="id-cu17" target="id-act-asesor" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-115" source="id-cu17" target="id-sys-whatsapp" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-116" source="id-july" target="id-cu18" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-117" source="id-pkg-p3" target="id-cu18" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-118" source="id-cu18" target="id-act-agencia" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-119" source="id-cu18" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-120" source="id-july" target="id-cu19" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-121" source="id-pkg-p3" target="id-cu19" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-122" source="id-cu19" target="id-act-asesor" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-123" source="id-cu19" target="id-sys-crm" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-124" source="id-july" target="id-cu20" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-125" source="id-pkg-p4" target="id-cu20" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-126" source="id-cu20" target="id-act-admin" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-127" source="id-cu20" target="id-sys-whatsapp" xsi:type="Association" isDirected="false"><name xml:lang="es">usa</name></relationship>
+    <relationship identifier="id-rel-128" source="id-july" target="id-cu21" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-129" source="id-pkg-p4" target="id-cu21" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-130" source="id-cu21" target="id-act-productos" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-131" source="id-july" target="id-cu22" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-132" source="id-pkg-p4" target="id-cu22" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-133" source="id-cu22" target="id-act-productos" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-134" source="id-july" target="id-cu23" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-135" source="id-pkg-p4" target="id-cu23" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-136" source="id-cu23" target="id-act-jefe" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-137" source="id-july" target="id-cu24" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-138" source="id-pkg-p4" target="id-cu24" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-139" source="id-cu24" target="id-act-jefe" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-140" source="id-cu24" target="id-act-dpd" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-141" source="id-july" target="id-cu25" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-142" source="id-pkg-p4" target="id-cu25" xsi:type="Aggregation"></relationship>
+    <relationship identifier="id-rel-143" source="id-cu25" target="id-act-prospecto" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-144" source="id-cu25" target="id-act-dpd" xsi:type="Serving"></relationship>
+    <relationship identifier="id-rel-145" source="id-evt-timer" target="id-cu17" xsi:type="Triggering"></relationship>
+    <relationship identifier="id-rel-146" source="id-cu01" target="id-cu02" xsi:type="Aggregation"><name xml:lang="es">«include»</name></relationship>
+    <relationship identifier="id-rel-147" source="id-cu02" target="id-cu03" xsi:type="Aggregation"><name xml:lang="es">«include»</name></relationship>
+    <relationship identifier="id-rel-148" source="id-cu07" target="id-cu05" xsi:type="Aggregation"><name xml:lang="es">«include»</name></relationship>
+    <relationship identifier="id-rel-149" source="id-cu13" target="id-cu14" xsi:type="Aggregation"><name xml:lang="es">«include»</name></relationship>
+    <relationship identifier="id-rel-150" source="id-cu19" target="id-cu14" xsi:type="Aggregation"><name xml:lang="es">«include»</name></relationship>
+    <relationship identifier="id-rel-151" source="id-cu06" target="id-cu15" xsi:type="Aggregation"><name xml:lang="es">«include»</name></relationship>
+    <relationship identifier="id-rel-152" source="id-cu06" target="id-cu04" xsi:type="Association" isDirected="true"><name xml:lang="es">«extend»</name></relationship>
+    <relationship identifier="id-rel-153" source="id-cu08" target="id-cu07" xsi:type="Association" isDirected="true"><name xml:lang="es">«extend»</name></relationship>
+    <relationship identifier="id-rel-154" source="id-cu10" target="id-cu09" xsi:type="Association" isDirected="true"><name xml:lang="es">«extend»</name></relationship>
+    <relationship identifier="id-rel-155" source="id-cu01" target="id-cap-1-1-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-156" source="id-cu01" target="id-cap-1-1-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-157" source="id-cu01" target="id-cap-1-1-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-158" source="id-cu01" target="id-cap-1-1-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-159" source="id-cu01" target="id-cap-1-1-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-160" source="id-cu01" target="id-cap-1-1-2-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-161" source="id-cu01" target="id-cap-1-2-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-162" source="id-cu02" target="id-cap-1-2-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-163" source="id-cu06" target="id-cap-1-2-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-164" source="id-cu04" target="id-cap-1-2-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-165" source="id-cu05" target="id-cap-1-2-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-166" source="id-cu03" target="id-cap-1-2-2-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-167" source="id-cu07" target="id-cap-2-1-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-168" source="id-cu07" target="id-cap-2-1-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-169" source="id-cu07" target="id-cap-2-1-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-170" source="id-cu07" target="id-cap-2-1-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-171" source="id-cu07" target="id-cap-2-1-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-172" source="id-cu08" target="id-cap-2-1-2-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-173" source="id-cu09" target="id-cap-2-2-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-174" source="id-cu09" target="id-cap-2-2-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-175" source="id-cu10" target="id-cap-2-2-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-176" source="id-cu21" target="id-cap-2-2-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-177" source="id-cu21" target="id-cap-2-2-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-178" source="id-cu21" target="id-cap-2-2-2-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-179" source="id-cu11" target="id-cap-2-3-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-180" source="id-cu11" target="id-cap-2-3-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-181" source="id-cu11" target="id-cap-2-3-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-182" source="id-cu11" target="id-cap-2-3-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-183" source="id-cu12" target="id-cap-2-3-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-184" source="id-cu12" target="id-cap-2-3-2-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-185" source="id-cu13" target="id-cap-3-1-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-186" source="id-cu13" target="id-cap-3-1-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-187" source="id-cu13" target="id-cap-3-1-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-188" source="id-cu14" target="id-cap-3-1-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-189" source="id-cu14" target="id-cap-3-1-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-190" source="id-cu14" target="id-cap-3-1-2-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-191" source="id-cu15" target="id-cap-3-2-1-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-192" source="id-cu15" target="id-cap-3-2-1-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-193" source="id-cu16" target="id-cap-3-2-1-3" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-194" source="id-cu17" target="id-cap-3-2-2-1" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-195" source="id-cu18" target="id-cap-3-2-2-2" xsi:type="Realization"></relationship>
+    <relationship identifier="id-rel-196" source="id-cu19" target="id-cap-3-2-2-3" xsi:type="Realization"></relationship>
+  </relationships>
+  <organizations>
+    <item><label xml:lang="es">Strategy</label><item identifierRef="id-cap-1-1"/><item identifierRef="id-cap-1-2"/><item identifierRef="id-cap-2-1"/><item identifierRef="id-cap-2-2"/><item identifierRef="id-cap-2-3"/><item identifierRef="id-cap-3-1"/><item identifierRef="id-cap-3-2"/><item identifierRef="id-cap-1-1-1"/><item identifierRef="id-cap-1-1-2"/><item identifierRef="id-cap-1-2-1"/><item identifierRef="id-cap-1-2-2"/><item identifierRef="id-cap-2-1-1"/><item identifierRef="id-cap-2-1-2"/><item identifierRef="id-cap-2-2-1"/><item identifierRef="id-cap-2-2-2"/><item identifierRef="id-cap-2-3-1"/><item identifierRef="id-cap-2-3-2"/><item identifierRef="id-cap-3-1-1"/><item identifierRef="id-cap-3-1-2"/><item identifierRef="id-cap-3-2-1"/><item identifierRef="id-cap-3-2-2"/><item identifierRef="id-cap-1-1-1-1"/><item identifierRef="id-cap-1-1-1-2"/><item identifierRef="id-cap-1-1-1-3"/><item identifierRef="id-cap-1-1-2-1"/><item identifierRef="id-cap-1-1-2-2"/><item identifierRef="id-cap-1-1-2-3"/><item identifierRef="id-cap-1-2-1-1"/><item identifierRef="id-cap-1-2-1-2"/><item identifierRef="id-cap-1-2-1-3"/><item identifierRef="id-cap-1-2-2-1"/><item identifierRef="id-cap-1-2-2-2"/><item identifierRef="id-cap-1-2-2-3"/><item identifierRef="id-cap-2-1-1-1"/><item identifierRef="id-cap-2-1-1-2"/><item identifierRef="id-cap-2-1-1-3"/><item identifierRef="id-cap-2-1-2-1"/><item identifierRef="id-cap-2-1-2-2"/><item identifierRef="id-cap-2-1-2-3"/><item identifierRef="id-cap-2-2-1-1"/><item identifierRef="id-cap-2-2-1-2"/><item identifierRef="id-cap-2-2-1-3"/><item identifierRef="id-cap-2-2-2-1"/><item identifierRef="id-cap-2-2-2-2"/><item identifierRef="id-cap-2-2-2-3"/><item identifierRef="id-cap-2-3-1-1"/><item identifierRef="id-cap-2-3-1-2"/><item identifierRef="id-cap-2-3-1-3"/><item identifierRef="id-cap-2-3-2-1"/><item identifierRef="id-cap-2-3-2-2"/><item identifierRef="id-cap-2-3-2-3"/><item identifierRef="id-cap-3-1-1-1"/><item identifierRef="id-cap-3-1-1-2"/><item identifierRef="id-cap-3-1-1-3"/><item identifierRef="id-cap-3-1-2-1"/><item identifierRef="id-cap-3-1-2-2"/><item identifierRef="id-cap-3-1-2-3"/><item identifierRef="id-cap-3-2-1-1"/><item identifierRef="id-cap-3-2-1-2"/><item identifierRef="id-cap-3-2-1-3"/><item identifierRef="id-cap-3-2-2-1"/><item identifierRef="id-cap-3-2-2-2"/><item identifierRef="id-cap-3-2-2-3"/></item>
+    <item><label xml:lang="es">Business</label><item identifierRef="id-act-prospecto"/><item identifierRef="id-act-asesor"/><item identifierRef="id-act-jefe"/><item identifierRef="id-act-agencia"/><item identifierRef="id-act-admin"/><item identifierRef="id-act-productos"/><item identifierRef="id-act-dpd"/></item>
+    <item><label xml:lang="es">Application</label><item identifierRef="id-july"/><item identifierRef="id-sys-whatsapp"/><item identifierRef="id-sys-widget"/><item identifierRef="id-sys-core"/><item identifierRef="id-sys-crm"/><item identifierRef="id-sys-notif"/><item identifierRef="id-evt-timer"/><item identifierRef="id-cu01"/><item identifierRef="id-cu02"/><item identifierRef="id-cu03"/><item identifierRef="id-cu04"/><item identifierRef="id-cu05"/><item identifierRef="id-cu06"/><item identifierRef="id-cu07"/><item identifierRef="id-cu08"/><item identifierRef="id-cu09"/><item identifierRef="id-cu10"/><item identifierRef="id-cu11"/><item identifierRef="id-cu12"/><item identifierRef="id-cu13"/><item identifierRef="id-cu14"/><item identifierRef="id-cu15"/><item identifierRef="id-cu16"/><item identifierRef="id-cu17"/><item identifierRef="id-cu18"/><item identifierRef="id-cu19"/><item identifierRef="id-cu20"/><item identifierRef="id-cu21"/><item identifierRef="id-cu22"/><item identifierRef="id-cu23"/><item identifierRef="id-cu24"/><item identifierRef="id-cu25"/></item>
+    <item><label xml:lang="es">Other</label><item identifierRef="id-pkg-p1"/><item identifierRef="id-pkg-p2"/><item identifierRef="id-pkg-p3"/><item identifierRef="id-pkg-p4"/></item>
+    <item><label xml:lang="es">Relations</label><item identifierRef="id-rel-001"/><item identifierRef="id-rel-002"/><item identifierRef="id-rel-003"/><item identifierRef="id-rel-004"/><item identifierRef="id-rel-005"/><item identifierRef="id-rel-006"/><item identifierRef="id-rel-007"/><item identifierRef="id-rel-008"/><item identifierRef="id-rel-009"/><item identifierRef="id-rel-010"/><item identifierRef="id-rel-011"/><item identifierRef="id-rel-012"/><item identifierRef="id-rel-013"/><item identifierRef="id-rel-014"/><item identifierRef="id-rel-015"/><item identifierRef="id-rel-016"/><item identifierRef="id-rel-017"/><item identifierRef="id-rel-018"/><item identifierRef="id-rel-019"/><item identifierRef="id-rel-020"/><item identifierRef="id-rel-021"/><item identifierRef="id-rel-022"/><item identifierRef="id-rel-023"/><item identifierRef="id-rel-024"/><item identifierRef="id-rel-025"/><item identifierRef="id-rel-026"/><item identifierRef="id-rel-027"/><item identifierRef="id-rel-028"/><item identifierRef="id-rel-029"/><item identifierRef="id-rel-030"/><item identifierRef="id-rel-031"/><item identifierRef="id-rel-032"/><item identifierRef="id-rel-033"/><item identifierRef="id-rel-034"/><item identifierRef="id-rel-035"/><item identifierRef="id-rel-036"/><item identifierRef="id-rel-037"/><item identifierRef="id-rel-038"/><item identifierRef="id-rel-039"/><item identifierRef="id-rel-040"/><item identifierRef="id-rel-041"/><item identifierRef="id-rel-042"/><item identifierRef="id-rel-043"/><item identifierRef="id-rel-044"/><item identifierRef="id-rel-045"/><item identifierRef="id-rel-046"/><item identifierRef="id-rel-047"/><item identifierRef="id-rel-048"/><item identifierRef="id-rel-049"/><item identifierRef="id-rel-050"/><item identifierRef="id-rel-051"/><item identifierRef="id-rel-052"/><item identifierRef="id-rel-053"/><item identifierRef="id-rel-054"/><item identifierRef="id-rel-055"/><item identifierRef="id-rel-056"/><item identifierRef="id-rel-057"/><item identifierRef="id-rel-058"/><item identifierRef="id-rel-059"/><item identifierRef="id-rel-060"/><item identifierRef="id-rel-061"/><item identifierRef="id-rel-062"/><item identifierRef="id-rel-063"/><item identifierRef="id-rel-064"/><item identifierRef="id-rel-065"/><item identifierRef="id-rel-066"/><item identifierRef="id-rel-067"/><item identifierRef="id-rel-068"/><item identifierRef="id-rel-069"/><item identifierRef="id-rel-070"/><item identifierRef="id-rel-071"/><item identifierRef="id-rel-072"/><item identifierRef="id-rel-073"/><item identifierRef="id-rel-074"/><item identifierRef="id-rel-075"/><item identifierRef="id-rel-076"/><item identifierRef="id-rel-077"/><item identifierRef="id-rel-078"/><item identifierRef="id-rel-079"/><item identifierRef="id-rel-080"/><item identifierRef="id-rel-081"/><item identifierRef="id-rel-082"/><item identifierRef="id-rel-083"/><item identifierRef="id-rel-084"/><item identifierRef="id-rel-085"/><item identifierRef="id-rel-086"/><item identifierRef="id-rel-087"/><item identifierRef="id-rel-088"/><item identifierRef="id-rel-089"/><item identifierRef="id-rel-090"/><item identifierRef="id-rel-091"/><item identifierRef="id-rel-092"/><item identifierRef="id-rel-093"/><item identifierRef="id-rel-094"/><item identifierRef="id-rel-095"/><item identifierRef="id-rel-096"/><item identifierRef="id-rel-097"/><item identifierRef="id-rel-098"/><item identifierRef="id-rel-099"/><item identifierRef="id-rel-100"/><item identifierRef="id-rel-101"/><item identifierRef="id-rel-102"/><item identifierRef="id-rel-103"/><item identifierRef="id-rel-104"/><item identifierRef="id-rel-105"/><item identifierRef="id-rel-106"/><item identifierRef="id-rel-107"/><item identifierRef="id-rel-108"/><item identifierRef="id-rel-109"/><item identifierRef="id-rel-110"/><item identifierRef="id-rel-111"/><item identifierRef="id-rel-112"/><item identifierRef="id-rel-113"/><item identifierRef="id-rel-114"/><item identifierRef="id-rel-115"/><item identifierRef="id-rel-116"/><item identifierRef="id-rel-117"/><item identifierRef="id-rel-118"/><item identifierRef="id-rel-119"/><item identifierRef="id-rel-120"/><item identifierRef="id-rel-121"/><item identifierRef="id-rel-122"/><item identifierRef="id-rel-123"/><item identifierRef="id-rel-124"/><item identifierRef="id-rel-125"/><item identifierRef="id-rel-126"/><item identifierRef="id-rel-127"/><item identifierRef="id-rel-128"/><item identifierRef="id-rel-129"/><item identifierRef="id-rel-130"/><item identifierRef="id-rel-131"/><item identifierRef="id-rel-132"/><item identifierRef="id-rel-133"/><item identifierRef="id-rel-134"/><item identifierRef="id-rel-135"/><item identifierRef="id-rel-136"/><item identifierRef="id-rel-137"/><item identifierRef="id-rel-138"/><item identifierRef="id-rel-139"/><item identifierRef="id-rel-140"/><item identifierRef="id-rel-141"/><item identifierRef="id-rel-142"/><item identifierRef="id-rel-143"/><item identifierRef="id-rel-144"/><item identifierRef="id-rel-145"/><item identifierRef="id-rel-146"/><item identifierRef="id-rel-147"/><item identifierRef="id-rel-148"/><item identifierRef="id-rel-149"/><item identifierRef="id-rel-150"/><item identifierRef="id-rel-151"/><item identifierRef="id-rel-152"/><item identifierRef="id-rel-153"/><item identifierRef="id-rel-154"/><item identifierRef="id-rel-155"/><item identifierRef="id-rel-156"/><item identifierRef="id-rel-157"/><item identifierRef="id-rel-158"/><item identifierRef="id-rel-159"/><item identifierRef="id-rel-160"/><item identifierRef="id-rel-161"/><item identifierRef="id-rel-162"/><item identifierRef="id-rel-163"/><item identifierRef="id-rel-164"/><item identifierRef="id-rel-165"/><item identifierRef="id-rel-166"/><item identifierRef="id-rel-167"/><item identifierRef="id-rel-168"/><item identifierRef="id-rel-169"/><item identifierRef="id-rel-170"/><item identifierRef="id-rel-171"/><item identifierRef="id-rel-172"/><item identifierRef="id-rel-173"/><item identifierRef="id-rel-174"/><item identifierRef="id-rel-175"/><item identifierRef="id-rel-176"/><item identifierRef="id-rel-177"/><item identifierRef="id-rel-178"/><item identifierRef="id-rel-179"/><item identifierRef="id-rel-180"/><item identifierRef="id-rel-181"/><item identifierRef="id-rel-182"/><item identifierRef="id-rel-183"/><item identifierRef="id-rel-184"/><item identifierRef="id-rel-185"/><item identifierRef="id-rel-186"/><item identifierRef="id-rel-187"/><item identifierRef="id-rel-188"/><item identifierRef="id-rel-189"/><item identifierRef="id-rel-190"/><item identifierRef="id-rel-191"/><item identifierRef="id-rel-192"/><item identifierRef="id-rel-193"/><item identifierRef="id-rel-194"/><item identifierRef="id-rel-195"/><item identifierRef="id-rel-196"/></item>
+    <item><label xml:lang="es">Views</label><item identifierRef="id-view-overview"/><item identifierRef="id-view-p1"/><item identifierRef="id-view-p2"/><item identifierRef="id-view-p3"/><item identifierRef="id-view-p4"/><item identifierRef="id-view-caps"/></item>
+  </organizations>
+  <views>
+    <diagrams>
+      <view identifier="id-view-overview" xsi:type="Diagram"><name xml:lang="es">Vista general: July y sus 25 servicios</name>
+        <node identifier="id-n-ov-july" elementRef="id-july" xsi:type="Element" x="20" y="20" w="1180" h="55"/>
+        <node identifier="id-n-ov-007" elementRef="id-pkg-p1" xsi:type="Element" x="20" y="110" w="290" h="480">
+          <node identifier="id-n-ov-001" elementRef="id-cu01" xsi:type="Element" x="35" y="150" w="260" h="55"/>
+          <node identifier="id-n-ov-002" elementRef="id-cu02" xsi:type="Element" x="35" y="220" w="260" h="55"/>
+          <node identifier="id-n-ov-003" elementRef="id-cu03" xsi:type="Element" x="35" y="290" w="260" h="55"/>
+          <node identifier="id-n-ov-004" elementRef="id-cu04" xsi:type="Element" x="35" y="360" w="260" h="55"/>
+          <node identifier="id-n-ov-005" elementRef="id-cu05" xsi:type="Element" x="35" y="430" w="260" h="55"/>
+          <node identifier="id-n-ov-006" elementRef="id-cu06" xsi:type="Element" x="35" y="500" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-ov-014" elementRef="id-pkg-p2" xsi:type="Element" x="320" y="110" w="290" h="480">
+          <node identifier="id-n-ov-008" elementRef="id-cu07" xsi:type="Element" x="335" y="150" w="260" h="55"/>
+          <node identifier="id-n-ov-009" elementRef="id-cu08" xsi:type="Element" x="335" y="220" w="260" h="55"/>
+          <node identifier="id-n-ov-010" elementRef="id-cu09" xsi:type="Element" x="335" y="290" w="260" h="55"/>
+          <node identifier="id-n-ov-011" elementRef="id-cu10" xsi:type="Element" x="335" y="360" w="260" h="55"/>
+          <node identifier="id-n-ov-012" elementRef="id-cu11" xsi:type="Element" x="335" y="430" w="260" h="55"/>
+          <node identifier="id-n-ov-013" elementRef="id-cu12" xsi:type="Element" x="335" y="500" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-ov-022" elementRef="id-pkg-p3" xsi:type="Element" x="620" y="110" w="290" h="550">
+          <node identifier="id-n-ov-015" elementRef="id-cu13" xsi:type="Element" x="635" y="150" w="260" h="55"/>
+          <node identifier="id-n-ov-016" elementRef="id-cu14" xsi:type="Element" x="635" y="220" w="260" h="55"/>
+          <node identifier="id-n-ov-017" elementRef="id-cu15" xsi:type="Element" x="635" y="290" w="260" h="55"/>
+          <node identifier="id-n-ov-018" elementRef="id-cu16" xsi:type="Element" x="635" y="360" w="260" h="55"/>
+          <node identifier="id-n-ov-019" elementRef="id-cu17" xsi:type="Element" x="635" y="430" w="260" h="55"/>
+          <node identifier="id-n-ov-020" elementRef="id-cu18" xsi:type="Element" x="635" y="500" w="260" h="55"/>
+          <node identifier="id-n-ov-021" elementRef="id-cu19" xsi:type="Element" x="635" y="570" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-ov-029" elementRef="id-pkg-p4" xsi:type="Element" x="920" y="110" w="290" h="480">
+          <node identifier="id-n-ov-023" elementRef="id-cu20" xsi:type="Element" x="935" y="150" w="260" h="55"/>
+          <node identifier="id-n-ov-024" elementRef="id-cu21" xsi:type="Element" x="935" y="220" w="260" h="55"/>
+          <node identifier="id-n-ov-025" elementRef="id-cu22" xsi:type="Element" x="935" y="290" w="260" h="55"/>
+          <node identifier="id-n-ov-026" elementRef="id-cu23" xsi:type="Element" x="935" y="360" w="260" h="55"/>
+          <node identifier="id-n-ov-027" elementRef="id-cu24" xsi:type="Element" x="935" y="430" w="260" h="55"/>
+          <node identifier="id-n-ov-028" elementRef="id-cu25" xsi:type="Element" x="935" y="500" w="260" h="55"/>
+        </node>
+        <connection identifier="id-c-ov-01" relationshipRef="id-rel-057" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-001"/>
+        <connection identifier="id-c-ov-02" relationshipRef="id-rel-062" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-002"/>
+        <connection identifier="id-c-ov-03" relationshipRef="id-rel-065" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-003"/>
+        <connection identifier="id-c-ov-04" relationshipRef="id-rel-067" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-004"/>
+        <connection identifier="id-c-ov-05" relationshipRef="id-rel-070" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-005"/>
+        <connection identifier="id-c-ov-06" relationshipRef="id-rel-073" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-006"/>
+        <connection identifier="id-c-ov-07" relationshipRef="id-rel-077" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-008"/>
+        <connection identifier="id-c-ov-08" relationshipRef="id-rel-080" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-009"/>
+        <connection identifier="id-c-ov-09" relationshipRef="id-rel-083" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-010"/>
+        <connection identifier="id-c-ov-10" relationshipRef="id-rel-086" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-011"/>
+        <connection identifier="id-c-ov-11" relationshipRef="id-rel-089" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-012"/>
+        <connection identifier="id-c-ov-12" relationshipRef="id-rel-092" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-013"/>
+        <connection identifier="id-c-ov-13" relationshipRef="id-rel-096" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-015"/>
+        <connection identifier="id-c-ov-14" relationshipRef="id-rel-099" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-016"/>
+        <connection identifier="id-c-ov-15" relationshipRef="id-rel-102" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-017"/>
+        <connection identifier="id-c-ov-16" relationshipRef="id-rel-106" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-018"/>
+        <connection identifier="id-c-ov-17" relationshipRef="id-rel-111" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-019"/>
+        <connection identifier="id-c-ov-18" relationshipRef="id-rel-116" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-020"/>
+        <connection identifier="id-c-ov-19" relationshipRef="id-rel-120" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-021"/>
+        <connection identifier="id-c-ov-20" relationshipRef="id-rel-124" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-023"/>
+        <connection identifier="id-c-ov-21" relationshipRef="id-rel-128" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-024"/>
+        <connection identifier="id-c-ov-22" relationshipRef="id-rel-131" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-025"/>
+        <connection identifier="id-c-ov-23" relationshipRef="id-rel-134" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-026"/>
+        <connection identifier="id-c-ov-24" relationshipRef="id-rel-137" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-027"/>
+        <connection identifier="id-c-ov-25" relationshipRef="id-rel-141" xsi:type="Relationship" source="id-n-ov-july" target="id-n-ov-028"/>
+      </view>
+      <view identifier="id-view-p1" xsi:type="Diagram"><name xml:lang="es">Paquete 1 · Atención inicial</name>
+        <node identifier="id-n-p1-001" elementRef="id-pkg-p1" xsi:type="Element" x="240" y="40" w="320" h="530">
+          <node identifier="id-n-p1-002" elementRef="id-cu01" xsi:type="Element" x="270" y="85" w="260" h="55"/>
+          <node identifier="id-n-p1-003" elementRef="id-cu02" xsi:type="Element" x="270" y="165" w="260" h="55"/>
+          <node identifier="id-n-p1-004" elementRef="id-cu03" xsi:type="Element" x="270" y="245" w="260" h="55"/>
+          <node identifier="id-n-p1-005" elementRef="id-cu04" xsi:type="Element" x="270" y="325" w="260" h="55"/>
+          <node identifier="id-n-p1-006" elementRef="id-cu05" xsi:type="Element" x="270" y="405" w="260" h="55"/>
+          <node identifier="id-n-p1-007" elementRef="id-cu06" xsi:type="Element" x="270" y="485" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-p1-008" elementRef="id-act-prospecto" xsi:type="Element" x="20" y="265" w="180" h="55"/>
+        <node identifier="id-n-p1-009" elementRef="id-act-asesor" xsi:type="Element" x="20" y="485" w="180" h="55"/>
+        <node identifier="id-n-p1-010" elementRef="id-sys-whatsapp" xsi:type="Element" x="620" y="85" w="190" h="55"/>
+        <node identifier="id-n-p1-011" elementRef="id-sys-widget" xsi:type="Element" x="620" y="160" w="190" h="55"/>
+        <node identifier="id-n-p1-012" elementRef="id-sys-core" xsi:type="Element" x="620" y="405" w="190" h="55"/>
+        <node identifier="id-n-p1-013" elementRef="id-cap-1-1-1-1" xsi:type="Element" x="850" y="40" w="230" h="45"/>
+        <node identifier="id-n-p1-014" elementRef="id-cap-1-1-1-2" xsi:type="Element" x="850" y="95" w="230" h="45"/>
+        <node identifier="id-n-p1-015" elementRef="id-cap-1-1-1-3" xsi:type="Element" x="850" y="150" w="230" h="45"/>
+        <node identifier="id-n-p1-016" elementRef="id-cap-1-1-2-1" xsi:type="Element" x="850" y="205" w="230" h="45"/>
+        <node identifier="id-n-p1-017" elementRef="id-cap-1-1-2-2" xsi:type="Element" x="850" y="260" w="230" h="45"/>
+        <node identifier="id-n-p1-018" elementRef="id-cap-1-1-2-3" xsi:type="Element" x="850" y="315" w="230" h="45"/>
+        <node identifier="id-n-p1-019" elementRef="id-cap-1-2-1-1" xsi:type="Element" x="850" y="370" w="230" h="45"/>
+        <node identifier="id-n-p1-020" elementRef="id-cap-1-2-1-2" xsi:type="Element" x="850" y="425" w="230" h="45"/>
+        <node identifier="id-n-p1-021" elementRef="id-cap-1-2-2-3" xsi:type="Element" x="850" y="480" w="230" h="45"/>
+        <node identifier="id-n-p1-022" elementRef="id-cap-1-2-2-1" xsi:type="Element" x="850" y="535" w="230" h="45"/>
+        <node identifier="id-n-p1-023" elementRef="id-cap-1-2-2-2" xsi:type="Element" x="850" y="590" w="230" h="45"/>
+        <node identifier="id-n-p1-024" elementRef="id-cap-1-2-1-3" xsi:type="Element" x="850" y="645" w="230" h="45"/>
+        <connection identifier="id-c-p1-001" relationshipRef="id-rel-059" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-008"/>
+        <connection identifier="id-c-p1-002" relationshipRef="id-rel-060" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-010"/>
+        <connection identifier="id-c-p1-003" relationshipRef="id-rel-061" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-011"/>
+        <connection identifier="id-c-p1-004" relationshipRef="id-rel-064" xsi:type="Relationship" source="id-n-p1-003" target="id-n-p1-008"/>
+        <connection identifier="id-c-p1-005" relationshipRef="id-rel-069" xsi:type="Relationship" source="id-n-p1-005" target="id-n-p1-008"/>
+        <connection identifier="id-c-p1-006" relationshipRef="id-rel-072" xsi:type="Relationship" source="id-n-p1-006" target="id-n-p1-012"/>
+        <connection identifier="id-c-p1-007" relationshipRef="id-rel-075" xsi:type="Relationship" source="id-n-p1-007" target="id-n-p1-008"/>
+        <connection identifier="id-c-p1-008" relationshipRef="id-rel-076" xsi:type="Relationship" source="id-n-p1-007" target="id-n-p1-009"/>
+        <connection identifier="id-c-p1-009" relationshipRef="id-rel-146" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-003"/>
+        <connection identifier="id-c-p1-010" relationshipRef="id-rel-147" xsi:type="Relationship" source="id-n-p1-003" target="id-n-p1-004"/>
+        <connection identifier="id-c-p1-011" relationshipRef="id-rel-152" xsi:type="Relationship" source="id-n-p1-007" target="id-n-p1-005"/>
+        <connection identifier="id-c-p1-012" relationshipRef="id-rel-155" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-013"/>
+        <connection identifier="id-c-p1-013" relationshipRef="id-rel-156" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-014"/>
+        <connection identifier="id-c-p1-014" relationshipRef="id-rel-157" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-015"/>
+        <connection identifier="id-c-p1-015" relationshipRef="id-rel-158" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-016"/>
+        <connection identifier="id-c-p1-016" relationshipRef="id-rel-159" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-017"/>
+        <connection identifier="id-c-p1-017" relationshipRef="id-rel-160" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-018"/>
+        <connection identifier="id-c-p1-018" relationshipRef="id-rel-161" xsi:type="Relationship" source="id-n-p1-002" target="id-n-p1-019"/>
+        <connection identifier="id-c-p1-019" relationshipRef="id-rel-162" xsi:type="Relationship" source="id-n-p1-003" target="id-n-p1-020"/>
+        <connection identifier="id-c-p1-020" relationshipRef="id-rel-163" xsi:type="Relationship" source="id-n-p1-007" target="id-n-p1-024"/>
+        <connection identifier="id-c-p1-021" relationshipRef="id-rel-164" xsi:type="Relationship" source="id-n-p1-005" target="id-n-p1-022"/>
+        <connection identifier="id-c-p1-022" relationshipRef="id-rel-165" xsi:type="Relationship" source="id-n-p1-006" target="id-n-p1-023"/>
+        <connection identifier="id-c-p1-023" relationshipRef="id-rel-166" xsi:type="Relationship" source="id-n-p1-004" target="id-n-p1-021"/>
+      </view>
+      <view identifier="id-view-p2" xsi:type="Diagram"><name xml:lang="es">Paquete 2 · Perfilamiento, simulación y precalificación</name>
+        <node identifier="id-n-p2-001" elementRef="id-pkg-p2" xsi:type="Element" x="240" y="40" w="320" h="530">
+          <node identifier="id-n-p2-002" elementRef="id-cu07" xsi:type="Element" x="270" y="85" w="260" h="55"/>
+          <node identifier="id-n-p2-003" elementRef="id-cu08" xsi:type="Element" x="270" y="165" w="260" h="55"/>
+          <node identifier="id-n-p2-004" elementRef="id-cu09" xsi:type="Element" x="270" y="245" w="260" h="55"/>
+          <node identifier="id-n-p2-005" elementRef="id-cu10" xsi:type="Element" x="270" y="325" w="260" h="55"/>
+          <node identifier="id-n-p2-006" elementRef="id-cu11" xsi:type="Element" x="270" y="405" w="260" h="55"/>
+          <node identifier="id-n-p2-007" elementRef="id-cu12" xsi:type="Element" x="270" y="485" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-p2-008" elementRef="id-act-prospecto" xsi:type="Element" x="20" y="285" w="180" h="55"/>
+        <node identifier="id-n-p2-009" elementRef="id-act-agencia" xsi:type="Element" x="20" y="485" w="180" h="55"/>
+        <node identifier="id-n-p2-010" elementRef="id-cap-2-1-1-1" xsi:type="Element" x="850" y="40" w="230" h="45"/>
+        <node identifier="id-n-p2-011" elementRef="id-cap-2-1-1-2" xsi:type="Element" x="850" y="95" w="230" h="45"/>
+        <node identifier="id-n-p2-012" elementRef="id-cap-2-1-1-3" xsi:type="Element" x="850" y="150" w="230" h="45"/>
+        <node identifier="id-n-p2-013" elementRef="id-cap-2-1-2-1" xsi:type="Element" x="850" y="205" w="230" h="45"/>
+        <node identifier="id-n-p2-014" elementRef="id-cap-2-1-2-2" xsi:type="Element" x="850" y="260" w="230" h="45"/>
+        <node identifier="id-n-p2-015" elementRef="id-cap-2-1-2-3" xsi:type="Element" x="850" y="315" w="230" h="45"/>
+        <node identifier="id-n-p2-016" elementRef="id-cap-2-2-1-1" xsi:type="Element" x="850" y="370" w="230" h="45"/>
+        <node identifier="id-n-p2-017" elementRef="id-cap-2-2-1-2" xsi:type="Element" x="850" y="425" w="230" h="45"/>
+        <node identifier="id-n-p2-018" elementRef="id-cap-2-2-1-3" xsi:type="Element" x="850" y="480" w="230" h="45"/>
+        <node identifier="id-n-p2-019" elementRef="id-cap-2-3-1-1" xsi:type="Element" x="850" y="535" w="230" h="45"/>
+        <node identifier="id-n-p2-020" elementRef="id-cap-2-3-1-2" xsi:type="Element" x="850" y="590" w="230" h="45"/>
+        <node identifier="id-n-p2-021" elementRef="id-cap-2-3-1-3" xsi:type="Element" x="850" y="645" w="230" h="45"/>
+        <node identifier="id-n-p2-022" elementRef="id-cap-2-3-2-1" xsi:type="Element" x="850" y="700" w="230" h="45"/>
+        <node identifier="id-n-p2-023" elementRef="id-cap-2-3-2-2" xsi:type="Element" x="850" y="755" w="230" h="45"/>
+        <node identifier="id-n-p2-024" elementRef="id-cap-2-3-2-3" xsi:type="Element" x="850" y="810" w="230" h="45"/>
+        <connection identifier="id-c-p2-001" relationshipRef="id-rel-079" xsi:type="Relationship" source="id-n-p2-002" target="id-n-p2-008"/>
+        <connection identifier="id-c-p2-002" relationshipRef="id-rel-082" xsi:type="Relationship" source="id-n-p2-003" target="id-n-p2-008"/>
+        <connection identifier="id-c-p2-003" relationshipRef="id-rel-085" xsi:type="Relationship" source="id-n-p2-004" target="id-n-p2-008"/>
+        <connection identifier="id-c-p2-004" relationshipRef="id-rel-088" xsi:type="Relationship" source="id-n-p2-005" target="id-n-p2-008"/>
+        <connection identifier="id-c-p2-005" relationshipRef="id-rel-091" xsi:type="Relationship" source="id-n-p2-006" target="id-n-p2-008"/>
+        <connection identifier="id-c-p2-006" relationshipRef="id-rel-094" xsi:type="Relationship" source="id-n-p2-007" target="id-n-p2-008"/>
+        <connection identifier="id-c-p2-007" relationshipRef="id-rel-095" xsi:type="Relationship" source="id-n-p2-007" target="id-n-p2-009"/>
+        <connection identifier="id-c-p2-008" relationshipRef="id-rel-153" xsi:type="Relationship" source="id-n-p2-003" target="id-n-p2-002"/>
+        <connection identifier="id-c-p2-009" relationshipRef="id-rel-154" xsi:type="Relationship" source="id-n-p2-005" target="id-n-p2-004"/>
+        <connection identifier="id-c-p2-010" relationshipRef="id-rel-167" xsi:type="Relationship" source="id-n-p2-002" target="id-n-p2-010"/>
+        <connection identifier="id-c-p2-011" relationshipRef="id-rel-168" xsi:type="Relationship" source="id-n-p2-002" target="id-n-p2-011"/>
+        <connection identifier="id-c-p2-012" relationshipRef="id-rel-169" xsi:type="Relationship" source="id-n-p2-002" target="id-n-p2-012"/>
+        <connection identifier="id-c-p2-013" relationshipRef="id-rel-170" xsi:type="Relationship" source="id-n-p2-002" target="id-n-p2-013"/>
+        <connection identifier="id-c-p2-014" relationshipRef="id-rel-171" xsi:type="Relationship" source="id-n-p2-002" target="id-n-p2-014"/>
+        <connection identifier="id-c-p2-015" relationshipRef="id-rel-172" xsi:type="Relationship" source="id-n-p2-003" target="id-n-p2-015"/>
+        <connection identifier="id-c-p2-016" relationshipRef="id-rel-173" xsi:type="Relationship" source="id-n-p2-004" target="id-n-p2-016"/>
+        <connection identifier="id-c-p2-017" relationshipRef="id-rel-174" xsi:type="Relationship" source="id-n-p2-004" target="id-n-p2-017"/>
+        <connection identifier="id-c-p2-018" relationshipRef="id-rel-175" xsi:type="Relationship" source="id-n-p2-005" target="id-n-p2-018"/>
+        <connection identifier="id-c-p2-019" relationshipRef="id-rel-179" xsi:type="Relationship" source="id-n-p2-006" target="id-n-p2-019"/>
+        <connection identifier="id-c-p2-020" relationshipRef="id-rel-180" xsi:type="Relationship" source="id-n-p2-006" target="id-n-p2-020"/>
+        <connection identifier="id-c-p2-021" relationshipRef="id-rel-181" xsi:type="Relationship" source="id-n-p2-006" target="id-n-p2-021"/>
+        <connection identifier="id-c-p2-022" relationshipRef="id-rel-182" xsi:type="Relationship" source="id-n-p2-006" target="id-n-p2-022"/>
+        <connection identifier="id-c-p2-023" relationshipRef="id-rel-183" xsi:type="Relationship" source="id-n-p2-007" target="id-n-p2-023"/>
+        <connection identifier="id-c-p2-024" relationshipRef="id-rel-184" xsi:type="Relationship" source="id-n-p2-007" target="id-n-p2-024"/>
+      </view>
+      <view identifier="id-view-p3" xsi:type="Diagram"><name xml:lang="es">Paquete 3 · Gestión comercial</name>
+        <node identifier="id-n-p3-001" elementRef="id-pkg-p3" xsi:type="Element" x="240" y="40" w="320" h="610">
+          <node identifier="id-n-p3-002" elementRef="id-cu13" xsi:type="Element" x="270" y="85" w="260" h="55"/>
+          <node identifier="id-n-p3-003" elementRef="id-cu14" xsi:type="Element" x="270" y="165" w="260" h="55"/>
+          <node identifier="id-n-p3-004" elementRef="id-cu15" xsi:type="Element" x="270" y="245" w="260" h="55"/>
+          <node identifier="id-n-p3-005" elementRef="id-cu16" xsi:type="Element" x="270" y="325" w="260" h="55"/>
+          <node identifier="id-n-p3-006" elementRef="id-cu17" xsi:type="Element" x="270" y="405" w="260" h="55"/>
+          <node identifier="id-n-p3-007" elementRef="id-cu18" xsi:type="Element" x="270" y="485" w="260" h="55"/>
+          <node identifier="id-n-p3-008" elementRef="id-cu19" xsi:type="Element" x="270" y="565" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-p3-009" elementRef="id-act-asesor" xsi:type="Element" x="20" y="325" w="180" h="55"/>
+        <node identifier="id-n-p3-010" elementRef="id-act-prospecto" xsi:type="Element" x="20" y="405" w="180" h="55"/>
+        <node identifier="id-n-p3-011" elementRef="id-act-agencia" xsi:type="Element" x="20" y="485" w="180" h="55"/>
+        <node identifier="id-n-p3-012" elementRef="id-sys-notif" xsi:type="Element" x="620" y="245" w="190" h="55"/>
+        <node identifier="id-n-p3-013" elementRef="id-sys-crm" xsi:type="Element" x="620" y="351" w="190" h="55"/>
+        <node identifier="id-n-p3-014" elementRef="id-sys-whatsapp" xsi:type="Element" x="620" y="426" w="190" h="55"/>
+        <node identifier="id-n-p3-015" elementRef="id-evt-timer" xsi:type="Element" x="620" y="501" w="190" h="55"/>
+        <node identifier="id-n-p3-016" elementRef="id-cap-3-1-1-1" xsi:type="Element" x="850" y="40" w="230" h="45"/>
+        <node identifier="id-n-p3-017" elementRef="id-cap-3-1-1-2" xsi:type="Element" x="850" y="95" w="230" h="45"/>
+        <node identifier="id-n-p3-018" elementRef="id-cap-3-1-1-3" xsi:type="Element" x="850" y="150" w="230" h="45"/>
+        <node identifier="id-n-p3-019" elementRef="id-cap-3-1-2-1" xsi:type="Element" x="850" y="205" w="230" h="45"/>
+        <node identifier="id-n-p3-020" elementRef="id-cap-3-1-2-2" xsi:type="Element" x="850" y="260" w="230" h="45"/>
+        <node identifier="id-n-p3-021" elementRef="id-cap-3-1-2-3" xsi:type="Element" x="850" y="315" w="230" h="45"/>
+        <node identifier="id-n-p3-022" elementRef="id-cap-3-2-1-1" xsi:type="Element" x="850" y="370" w="230" h="45"/>
+        <node identifier="id-n-p3-023" elementRef="id-cap-3-2-1-2" xsi:type="Element" x="850" y="425" w="230" h="45"/>
+        <node identifier="id-n-p3-024" elementRef="id-cap-3-2-1-3" xsi:type="Element" x="850" y="480" w="230" h="45"/>
+        <node identifier="id-n-p3-025" elementRef="id-cap-3-2-2-1" xsi:type="Element" x="850" y="535" w="230" h="45"/>
+        <node identifier="id-n-p3-026" elementRef="id-cap-3-2-2-2" xsi:type="Element" x="850" y="590" w="230" h="45"/>
+        <node identifier="id-n-p3-027" elementRef="id-cap-3-2-2-3" xsi:type="Element" x="850" y="645" w="230" h="45"/>
+        <connection identifier="id-c-p3-001" relationshipRef="id-rel-098" xsi:type="Relationship" source="id-n-p3-002" target="id-n-p3-009"/>
+        <connection identifier="id-c-p3-002" relationshipRef="id-rel-101" xsi:type="Relationship" source="id-n-p3-003" target="id-n-p3-013"/>
+        <connection identifier="id-c-p3-003" relationshipRef="id-rel-104" xsi:type="Relationship" source="id-n-p3-004" target="id-n-p3-009"/>
+        <connection identifier="id-c-p3-004" relationshipRef="id-rel-105" xsi:type="Relationship" source="id-n-p3-004" target="id-n-p3-012"/>
+        <connection identifier="id-c-p3-005" relationshipRef="id-rel-108" xsi:type="Relationship" source="id-n-p3-005" target="id-n-p3-009"/>
+        <connection identifier="id-c-p3-006" relationshipRef="id-rel-109" xsi:type="Relationship" source="id-n-p3-005" target="id-n-p3-010"/>
+        <connection identifier="id-c-p3-007" relationshipRef="id-rel-110" xsi:type="Relationship" source="id-n-p3-005" target="id-n-p3-013"/>
+        <connection identifier="id-c-p3-008" relationshipRef="id-rel-113" xsi:type="Relationship" source="id-n-p3-006" target="id-n-p3-010"/>
+        <connection identifier="id-c-p3-009" relationshipRef="id-rel-114" xsi:type="Relationship" source="id-n-p3-006" target="id-n-p3-009"/>
+        <connection identifier="id-c-p3-010" relationshipRef="id-rel-115" xsi:type="Relationship" source="id-n-p3-006" target="id-n-p3-014"/>
+        <connection identifier="id-c-p3-011" relationshipRef="id-rel-118" xsi:type="Relationship" source="id-n-p3-007" target="id-n-p3-011"/>
+        <connection identifier="id-c-p3-012" relationshipRef="id-rel-119" xsi:type="Relationship" source="id-n-p3-007" target="id-n-p3-010"/>
+        <connection identifier="id-c-p3-013" relationshipRef="id-rel-122" xsi:type="Relationship" source="id-n-p3-008" target="id-n-p3-009"/>
+        <connection identifier="id-c-p3-014" relationshipRef="id-rel-123" xsi:type="Relationship" source="id-n-p3-008" target="id-n-p3-013"/>
+        <connection identifier="id-c-p3-015" relationshipRef="id-rel-145" xsi:type="Relationship" source="id-n-p3-015" target="id-n-p3-006"/>
+        <connection identifier="id-c-p3-016" relationshipRef="id-rel-149" xsi:type="Relationship" source="id-n-p3-002" target="id-n-p3-003"/>
+        <connection identifier="id-c-p3-017" relationshipRef="id-rel-150" xsi:type="Relationship" source="id-n-p3-008" target="id-n-p3-003"/>
+        <connection identifier="id-c-p3-018" relationshipRef="id-rel-185" xsi:type="Relationship" source="id-n-p3-002" target="id-n-p3-016"/>
+        <connection identifier="id-c-p3-019" relationshipRef="id-rel-186" xsi:type="Relationship" source="id-n-p3-002" target="id-n-p3-017"/>
+        <connection identifier="id-c-p3-020" relationshipRef="id-rel-187" xsi:type="Relationship" source="id-n-p3-002" target="id-n-p3-018"/>
+        <connection identifier="id-c-p3-021" relationshipRef="id-rel-188" xsi:type="Relationship" source="id-n-p3-003" target="id-n-p3-019"/>
+        <connection identifier="id-c-p3-022" relationshipRef="id-rel-189" xsi:type="Relationship" source="id-n-p3-003" target="id-n-p3-020"/>
+        <connection identifier="id-c-p3-023" relationshipRef="id-rel-190" xsi:type="Relationship" source="id-n-p3-003" target="id-n-p3-021"/>
+        <connection identifier="id-c-p3-024" relationshipRef="id-rel-191" xsi:type="Relationship" source="id-n-p3-004" target="id-n-p3-022"/>
+        <connection identifier="id-c-p3-025" relationshipRef="id-rel-192" xsi:type="Relationship" source="id-n-p3-004" target="id-n-p3-023"/>
+        <connection identifier="id-c-p3-026" relationshipRef="id-rel-193" xsi:type="Relationship" source="id-n-p3-005" target="id-n-p3-024"/>
+        <connection identifier="id-c-p3-027" relationshipRef="id-rel-194" xsi:type="Relationship" source="id-n-p3-006" target="id-n-p3-025"/>
+        <connection identifier="id-c-p3-028" relationshipRef="id-rel-195" xsi:type="Relationship" source="id-n-p3-007" target="id-n-p3-026"/>
+        <connection identifier="id-c-p3-029" relationshipRef="id-rel-196" xsi:type="Relationship" source="id-n-p3-008" target="id-n-p3-027"/>
+      </view>
+      <view identifier="id-view-p4" xsi:type="Diagram"><name xml:lang="es">Paquete 4 · Administración y cumplimiento</name>
+        <node identifier="id-n-p4-001" elementRef="id-pkg-p4" xsi:type="Element" x="240" y="40" w="320" h="530">
+          <node identifier="id-n-p4-002" elementRef="id-cu20" xsi:type="Element" x="270" y="85" w="260" h="55"/>
+          <node identifier="id-n-p4-003" elementRef="id-cu21" xsi:type="Element" x="270" y="165" w="260" h="55"/>
+          <node identifier="id-n-p4-004" elementRef="id-cu22" xsi:type="Element" x="270" y="245" w="260" h="55"/>
+          <node identifier="id-n-p4-005" elementRef="id-cu23" xsi:type="Element" x="270" y="325" w="260" h="55"/>
+          <node identifier="id-n-p4-006" elementRef="id-cu24" xsi:type="Element" x="270" y="405" w="260" h="55"/>
+          <node identifier="id-n-p4-007" elementRef="id-cu25" xsi:type="Element" x="270" y="485" w="260" h="55"/>
+        </node>
+        <node identifier="id-n-p4-008" elementRef="id-act-admin" xsi:type="Element" x="20" y="85" w="180" h="55"/>
+        <node identifier="id-n-p4-009" elementRef="id-act-productos" xsi:type="Element" x="20" y="205" w="180" h="55"/>
+        <node identifier="id-n-p4-010" elementRef="id-act-jefe" xsi:type="Element" x="20" y="365" w="180" h="55"/>
+        <node identifier="id-n-p4-011" elementRef="id-act-dpd" xsi:type="Element" x="20" y="445" w="180" h="55"/>
+        <node identifier="id-n-p4-012" elementRef="id-act-prospecto" xsi:type="Element" x="20" y="520" w="180" h="55"/>
+        <node identifier="id-n-p4-013" elementRef="id-sys-whatsapp" xsi:type="Element" x="620" y="85" w="190" h="55"/>
+        <node identifier="id-n-p4-014" elementRef="id-cap-2-2-2-1" xsi:type="Element" x="850" y="40" w="230" h="45"/>
+        <node identifier="id-n-p4-015" elementRef="id-cap-2-2-2-2" xsi:type="Element" x="850" y="95" w="230" h="45"/>
+        <node identifier="id-n-p4-016" elementRef="id-cap-2-2-2-3" xsi:type="Element" x="850" y="150" w="230" h="45"/>
+        <connection identifier="id-c-p4-001" relationshipRef="id-rel-126" xsi:type="Relationship" source="id-n-p4-002" target="id-n-p4-008"/>
+        <connection identifier="id-c-p4-002" relationshipRef="id-rel-127" xsi:type="Relationship" source="id-n-p4-002" target="id-n-p4-013"/>
+        <connection identifier="id-c-p4-003" relationshipRef="id-rel-130" xsi:type="Relationship" source="id-n-p4-003" target="id-n-p4-009"/>
+        <connection identifier="id-c-p4-004" relationshipRef="id-rel-133" xsi:type="Relationship" source="id-n-p4-004" target="id-n-p4-009"/>
+        <connection identifier="id-c-p4-005" relationshipRef="id-rel-136" xsi:type="Relationship" source="id-n-p4-005" target="id-n-p4-010"/>
+        <connection identifier="id-c-p4-006" relationshipRef="id-rel-139" xsi:type="Relationship" source="id-n-p4-006" target="id-n-p4-010"/>
+        <connection identifier="id-c-p4-007" relationshipRef="id-rel-140" xsi:type="Relationship" source="id-n-p4-006" target="id-n-p4-011"/>
+        <connection identifier="id-c-p4-008" relationshipRef="id-rel-143" xsi:type="Relationship" source="id-n-p4-007" target="id-n-p4-012"/>
+        <connection identifier="id-c-p4-009" relationshipRef="id-rel-144" xsi:type="Relationship" source="id-n-p4-007" target="id-n-p4-011"/>
+        <connection identifier="id-c-p4-010" relationshipRef="id-rel-176" xsi:type="Relationship" source="id-n-p4-003" target="id-n-p4-014"/>
+        <connection identifier="id-c-p4-011" relationshipRef="id-rel-177" xsi:type="Relationship" source="id-n-p4-003" target="id-n-p4-015"/>
+        <connection identifier="id-c-p4-012" relationshipRef="id-rel-178" xsi:type="Relationship" source="id-n-p4-003" target="id-n-p4-016"/>
+      </view>
+      <view identifier="id-view-caps" xsi:type="Diagram"><name xml:lang="es">Mapa de capacidades (etapa 1)</name>
+        <node identifier="id-n-cap-009" elementRef="id-cap-1-1" xsi:type="Element" x="20" y="20" w="240" h="510">
+          <node identifier="id-n-cap-004" elementRef="id-cap-1-1-1" xsi:type="Element" x="30" y="70" w="220" h="215">
+            <node identifier="id-n-cap-001" elementRef="id-cap-1-1-1-1" xsi:type="Element" x="40" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-002" elementRef="id-cap-1-1-1-2" xsi:type="Element" x="40" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-003" elementRef="id-cap-1-1-1-3" xsi:type="Element" x="40" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-008" elementRef="id-cap-1-1-2" xsi:type="Element" x="30" y="295" w="220" h="215">
+            <node identifier="id-n-cap-005" elementRef="id-cap-1-1-2-1" xsi:type="Element" x="40" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-006" elementRef="id-cap-1-1-2-2" xsi:type="Element" x="40" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-007" elementRef="id-cap-1-1-2-3" xsi:type="Element" x="40" y="445" w="200" h="45"/>
+          </node>
+        </node>
+        <node identifier="id-n-cap-018" elementRef="id-cap-1-2" xsi:type="Element" x="280" y="20" w="240" h="510">
+          <node identifier="id-n-cap-013" elementRef="id-cap-1-2-1" xsi:type="Element" x="290" y="70" w="220" h="215">
+            <node identifier="id-n-cap-010" elementRef="id-cap-1-2-1-1" xsi:type="Element" x="300" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-011" elementRef="id-cap-1-2-1-2" xsi:type="Element" x="300" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-012" elementRef="id-cap-1-2-1-3" xsi:type="Element" x="300" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-017" elementRef="id-cap-1-2-2" xsi:type="Element" x="290" y="295" w="220" h="215">
+            <node identifier="id-n-cap-014" elementRef="id-cap-1-2-2-1" xsi:type="Element" x="300" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-015" elementRef="id-cap-1-2-2-2" xsi:type="Element" x="300" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-016" elementRef="id-cap-1-2-2-3" xsi:type="Element" x="300" y="445" w="200" h="45"/>
+          </node>
+        </node>
+        <node identifier="id-n-cap-027" elementRef="id-cap-2-1" xsi:type="Element" x="540" y="20" w="240" h="510">
+          <node identifier="id-n-cap-022" elementRef="id-cap-2-1-1" xsi:type="Element" x="550" y="70" w="220" h="215">
+            <node identifier="id-n-cap-019" elementRef="id-cap-2-1-1-1" xsi:type="Element" x="560" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-020" elementRef="id-cap-2-1-1-2" xsi:type="Element" x="560" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-021" elementRef="id-cap-2-1-1-3" xsi:type="Element" x="560" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-026" elementRef="id-cap-2-1-2" xsi:type="Element" x="550" y="295" w="220" h="215">
+            <node identifier="id-n-cap-023" elementRef="id-cap-2-1-2-1" xsi:type="Element" x="560" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-024" elementRef="id-cap-2-1-2-2" xsi:type="Element" x="560" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-025" elementRef="id-cap-2-1-2-3" xsi:type="Element" x="560" y="445" w="200" h="45"/>
+          </node>
+        </node>
+        <node identifier="id-n-cap-036" elementRef="id-cap-2-2" xsi:type="Element" x="800" y="20" w="240" h="510">
+          <node identifier="id-n-cap-031" elementRef="id-cap-2-2-1" xsi:type="Element" x="810" y="70" w="220" h="215">
+            <node identifier="id-n-cap-028" elementRef="id-cap-2-2-1-1" xsi:type="Element" x="820" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-029" elementRef="id-cap-2-2-1-2" xsi:type="Element" x="820" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-030" elementRef="id-cap-2-2-1-3" xsi:type="Element" x="820" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-035" elementRef="id-cap-2-2-2" xsi:type="Element" x="810" y="295" w="220" h="215">
+            <node identifier="id-n-cap-032" elementRef="id-cap-2-2-2-1" xsi:type="Element" x="820" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-033" elementRef="id-cap-2-2-2-2" xsi:type="Element" x="820" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-034" elementRef="id-cap-2-2-2-3" xsi:type="Element" x="820" y="445" w="200" h="45"/>
+          </node>
+        </node>
+        <node identifier="id-n-cap-045" elementRef="id-cap-2-3" xsi:type="Element" x="1060" y="20" w="240" h="510">
+          <node identifier="id-n-cap-040" elementRef="id-cap-2-3-1" xsi:type="Element" x="1070" y="70" w="220" h="215">
+            <node identifier="id-n-cap-037" elementRef="id-cap-2-3-1-1" xsi:type="Element" x="1080" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-038" elementRef="id-cap-2-3-1-2" xsi:type="Element" x="1080" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-039" elementRef="id-cap-2-3-1-3" xsi:type="Element" x="1080" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-044" elementRef="id-cap-2-3-2" xsi:type="Element" x="1070" y="295" w="220" h="215">
+            <node identifier="id-n-cap-041" elementRef="id-cap-2-3-2-1" xsi:type="Element" x="1080" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-042" elementRef="id-cap-2-3-2-2" xsi:type="Element" x="1080" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-043" elementRef="id-cap-2-3-2-3" xsi:type="Element" x="1080" y="445" w="200" h="45"/>
+          </node>
+        </node>
+        <node identifier="id-n-cap-054" elementRef="id-cap-3-1" xsi:type="Element" x="1320" y="20" w="240" h="510">
+          <node identifier="id-n-cap-049" elementRef="id-cap-3-1-1" xsi:type="Element" x="1330" y="70" w="220" h="215">
+            <node identifier="id-n-cap-046" elementRef="id-cap-3-1-1-1" xsi:type="Element" x="1340" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-047" elementRef="id-cap-3-1-1-2" xsi:type="Element" x="1340" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-048" elementRef="id-cap-3-1-1-3" xsi:type="Element" x="1340" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-053" elementRef="id-cap-3-1-2" xsi:type="Element" x="1330" y="295" w="220" h="215">
+            <node identifier="id-n-cap-050" elementRef="id-cap-3-1-2-1" xsi:type="Element" x="1340" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-051" elementRef="id-cap-3-1-2-2" xsi:type="Element" x="1340" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-052" elementRef="id-cap-3-1-2-3" xsi:type="Element" x="1340" y="445" w="200" h="45"/>
+          </node>
+        </node>
+        <node identifier="id-n-cap-063" elementRef="id-cap-3-2" xsi:type="Element" x="1580" y="20" w="240" h="510">
+          <node identifier="id-n-cap-058" elementRef="id-cap-3-2-1" xsi:type="Element" x="1590" y="70" w="220" h="215">
+            <node identifier="id-n-cap-055" elementRef="id-cap-3-2-1-1" xsi:type="Element" x="1600" y="110" w="200" h="45"/>
+            <node identifier="id-n-cap-056" elementRef="id-cap-3-2-1-2" xsi:type="Element" x="1600" y="165" w="200" h="45"/>
+            <node identifier="id-n-cap-057" elementRef="id-cap-3-2-1-3" xsi:type="Element" x="1600" y="220" w="200" h="45"/>
+          </node>
+          <node identifier="id-n-cap-062" elementRef="id-cap-3-2-2" xsi:type="Element" x="1590" y="295" w="220" h="215">
+            <node identifier="id-n-cap-059" elementRef="id-cap-3-2-2-1" xsi:type="Element" x="1600" y="335" w="200" h="45"/>
+            <node identifier="id-n-cap-060" elementRef="id-cap-3-2-2-2" xsi:type="Element" x="1600" y="390" w="200" h="45"/>
+            <node identifier="id-n-cap-061" elementRef="id-cap-3-2-2-3" xsi:type="Element" x="1600" y="445" w="200" h="45"/>
+          </node>
+        </node>
+      </view>
+    </diagrams>
+  </views>
+</model>

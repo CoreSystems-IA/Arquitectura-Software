@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- 👇 Coloca tu logo en assets/logo.png -->
-<img src="./Logo.jpeg" alt="CoreSystems-AI Logo" width="260"/>
+<img src="./Assets/Logo.jpeg" alt="CoreSystems-AI Logo" width="260"/>
 
 # 🧠 CoreSystems-AI
 
@@ -163,7 +163,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<img src="./Carlos.jpeg" alt="Carlos Sánchez" width="200"/>
+<img src="./Assets/Carlos.jpeg" alt="Carlos Sánchez" width="200"/>
 <br/><b>Carlos Sánchez</b>
 <br/><i>Arquitecto de Software</i>
 </td>
@@ -209,7 +209,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<img src="./Alex.jpeg" alt="Alex Santiago" width="200"/>
+<img src="./Assets/Alex.jpeg" alt="Alex Santiago" width="200"/>
 <br/><b>Alex Santiago</b>
 <br/><i>Seguridad</i>
 </td>
@@ -256,7 +256,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<img src="./Aaron.jpeg" alt="Aaron Robles" width="200"/>
+<img src="./Assets/Aaron.jpeg" alt="Aaron Robles" width="200"/>
 <br/><b>Aaron Robles</b>
 <br/><i>Base de Datos</i>
 </td>
@@ -303,7 +303,7 @@ Cada integrante aporta su punto de vista y su "granito de arena" para que los si
 <table>
 <tr>
 <td width="220" align="center">
-<img src="./Juan.jpeg" alt="Juan Cueva" width="200"/>
+<img src="./Assets/Juan.jpeg" alt="Juan Cueva" width="200"/>
 <br/><b>Juan Cueva</b>
 <br/><i>Backend</i>
 </td>
