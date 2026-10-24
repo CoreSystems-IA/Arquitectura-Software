@@ -196,7 +196,7 @@
     <element xsi:type="archimate:ValueStream" name="Canales de contacto" id="id-st1">
       <documentation>Etapa del flujo de valor Atracción y primer contacto.</documentation>
     </element>
-    <element xsi:type="archimate:ValueStream" name=" Primer contacto" id="id-st2">
+    <element xsi:type="archimate:ValueStream" name="Primer contacto" id="id-st2">
       <documentation>Etapa del flujo de valor Atracción y primer contacto.</documentation>
     </element>
     <element xsi:type="archimate:ValueStream" name="Captura, simulación y precalificación" id="id-vs2">

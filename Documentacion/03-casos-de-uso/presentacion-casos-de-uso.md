@@ -1,6 +1,10 @@
 # Presentación de casos de uso · July
 
-**ID:** CU-07 · **Versión:** 1.0 · **Fecha:** 2026-10-21 · **Estado:** Borrador  
+**ID:** CU-07 · **Versión:** 1.0 · **Fecha:** 2026-10-21 · **Estado:** Obsoleto  
+
+> **Reemplazado por [CU-08 · Especificaciones de casos de uso](especificaciones-casos-de-uso.md).** CU-08 separa cada paso en una oración con un solo verbo, por eso sus números de paso no coinciden con los de esta presentación. Para trazar un paso, un método o una entidad, use CU-08. Esta presentación se conserva solo por sus diagramas de secuencia.
+
+
 **Deriva de:** CU-06 (`casos-de-uso-por-flujo.md`), CU-03 a CU-05 (diagramas de draw.io por flujo de valor) y CAP-02 (mapa de capacidades)  
 **Proyecto:** July, asistente virtual de captación de prospectos de la Cooperativa Padre Julián Lorente  
 
@@ -101,7 +105,7 @@ flowchart LR
 <a id="cu-1-1"></a>
 ### CU 1.1 · Contactar a July por un canal digital (nivel 1)
 
-**Etapa:** Medios de contacto · **Capacidad:** 1.1 Canales de contacto · **Actor principal:** Prospecto · **Incluye:** CU 1.1.1 y CU 1.1.2
+**Etapa:** Canales de contacto · **Capacidad:** 1.1 Canales de contacto · **Actor principal:** Prospecto · **Incluye:** CU 1.1.1 y CU 1.1.2
 
 | Paso | Interacción | Caso incluido |
 |---|---|---|
@@ -220,7 +224,7 @@ sequenceDiagram
 <a id="cu-1-2"></a>
 ### CU 1.2 · Recibir el primer contacto (nivel 1)
 
-**Etapa:** Contacto · **Capacidad:** 1.2 Primer contacto · **Actor principal:** Prospecto · **Incluye:** CU 1.2.1 y CU 1.2.2
+**Etapa:** Primer contacto · **Capacidad:** 1.2 Primer contacto · **Actor principal:** Prospecto · **Incluye:** CU 1.2.1 y CU 1.2.2
 
 | Paso | Interacción | Caso incluido |
 |---|---|---|
@@ -390,7 +394,7 @@ flowchart LR
 <a id="cu-2-1"></a>
 ### CU 2.1 · Completar el perfil del crédito (nivel 1)
 
-**Etapa:** Perfil · **Capacidad:** 2.1 Perfilamiento · **Actor principal:** Prospecto · **Incluye:** CU 2.1.1 y CU 2.1.2
+**Etapa:** Perfilamiento · **Capacidad:** 2.1 Perfilamiento · **Actor principal:** Prospecto · **Incluye:** CU 2.1.1 y CU 2.1.2
 
 | Paso | Interacción | Caso incluido |
 |---|---|---|
@@ -518,7 +522,7 @@ sequenceDiagram
 <a id="cu-2-2"></a>
 ### CU 2.2 · Simular el crédito (nivel 1)
 
-**Etapa:** Simulación · **Capacidad:** 2.2 Simulación financiera · **Actor principal:** Prospecto · **Incluye:** CU 2.2.1 y CU 2.2.2
+**Etapa:** Simulación financiera · **Capacidad:** 2.2 Simulación financiera · **Actor principal:** Prospecto · **Incluye:** CU 2.2.1 y CU 2.2.2
 
 Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU 2.2.1).
 
@@ -648,7 +652,7 @@ sequenceDiagram
 <a id="cu-2-3"></a>
 ### CU 2.3 · Obtener la precalificación (nivel 1)
 
-**Etapa:** Calificación · **Capacidad:** 2.3 Precalificación · **Actor principal:** Prospecto · **Incluye:** CU 2.3.1 y CU 2.3.2
+**Etapa:** Precalificación · **Capacidad:** 2.3 Precalificación · **Actor principal:** Prospecto · **Incluye:** CU 2.3.1 y CU 2.3.2
 
 | Paso | Interacción | Caso incluido |
 |---|---|---|
@@ -820,7 +824,7 @@ flowchart LR
 <a id="cu-3-1"></a>
 ### CU 3.1 · Recibir la oportunidad precalificada (nivel 1)
 
-**Etapa:** Entrega · **Capacidad:** 3.1 Entrega de oportunidades · **Actor principal:** Asesor comercial · **Incluye:** CU 3.1.1 y CU 3.1.2
+**Etapa:** Entrega de oportunidades · **Capacidad:** 3.1 Entrega de oportunidades · **Actor principal:** Asesor comercial · **Incluye:** CU 3.1.1 y CU 3.1.2
 
 | Paso | Interacción | Caso incluido |
 |---|---|---|
@@ -946,7 +950,7 @@ sequenceDiagram
 <a id="cu-3-2"></a>
 ### CU 3.2 · Dar seguimiento al lead hasta su cierre (nivel 1)
 
-**Etapa:** Seguimiento · **Capacidad:** 3.2 Asignación y seguimiento · **Actor principal:** Asesor comercial · **Incluye:** CU 3.2.1 y CU 3.2.2
+**Etapa:** Asignación y seguimiento · **Capacidad:** 3.2 Asignación y seguimiento · **Actor principal:** Asesor comercial · **Incluye:** CU 3.2.1 y CU 3.2.2
 
 | Paso | Interacción | Caso incluido |
 |---|---|---|

@@ -1,12 +1,16 @@
 # Casos de uso de July por flujo de valor
 
+**ID:** CU-06 · **Versión:** 1.1 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
+**Deriva de:** CU-03 a CU-05 (diagramas de draw.io por flujo de valor)  
+**Especificación completa:** [CU-08](especificaciones-casos-de-uso.md)
+
 Hay un diagrama de draw.io por cada flujo de valor. En cada uno, el actor principal solo inicia los casos de nivel 1, que son las etapas de valor. Cada caso de nivel 1 incluye («include») sus casos de nivel 2, y estos incluyen sus casos de nivel 3, que salen de las capacidades del mapa. Los actores externos solo participan en el nivel 3.
 
 ## Flujo de valor 1: Atracción y primer contacto
 
 Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-01-….drawio`.
 
-### Nivel 1 · 1.1 Contactar a July por un canal digital (etapa Medios de contacto)
+### Nivel 1 · 1.1 Contactar a July por un canal digital (etapa Canales de contacto)
 
 **Nivel 2 · 1.1.1 Recibir la consulta por WhatsApp o web**
 
@@ -24,7 +28,7 @@ Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-01-….drawio`.
 | 1.1.2.2 | Encolar mensajes en picos de demanda | Ninguno, lo resuelve July |
 | 1.1.2.3 | Verificar la firma del webhook | WhatsApp Business API |
 
-### Nivel 1 · 1.2 Recibir el primer contacto (etapa Contacto)
+### Nivel 1 · 1.2 Recibir el primer contacto (etapa Primer contacto)
 
 **Nivel 2 · 1.2.1 Recibir atención inmediata**
 
@@ -46,7 +50,7 @@ Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-01-….drawio`.
 
 Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-02-….drawio`.
 
-### Nivel 1 · 2.1 Completar el perfil del crédito (etapa Perfil)
+### Nivel 1 · 2.1 Completar el perfil del crédito (etapa Perfilamiento)
 
 **Nivel 2 · 2.1.1 Entregar los datos conversando**
 
@@ -64,7 +68,7 @@ Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-02-….drawio`.
 | 2.1.2.2 | Guardar el avance de la conversación | Ninguno, lo resuelve July |
 | 2.1.2.3 | Retomar la conversación abandonada | WhatsApp Business API |
 
-### Nivel 1 · 2.2 Simular el crédito (etapa Simulación)
+### Nivel 1 · 2.2 Simular el crédito (etapa Simulación financiera)
 
 **Nivel 2 · 2.2.1 Calcular las condiciones del crédito**
 
@@ -82,7 +86,7 @@ Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-02-….drawio`.
 | 2.2.2.2 | Consultar tasas y plazos por línea | Área de productos y crédito |
 | 2.2.2.3 | Consultar requisitos por línea | Área de productos y crédito |
 
-### Nivel 1 · 2.3 Obtener la precalificación (etapa Calificación)
+### Nivel 1 · 2.3 Obtener la precalificación (etapa Precalificación)
 
 **Nivel 2 · 2.3.1 Evaluar al prospecto con reglas**
 
@@ -104,7 +108,7 @@ Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-02-….drawio`.
 
 Actor principal: **Asesor comercial**. Archivo: `casos-de-uso-flujo-03-….drawio`.
 
-### Nivel 1 · 3.1 Recibir la oportunidad precalificada (etapa Entrega)
+### Nivel 1 · 3.1 Recibir la oportunidad precalificada (etapa Entrega de oportunidades)
 
 **Nivel 2 · 3.1.1 Revisar la ficha del prospecto**
 
@@ -122,7 +126,7 @@ Actor principal: **Asesor comercial**. Archivo: `casos-de-uso-flujo-03-….drawi
 | 3.1.2.2 | Controlar registros duplicados | CRM de la cooperativa |
 | 3.1.2.3 | Reintentar el envío ante fallos | CRM de la cooperativa |
 
-### Nivel 1 · 3.2 Dar seguimiento al lead hasta su cierre (etapa Seguimiento)
+### Nivel 1 · 3.2 Dar seguimiento al lead hasta su cierre (etapa Asignación y seguimiento)
 
 **Nivel 2 · 3.2.1 Recibir el lead asignado**
 

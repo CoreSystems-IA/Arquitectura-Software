@@ -1,6 +1,6 @@
 # Especificaciones de casos de uso · July
 
-**ID:** CU-08 · **Versión:** 1.0 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
+**ID:** CU-08 · **Versión:** 1.1 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
 **Deriva de:** CU-07 ([`presentacion-casos-de-uso.md`](presentacion-casos-de-uso.md)) y CU-06 ([`casos-de-uso-por-flujo.md`](casos-de-uso-por-flujo.md))  
 **Uso:** fuente del diccionario de datos y del diagrama de clases  
 
@@ -38,7 +38,7 @@ Cada parte de la oración alimenta el diccionario de datos:
 4. **La preposición indica la relación:** *a* cuando el sujeto entrega o pide algo al receptor; *con* cuando lo verifica, sincroniza o conversa con él; *en* cuando crea, busca o actualiza un registro dentro de un sistema externo.
 5. **Acción interna.** Cuando el sujeto trabaja sobre su propia entidad, sin otro participante, la oración no lleva receptor: el sujeto es su propio receptor, la relación se marca *(interno)* y la oración siguiente vuelve a empezar con él.
 6. **Flujos alternativos.** Se nombran con una letra por flujo (a, b, c, d) y el número del paso del que salen. Empiezan con el mismo sujeto del paso que reemplazan y terminan en *Fin* o en *Continúa / Vuelve al paso N*, cuyo sujeto es el receptor del último paso del alternativo.
-7. **Actores de configuración.** El Equipo de marketing, el Administrador del asistente, el Área de productos y crédito, el Comité de crédito y el Jefe comercial no conversan en tiempo real. Cuando July les consulta algo, responden con la configuración que publicaron (guion, catálogo, reglas, criterios).
+7. **Actores de configuración.** El Equipo de marketing, el Administrador del asistente, el Área de productos y crédito, el Comité de crédito y el Jefe comercial no conversan en tiempo real. Cuando July les consulta algo, responden con la configuración que publicaron (guion, catálogo, reglas, criterios). Cuando July les informa algo (origen de campaña, caso de revisión, reasignación), lo reciben como un aviso. El Comité de crédito, además, resuelve las solicitudes fuera de July (CU 3.2.2, pasos 8 y 9).
 
 ### Niveles
 
@@ -59,12 +59,42 @@ Cada parte de la oración alimenta el diccionario de datos:
 | Widget web | `WidgetWeb` | Sistema externo |
 | Sistema core | `SistemaCore` | Sistema externo |
 | CRM de la cooperativa | `CRMCooperativa` | Sistema externo |
-| Equipo de marketing | `EquipoMarketing` | Persona · configuración |
+| Equipo de marketing | `EquipoMarketing` | Persona · configuración (campañas) y avisos |
 | Administrador del asistente | `AdministradorAsistente` | Persona · configuración |
 | Área de productos y crédito | `AreaProductosCredito` | Persona · configuración |
-| Comité de crédito | `ComiteCredito` | Persona · configuración |
-| Jefe comercial | `JefeComercial` | Persona · configuración |
+| Comité de crédito | `ComiteCredito` | Persona · configuración (reglas), avisos y resolución del crédito |
+| Jefe comercial | `JefeComercial` | Persona · configuración (prioridad y enrutamiento) y avisos |
 | Personal de agencia | `PersonalAgencia` | Persona |
+
+En el diccionario de datos ([CLS-01](../04-diagrama-de-clase/diccionario-de-datos-etapa3.md)) estos participantes se consolidan: WhatsApp Business API y Widget web son la clase `Canal`; los actores de configuración aparecen como `publicadoPor` de la configuración o como destinatarios de `July.notificar()`.
+
+### Correspondencia con el modelo ArchiMate
+
+El modelo ArchiMate (CAP-02/CAP-03) representa los casos de uso como 25 servicios de aplicación numerados «CU-01» a «CU-25». Esos números no son los de esta especificación: cada servicio realiza capacidades de nivel 3, y por esas capacidades se enlaza con los casos de aquí.
+
+| Servicio ArchiMate | Casos de esta especificación |
+|---|---|
+| «CU-01 Iniciar conversación» | CU 1.1 (1.1.1.1 a 1.1.2.3) y CU 1.2.1.1 |
+| «CU-02 Aceptar aviso de privacidad» | CU 1.2.1.2 |
+| «CU-03 Registrar lead» | CU 1.2.2.3 |
+| «CU-04 Identificar intención y responder preguntas frecuentes» | CU 1.2.2.1 |
+| «CU-05 Reconocer socio existente» | CU 1.2.2.2 |
+| «CU-06 Derivar a asesor humano» | CU 1.2.1.3 |
+| «CU-07 Capturar datos del prospecto» | CU 2.1.1 (2.1.1.1 a 2.1.1.3), CU 2.1.2.1 y CU 2.1.2.2 |
+| «CU-08 Retomar conversación abandonada» | CU 2.1.2.3 |
+| «CU-09 Simular crédito» | CU 2.2.1.1 y CU 2.2.1.2 |
+| «CU-10 Comparar escenarios» | CU 2.2.1.3 |
+| «CU-11 Precalificar prospecto» | CU 2.3.1 (2.3.1.1 a 2.3.1.3) y CU 2.3.2.1 |
+| «CU-12 Consultar requisitos y agendar cita» | CU 2.3.2.2 y CU 2.3.2.3 |
+| «CU-13 Generar ficha del prospecto» | CU 3.1.1 (3.1.1.1 a 3.1.1.3) |
+| «CU-14 Sincronizar lead con el CRM» | CU 3.1.2 (3.1.2.1 a 3.1.2.3) |
+| «CU-15 Asignar lead a asesor» | CU 3.2.1.1 y CU 3.2.1.2 |
+| «CU-16 Atender lead asignado» | CU 3.2.1.3 |
+| «CU-17 Enviar recordatorios y reactivar leads» | CU 3.2.2.1 |
+| «CU-18 Confirmar cita en agencia» | CU 3.2.2.2 |
+| «CU-19 Actualizar estado y cerrar lead» | CU 3.2.2.3 |
+| «CU-21 Gestionar líneas, tasas y requisitos» | Publica lo que consulta CU 2.2.2 (2.2.2.1 a 2.2.2.3); no tiene especificación propia |
+| «CU-20», «CU-22», «CU-23», «CU-24», «CU-25» | Sin caso en esta especificación (configuración, trazabilidad y derechos de datos); ver [REV-01](../05-revisiones/revision-consistencia-etapa3.md) |
 
 ---
 
@@ -98,7 +128,7 @@ Cada parte de la oración alimenta el diccionario de datos:
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Medios de contacto |
+| Nivel | 1 · etapa Canales de contacto |
 | Capacidad | 1.1 Canales de contacto |
 | Actor principal | Prospecto |
 | Incluye | [CU 1.1.1](#cu-1-1-1), [CU 1.1.2](#cu-1-1-2) |
@@ -308,7 +338,7 @@ Cada parte de la oración alimenta el diccionario de datos:
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Contacto |
+| Nivel | 1 · etapa Primer contacto |
 | Capacidad | 1.2 Primer contacto |
 | Actor principal | Prospecto |
 | Incluye | [CU 1.2.1](#cu-1-2-1), [CU 1.2.2](#cu-1-2-2) |
@@ -470,6 +500,10 @@ Cada parte de la oración alimenta el diccionario de datos:
 | | *A3 · El Sistema core no responde a tiempo (reemplaza el paso 6)* | | | | | |
 | 6c | **Sistema core** devuelve el error de integración por tiempo de espera agotado a **July**. | `SistemaCore` | devuelve → `ErrorIntegracion.devolver()` | `ErrorIntegracion` (codigo, descripcion) | `SistemaCore` → `July` | 1.2.2.2 |
 | 7c | **July** registra el lead con la condición «socio por verificar». Continúa en el paso 8. | `July` | registra → `Lead.registrar()` | `Lead` (intencion, condicionSocio = por verificar) | `July` (interno) | 1.2.2.3 |
+| | *A4 · El prospecto llegó por el widget web y aún no hay teléfono (reemplaza los pasos 5 a 7)* | | | | | |
+| 5d | **July** registra el lead con la condición «socio por verificar». Continúa en el paso 8. | `July` | registra → `Lead.registrar()` | `Lead` (intencion, condicionSocio = por verificar) | `July` (interno) | 1.2.2.3 |
+
+La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consulta al Sistema core con la cédula ya capturada.
 
 <a id="cu-1-2-2-1"></a>
 ##### CU 1.2.2.1 · Detectar la intención de crédito (nivel 3)
@@ -517,13 +551,14 @@ Cada parte de la oración alimenta el diccionario de datos:
 | Capacidad | 1.2.2.3 Registro del lead |
 | Actor externo | Ninguno, lo resuelve July |
 | Objetivo | Que el lead quede registrado con su intención y su condición de socio, y el prospecto reciba su número de seguimiento. |
-| Pasos de CU 1.2.2 | 7, 8, 7c |
+| Pasos de CU 1.2.2 | 7, 8, 7c, 5d |
 
 | Paso | Especificación |
 |---|---|
 | 7 | **July** registra el lead con su intención y su condición de socio. |
 | 8 | **July** entrega el número de seguimiento del lead al **Prospecto**. Fin. |
 | 7c | **July** registra el lead con la condición «socio por verificar». Continúa en el paso 8. |
+| 5d | **July** registra el lead con la condición «socio por verificar». Continúa en el paso 8. |
 
 ---
 
@@ -536,7 +571,7 @@ Cada parte de la oración alimenta el diccionario de datos:
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Perfil |
+| Nivel | 1 · etapa Perfilamiento |
 | Capacidad | 2.1 Perfilamiento |
 | Actor principal | Prospecto |
 | Incluye | [CU 2.1.1](#cu-2-1-1), [CU 2.1.2](#cu-2-1-2) |
@@ -775,7 +810,7 @@ Cada parte de la oración alimenta el diccionario de datos:
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Simulación |
+| Nivel | 1 · etapa Simulación financiera |
 | Capacidad | 2.2 Simulación financiera |
 | Actor principal | Prospecto |
 | Incluye | [CU 2.2.2](#cu-2-2-2), [CU 2.2.1](#cu-2-2-1) |
@@ -996,7 +1031,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Calificación |
+| Nivel | 1 · etapa Precalificación |
 | Capacidad | 2.3 Precalificación |
 | Actor principal | Prospecto |
 | Incluye | [CU 2.3.1](#cu-2-3-1), [CU 2.3.2](#cu-2-3-2) |
@@ -1149,7 +1184,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 9 | **Prospecto** selecciona un horario disponible a **July**. | `Prospecto` | selecciona → `HorarioDisponible.seleccionar()` | `HorarioDisponible` (fechaHora) | `Prospecto` → `July` | 2.3.2.3 |
 | 10 | **July** reserva la cita en el horario elegido. | `July` | reserva → `Cita.reservar()` | `Cita` (fechaHora, agencia, estado = reservada) | `July` (interno) | 2.3.2.3 |
 | 11 | **July** notifica la cita reservada al **Personal de agencia**. | `July` | notifica → `Cita.notificar()` | `Cita` (fechaHora, prospecto) | `July` → `PersonalAgencia` | 2.3.2.3 |
-| 12 | **Personal de agencia** confirma la reserva de la cita a **July**. | `PersonalAgencia` | confirma → `Cita.confirmarReserva()` | `Cita` (estado = confirmada) | `PersonalAgencia` → `July` | 2.3.2.3 |
+| 12 | **Personal de agencia** confirma la reserva de la cita a **July**. | `PersonalAgencia` | confirma → `Cita.confirmarReserva()` | `Cita` (estado = reservada) | `PersonalAgencia` → `July` | 2.3.2.3 |
 | 13 | **July** envía la confirmación de la cita con la fecha, la hora y la agencia al **Prospecto**. Fin. | `July` | envía → `Cita.enviarConfirmacion()` | `Cita` (fechaHora, agencia) | `July` → `Prospecto` | 2.3.2.3 |
 
 **Flujos alternativos**
@@ -1239,7 +1274,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Entrega |
+| Nivel | 1 · etapa Entrega de oportunidades |
 | Capacidad | 3.1 Entrega de oportunidades |
 | Actor principal | Asesor comercial |
 | Incluye | [CU 3.1.1](#cu-3-1-1), [CU 3.1.2](#cu-3-1-2) |
@@ -1357,7 +1392,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Actor principal | Asesor comercial |
 | Actores secundarios | CRM de la cooperativa |
 | Incluye | [CU 3.1.2.1](#cu-3-1-2-1), [CU 3.1.2.2](#cu-3-1-2-2), [CU 3.1.2.3](#cu-3-1-2-3) |
-| Objetivo | Crear o actualizar el lead en el CRM sin intervención manual, sin duplicados y sin perderlo si el CRM falla. |
+| Objetivo | Crear o actualizar el lead en el CRM a pedido del asesor, sin que nadie lo digite, sin duplicados y sin perderlo si el CRM falla. |
 | Disparador | El asesor solicita registrar la ficha revisada en el CRM. |
 | Precondiciones | La ficha del prospecto está generada (CU 3.1.1). |
 | Postcondiciones | El lead existe una sola vez en el CRM, con su identificador enlazado en July, o el registro quedó pendiente. |
@@ -1449,7 +1484,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 
 | Campo | Especificación |
 |---|---|
-| Nivel | 1 · etapa Seguimiento |
+| Nivel | 1 · etapa Asignación y seguimiento |
 | Capacidad | 3.2 Asignación y seguimiento |
 | Actor principal | Asesor comercial |
 | Incluye | [CU 3.2.1](#cu-3-2-1), [CU 3.2.2](#cu-3-2-2) |
