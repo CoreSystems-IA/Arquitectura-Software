@@ -10,7 +10,8 @@ Documentacion/
 ├── 01-referencias/            material fuente y sus traducciones
 │   └── imagenes/              figuras usadas por los documentos de la carpeta
 ├── 02-mapa-capacidades/       mapa de capacidades de negocio y su modelado
-└── 03-casos-de-uso/           casos de uso y su modelado
+├── 03-casos-de-uso/           casos de uso y su modelado
+└── 04-diagrama-de-clase/      diccionario de datos y modelo de clases
 ```
 
 | Carpeta | Contenido | Prefijo de ID |
@@ -18,6 +19,7 @@ Documentacion/
 | `01-referencias/` | Material fuente externo (libros, artículos, informes) y sus traducciones | `REF` |
 | `02-mapa-capacidades/` | Mapa de capacidades de negocio y su modelado | `CAP` |
 | `03-casos-de-uso/` | Casos de uso y su modelado | `CU` |
+| `04-diagrama-de-clase/` | Diccionario de datos y modelo de clases | `CLS` |
 
 ## Convenciones
 
@@ -44,6 +46,8 @@ Documentacion/
 | CU-05 | Diagrama de casos de uso del flujo de valor 3: Entrega, seguimiento y conversión | [`03-casos-de-uso/casos-de-uso-flujo-03-entrega-seguimiento-y-conversion.drawio`](03-casos-de-uso/casos-de-uso-flujo-03-entrega-seguimiento-y-conversion.drawio) | Diagrama (draw.io) | CAP-02, CU-02 | CU-06, CU-07 | 2026-10-21 | Borrador |
 | CU-06 | Casos de uso de July por flujo de valor (niveles 1, 2 y 3 con sus actores) | [`03-casos-de-uso/casos-de-uso-por-flujo.md`](03-casos-de-uso/casos-de-uso-por-flujo.md) | Descripción (Markdown) | CU-03 a CU-05 | CU-07 | 2026-10-21 | Borrador |
 | CU-07 | Presentación de casos de uso: especificación de los 14 casos de nivel 2, flujos encadenados, diagramas de secuencia y matriz de trazabilidad | [`03-casos-de-uso/presentacion-casos-de-uso.md`](03-casos-de-uso/presentacion-casos-de-uso.md) | Presentación (Markdown + Mermaid) | CU-06, CU-03 a CU-05, CAP-02 | CU-06 | 2026-10-21 | Borrador |
+| CU-08 | Especificaciones de los casos de uso de July en sus tres niveles (7 de nivel 1, 14 de nivel 2 y 42 de nivel 3): una oración y un verbo por paso, encadenadas sujeto → receptor, con sujeto, verbo → método, sustantivo → entidad y relación para el diccionario de datos | [`03-casos-de-uso/especificaciones-casos-de-uso.md`](03-casos-de-uso/especificaciones-casos-de-uso.md) | Especificación (Markdown) | CU-07, CU-06 | CU-07, CLS-01 | 2026-10-24 | Borrador |
+| CLS-01 | Diccionario de datos, etapa 3: 15 clases y 55 métodos consolidados a partir de CU-08, con atributos y tipos, métodos con entrada y salida, relaciones con su tipo y multiplicidad, trazabilidad paso a paso con CU-08 y tabla de resumen | [`04-diagrama-de-clase/diccionario-de-datos-etapa3.md`](04-diagrama-de-clase/diccionario-de-datos-etapa3.md) | Diccionario de datos (Markdown) | CU-08 | CU-08 | 2026-10-24 | Borrador |
 
 ## Historial de cambios del índice
 
@@ -52,3 +56,6 @@ Documentacion/
 | 2026-10-21 | Creación del índice y registro de los documentos existentes. |
 | 2026-10-21 | Reorganización: carpetas numeradas sin espacios, imágenes movidas junto a REF-02 y archivos renombrados según la convención. |
 | 2026-10-21 | Registro de CAP-02, CAP-03 y CU-02 a CU-07. CU-01 cambió de ruta a `02-mapa-capacidades/mapa-capacidades-cod.xml`. |
+| 2026-10-24 | Registro de CU-08 (especificaciones de casos de uso en los tres niveles). |
+| 2026-10-24 | Nueva carpeta `04-diagrama-de-clase/` (prefijo `CLS`) y registro de CLS-01 (diccionario de datos, etapa 3). |
+| 2026-10-24 | CLS-01 v2.0: el modelo se reduce de 41 a 15 clases. |
