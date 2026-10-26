@@ -1,7 +1,7 @@
 # Especificaciones de casos de uso · July
 
-**ID:** CU-08 · **Versión:** 1.1 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
-**Deriva de:** CU-07 ([`presentacion-casos-de-uso.md`](presentacion-casos-de-uso.md)) y CU-06 ([`casos-de-uso-por-flujo.md`](casos-de-uso-por-flujo.md))  
+**ID:** CU-08 · **Versión:** 1.2 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
+**Deriva de:** CU-07 ([`presentacion-casos-de-uso.md`](presentacion-casos-de-uso.md)) y CU-06 ([`casos-de-uso-por-flujo.md`](casos-de-uso-por-flujo.md)); decisiones de [REV-01](../05-revisiones/revision-consistencia-etapa3.md)  
 **Uso:** fuente del diccionario de datos y del diagrama de clases  
 
 Especificaciones de los casos de uso de July en sus tres niveles: 7 de nivel 1, 14 de nivel 2 y 42 de nivel 3. Cada paso es una oración con un solo verbo que se descompone en sujeto, método, entidad y relación.
@@ -38,13 +38,13 @@ Cada parte de la oración alimenta el diccionario de datos:
 4. **La preposición indica la relación:** *a* cuando el sujeto entrega o pide algo al receptor; *con* cuando lo verifica, sincroniza o conversa con él; *en* cuando crea, busca o actualiza un registro dentro de un sistema externo.
 5. **Acción interna.** Cuando el sujeto trabaja sobre su propia entidad, sin otro participante, la oración no lleva receptor: el sujeto es su propio receptor, la relación se marca *(interno)* y la oración siguiente vuelve a empezar con él.
 6. **Flujos alternativos.** Se nombran con una letra por flujo (a, b, c, d) y el número del paso del que salen. Empiezan con el mismo sujeto del paso que reemplazan y terminan en *Fin* o en *Continúa / Vuelve al paso N*, cuyo sujeto es el receptor del último paso del alternativo.
-7. **Actores de configuración.** El Equipo de marketing, el Administrador del asistente, el Área de productos y crédito, el Comité de crédito y el Jefe comercial no conversan en tiempo real. Cuando July les consulta algo, responden con la configuración que publicaron (guion, catálogo, reglas, criterios). Cuando July les informa algo (origen de campaña, caso de revisión, reasignación), lo reciben como un aviso. El Comité de crédito, además, resuelve las solicitudes fuera de July (CU 3.2.2, pasos 8 y 9).
+7. **Actores de configuración.** El Equipo de marketing, el Administrador del asistente, el Área de productos y crédito, el Comité de crédito y el Jefe comercial no conversan en tiempo real. Cuando July les consulta algo, responden con la configuración que publicaron (guion, catálogo, reglas, criterios). Cuando July les informa algo (origen de campaña, caso de revisión, reasignación), lo reciben como un aviso. El Comité de crédito, además, recibe de July la solicitud completa y le comunica su resolución (CU 3.2.2, pasos 9 y 10).
 
 ### Niveles
 
 | Nivel | Qué representa | Qué contiene su especificación |
 |---|---|---|
-| 1 | Etapa del flujo de valor. La inicia el actor principal. | Ficha del caso y flujo resumido; cada paso indica el caso de nivel 2 que lo resuelve. |
+| 1 | Etapa del flujo de valor. La inicia el actor principal, salvo CU 3.1: la dispara el fin de la precalificación y el actor principal es su beneficiario. | Ficha del caso y flujo resumido; cada paso indica el caso de nivel 2 que lo resuelve. |
 | 2 | Caso que incluye («include») tres casos de nivel 3. | Ficha completa, flujo principal y flujos alternativos, paso a paso. |
 | 3 | Capacidad de nivel 3 del mapa, vista como caso de uso. | Ficha del caso y los pasos del nivel 2 que lo realizan. |
 
@@ -65,36 +65,52 @@ Cada parte de la oración alimenta el diccionario de datos:
 | Comité de crédito | `ComiteCredito` | Persona · configuración (reglas), avisos y resolución del crédito |
 | Jefe comercial | `JefeComercial` | Persona · configuración (prioridad y enrutamiento) y avisos |
 | Personal de agencia | `PersonalAgencia` | Persona |
+| Delegado de protección de datos | `DelegadoProteccionDatos` | Persona · avisos (retiro del consentimiento) |
 
 En el diccionario de datos ([CLS-01](../04-diagrama-de-clase/diccionario-de-datos-etapa3.md)) estos participantes se consolidan: WhatsApp Business API y Widget web son la clase `Canal`; los actores de configuración aparecen como `publicadoPor` de la configuración o como destinatarios de `July.notificar()`.
 
 ### Correspondencia con el modelo ArchiMate
 
-El modelo ArchiMate (CAP-02/CAP-03) representa los casos de uso como 25 servicios de aplicación numerados «CU-01» a «CU-25». Esos números no son los de esta especificación: cada servicio realiza capacidades de nivel 3, y por esas capacidades se enlaza con los casos de aquí.
+El modelo ArchiMate (CAP-03) representa los casos de uso como 25 servicios de aplicación numerados SA-01 a SA-25. Cada servicio realiza capacidades de nivel 3, y por esas capacidades se enlaza con los casos de aquí.
 
 | Servicio ArchiMate | Casos de esta especificación |
 |---|---|
-| «CU-01 Iniciar conversación» | CU 1.1 (1.1.1.1 a 1.1.2.3) y CU 1.2.1.1 |
-| «CU-02 Aceptar aviso de privacidad» | CU 1.2.1.2 |
-| «CU-03 Registrar lead» | CU 1.2.2.3 |
-| «CU-04 Identificar intención y responder preguntas frecuentes» | CU 1.2.2.1 |
-| «CU-05 Reconocer socio existente» | CU 1.2.2.2 |
-| «CU-06 Derivar a asesor humano» | CU 1.2.1.3 |
-| «CU-07 Capturar datos del prospecto» | CU 2.1.1 (2.1.1.1 a 2.1.1.3), CU 2.1.2.1 y CU 2.1.2.2 |
-| «CU-08 Retomar conversación abandonada» | CU 2.1.2.3 |
-| «CU-09 Simular crédito» | CU 2.2.1.1 y CU 2.2.1.2 |
-| «CU-10 Comparar escenarios» | CU 2.2.1.3 |
-| «CU-11 Precalificar prospecto» | CU 2.3.1 (2.3.1.1 a 2.3.1.3) y CU 2.3.2.1 |
-| «CU-12 Consultar requisitos y agendar cita» | CU 2.3.2.2 y CU 2.3.2.3 |
-| «CU-13 Generar ficha del prospecto» | CU 3.1.1 (3.1.1.1 a 3.1.1.3) |
-| «CU-14 Sincronizar lead con el CRM» | CU 3.1.2 (3.1.2.1 a 3.1.2.3) |
-| «CU-15 Asignar lead a asesor» | CU 3.2.1.1 y CU 3.2.1.2 |
-| «CU-16 Atender lead asignado» | CU 3.2.1.3 |
-| «CU-17 Enviar recordatorios y reactivar leads» | CU 3.2.2.1 |
-| «CU-18 Confirmar cita en agencia» | CU 3.2.2.2 |
-| «CU-19 Actualizar estado y cerrar lead» | CU 3.2.2.3 |
-| «CU-21 Gestionar líneas, tasas y requisitos» | Publica lo que consulta CU 2.2.2 (2.2.2.1 a 2.2.2.3); no tiene especificación propia |
-| «CU-20», «CU-22», «CU-23», «CU-24», «CU-25» | Sin caso en esta especificación (configuración, trazabilidad y derechos de datos); ver [REV-01](../05-revisiones/revision-consistencia-etapa3.md) |
+| SA-01 Iniciar conversación | CU 1.1 (1.1.1.1 a 1.1.2.3) y CU 1.2.1.1 |
+| SA-02 Aceptar aviso de privacidad | CU 1.2.1.2 |
+| SA-03 Registrar lead | CU 1.2.2.3 |
+| SA-04 Identificar intención y responder preguntas frecuentes | CU 1.2.2.1 |
+| SA-05 Reconocer socio existente | CU 1.2.2.2 |
+| SA-06 Derivar a asesor humano | CU 1.2.1.3 |
+| SA-07 Capturar datos del prospecto | CU 2.1.1 (2.1.1.1 a 2.1.1.3), CU 2.1.2.1 y CU 2.1.2.2 |
+| SA-08 Retomar conversación abandonada | CU 2.1.2.3 |
+| SA-09 Simular crédito | CU 2.2.1.1 y CU 2.2.1.2 |
+| SA-10 Comparar escenarios | CU 2.2.1.3 |
+| SA-11 Precalificar prospecto | CU 2.3.1 (2.3.1.1 a 2.3.1.3) y CU 2.3.2.1 |
+| SA-12 Consultar requisitos y agendar cita | CU 2.3.2.2 y CU 2.3.2.3 |
+| SA-13 Generar ficha del prospecto | CU 3.1.1 (3.1.1.1 a 3.1.1.3) |
+| SA-14 Sincronizar lead con el CRM | CU 3.1.2 (3.1.2.1 a 3.1.2.3) |
+| SA-15 Asignar lead a asesor | CU 3.2.1.1 y CU 3.2.1.2 |
+| SA-16 Atender lead asignado | CU 3.2.1.3 |
+| SA-17 Enviar recordatorios y reactivar leads | CU 3.2.2.1 |
+| SA-18 Confirmar cita en agencia | CU 3.2.2.2 |
+| SA-19 Actualizar estado y cerrar lead | CU 3.2.2.3 |
+| SA-20 Configurar guiones, intenciones y plantillas | Fuera del alcance del reto (ver abajo) |
+| SA-21 Gestionar líneas, tasas y requisitos | Fuera del alcance del reto; publica lo que consulta CU 2.2.2 |
+| SA-22 Configurar reglas de precalificación | Fuera del alcance del reto |
+| SA-23 Configurar priorización y enrutamiento | Fuera del alcance del reto |
+| SA-24 Consultar trazabilidad y embudo | Fuera del alcance del reto: el embudo lo calcula el CRM |
+| SA-25 Atender derechos sobre datos personales | Reglas transversales R1 y R2 (abajo); los derechos de acceso, rectificación y eliminación los atiende el Delegado de protección de datos fuera de July |
+
+**Alcance del reto.** July es el chatbot de captación. La configuración que publican las áreas (guiones, catálogo, reglas, criterios) se carga como datos iniciales versionados y July solo la lee; su edición desde un back-office (SA-20 a SA-23) y el tablero del embudo (SA-24) quedan fuera del reto.
+
+### Reglas transversales
+
+Valen en cualquier paso de cualquier caso; por eso no tienen número de paso propio.
+
+| Regla | Especificación | Método (CLS-01) |
+|---|---|---|
+| R1 · Consentimiento previo | **July** no pide ni guarda datos personales (identidad, contacto, ingresos) mientras el consentimiento no esté aceptado (CU 1.2.1.2). Sin consentimiento solo ofrece el menú básico. | `July.atender()` revisa `Prospecto.consentimientoAceptado` |
+| R2 · Retiro del consentimiento | Si el **Prospecto** escribe que retira su consentimiento, **July** lo registra como rechazado, deja de pedir datos personales y avisa al **Delegado de protección de datos**, que atiende la eliminación o rectificación fuera de July. | `Prospecto.registrarConsentimiento(false)`, `July.notificar()` |
 
 ---
 
@@ -112,7 +128,7 @@ El modelo ArchiMate (CAP-02/CAP-03) representa los casos de uso como 25 servicio
 |  | [CU 2.2 Simular el crédito](#cu-2-2) | [CU 2.2.2 Consultar productos y condiciones](#cu-2-2-2) | [2.2.2.1](#cu-2-2-2-1) · [2.2.2.2](#cu-2-2-2-2) · [2.2.2.3](#cu-2-2-2-3) |
 |  | [CU 2.3 Obtener la precalificación](#cu-2-3) | [CU 2.3.1 Evaluar al prospecto con reglas](#cu-2-3-1) | [2.3.1.1](#cu-2-3-1-1) · [2.3.1.2](#cu-2-3-1-2) · [2.3.1.3](#cu-2-3-1-3) |
 |  | [CU 2.3 Obtener la precalificación](#cu-2-3) | [CU 2.3.2 Recibir orientación sobre el resultado](#cu-2-3-2) | [2.3.2.1](#cu-2-3-2-1) · [2.3.2.2](#cu-2-3-2-2) · [2.3.2.3](#cu-2-3-2-3) |
-| 3 · Entrega, seguimiento y conversión | [CU 3.1 Recibir la oportunidad precalificada](#cu-3-1) | [CU 3.1.1 Revisar la ficha del prospecto](#cu-3-1-1) | [3.1.1.1](#cu-3-1-1-1) · [3.1.1.2](#cu-3-1-1-2) · [3.1.1.3](#cu-3-1-1-3) |
+| 3 · Entrega, seguimiento y conversión | [CU 3.1 Recibir la oportunidad precalificada](#cu-3-1) | [CU 3.1.1 Generar la ficha del prospecto](#cu-3-1-1) | [3.1.1.1](#cu-3-1-1-1) · [3.1.1.2](#cu-3-1-1-2) · [3.1.1.3](#cu-3-1-1-3) |
 |  | [CU 3.1 Recibir la oportunidad precalificada](#cu-3-1) | [CU 3.1.2 Registrar el lead en el CRM](#cu-3-1-2) | [3.1.2.1](#cu-3-1-2-1) · [3.1.2.2](#cu-3-1-2-2) · [3.1.2.3](#cu-3-1-2-3) |
 |  | [CU 3.2 Dar seguimiento al lead hasta su cierre](#cu-3-2) | [CU 3.2.1 Recibir el lead asignado](#cu-3-2-1) | [3.2.1.1](#cu-3-2-1-1) · [3.2.1.2](#cu-3-2-1-2) · [3.2.1.3](#cu-3-2-1-3) |
 |  | [CU 3.2 Dar seguimiento al lead hasta su cierre](#cu-3-2) | [CU 3.2.2 Hacer seguimiento y cerrar el lead](#cu-3-2-2) | [3.2.2.1](#cu-3-2-2-1) · [3.2.2.2](#cu-3-2-2-2) · [3.2.2.3](#cu-3-2-2-3) |
@@ -605,19 +621,21 @@ La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consu
 | Objetivo | Reunir, conversando y sin formularios, los datos que necesitan la simulación y la precalificación. |
 | Disparador | El prospecto pide iniciar su solicitud de crédito. |
 | Precondiciones | El lead está registrado y aceptó el aviso de privacidad (flujo 1). |
-| Postcondiciones | July tiene identidad, contacto, ingresos, actividad, monto, plazo y destino confirmados por el prospecto. |
+| Postcondiciones | July tiene monto, plazo, destino, identidad, contacto, ingresos y actividad confirmados por el prospecto. |
+
+Primero se piden el monto, el plazo y el destino: con ellos el prospecto ya puede simular (CU 2.2) antes de dar sus datos personales. Si lo pide, July atiende la simulación y luego retoma la captura con el siguiente dato pendiente. July no vuelve a pedir lo que ya tiene (el teléfono de quien llegó por WhatsApp o los datos registrados del socio).
 
 **Flujo principal**
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | CU nivel 3 |
 |---|---|---|---|---|---|---|
-| 1 | **Prospecto** inicia la solicitud de crédito para la línea confirmada a **July**. | `Prospecto` | inicia → `SolicitudCredito.iniciar()` | `SolicitudCredito` (lineaCredito) | `Prospecto` → `July` | 2.1.1.1 |
-| 2 | **July** solicita los nombres, la cédula y el correo al **Prospecto**. | `July` | solicita → `Prospecto.solicitarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo) | `July` → `Prospecto` | 2.1.1.1 |
-| 3 | **Prospecto** entrega los nombres, la cédula y el correo a **July**. | `Prospecto` | entrega → `Prospecto.entregarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo) | `Prospecto` → `July` | 2.1.1.1 |
-| 4 | **July** solicita los ingresos mensuales y la actividad económica al **Prospecto**. | `July` | solicita → `PerfilEconomico.solicitar()` | `PerfilEconomico` (ingresosMensuales, actividad) | `July` → `Prospecto` | 2.1.1.2 |
-| 5 | **Prospecto** declara los ingresos mensuales y la actividad económica a **July**. | `Prospecto` | declara → `PerfilEconomico.declarar()` | `PerfilEconomico` (ingresosMensuales, actividad) | `Prospecto` → `July` | 2.1.1.2 |
-| 6 | **July** solicita el monto, el plazo y el destino del crédito al **Prospecto**. | `July` | solicita → `SolicitudCredito.solicitarCondiciones()` | `SolicitudCredito` (monto, plazo, destino) | `July` → `Prospecto` | 2.1.1.3 |
-| 7 | **Prospecto** indica el monto, el plazo y el destino del crédito a **July**. | `Prospecto` | indica → `SolicitudCredito.indicarCondiciones()` | `SolicitudCredito` (monto, plazo, destino) | `Prospecto` → `July` | 2.1.1.3 |
+| 1 | **Prospecto** inicia la solicitud de crédito para la línea confirmada a **July**. | `Prospecto` | inicia → `SolicitudCredito.iniciar()` | `SolicitudCredito` (lineaCredito) | `Prospecto` → `July` | 2.1.1.3 |
+| 2 | **July** solicita el monto, el plazo y el destino del crédito al **Prospecto**. | `July` | solicita → `SolicitudCredito.solicitarCondiciones()` | `SolicitudCredito` (monto, plazo, destino) | `July` → `Prospecto` | 2.1.1.3 |
+| 3 | **Prospecto** indica el monto, el plazo y el destino del crédito a **July**. | `Prospecto` | indica → `SolicitudCredito.indicarCondiciones()` | `SolicitudCredito` (monto, plazo, destino) | `Prospecto` → `July` | 2.1.1.3 |
+| 4 | **July** solicita los nombres, la cédula, el correo y el teléfono al **Prospecto**. | `July` | solicita → `Prospecto.solicitarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo, telefono) | `July` → `Prospecto` | 2.1.1.1 |
+| 5 | **Prospecto** entrega los nombres, la cédula, el correo y el teléfono a **July**. | `Prospecto` | entrega → `Prospecto.entregarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo, telefono) | `Prospecto` → `July` | 2.1.1.1 |
+| 6 | **July** solicita los ingresos mensuales y la actividad económica al **Prospecto**. | `July` | solicita → `PerfilEconomico.solicitar()` | `PerfilEconomico` (ingresosMensuales, actividad) | `July` → `Prospecto` | 2.1.1.2 |
+| 7 | **Prospecto** declara los ingresos mensuales y la actividad económica a **July**. | `Prospecto` | declara → `PerfilEconomico.declarar()` | `PerfilEconomico` (ingresosMensuales, actividad) | `Prospecto` → `July` | 2.1.1.2 |
 | 8 | **July** resume la solicitud de crédito con todos los datos recibidos. | `July` | resume → `SolicitudCredito.resumir()` | `SolicitudCredito` (resumen) | `July` (interno) | 2.1.1.1, 2.1.1.2, 2.1.1.3 |
 | 9 | **July** solicita la confirmación del resumen de la solicitud al **Prospecto**. | `July` | solicita → `SolicitudCredito.solicitarConfirmacion()` | `SolicitudCredito` (resumen) | `July` → `Prospecto` | 2.1.1.1, 2.1.1.2, 2.1.1.3 |
 | 10 | **Prospecto** confirma el resumen de la solicitud a **July**. Fin. | `Prospecto` | confirma → `SolicitudCredito.confirmar()` | `SolicitudCredito` (confirmada = sí) | `Prospecto` → `July` | 2.1.1.1, 2.1.1.2, 2.1.1.3 |
@@ -626,9 +644,9 @@ La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consu
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | CU nivel 3 |
 |---|---|---|---|---|---|---|
-| | *A1 · El prospecto ya es socio (reemplaza los pasos 2 y 3)* | | | | | |
-| 2a | **July** muestra los nombres, la cédula y el correo registrados del socio al **Prospecto**. | `July` | muestra → `Prospecto.mostrarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo) | `July` → `Prospecto` | 2.1.1.1 |
-| 3a | **Prospecto** confirma los nombres, la cédula y el correo registrados a **July**. Continúa en el paso 4. | `Prospecto` | confirma → `Prospecto.confirmarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo) | `Prospecto` → `July` | 2.1.1.1 |
+| | *A1 · El prospecto ya es socio (reemplaza los pasos 4 y 5)* | | | | | |
+| 4a | **July** muestra los nombres, la cédula, el correo y el teléfono registrados del socio al **Prospecto**. | `July` | muestra → `Prospecto.mostrarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo, telefono) | `July` → `Prospecto` | 2.1.1.1 |
+| 5a | **Prospecto** confirma los nombres, la cédula, el correo y el teléfono registrados a **July**. Continúa en el paso 6. | `Prospecto` | confirma → `Prospecto.confirmarDatosIdentidad()` | `Prospecto` (nombres, cedula, correo, telefono) | `Prospecto` → `July` | 2.1.1.1 |
 | | *A2 · El prospecto corrige un dato del resumen (reemplaza el paso 10)* | | | | | |
 | 10b | **Prospecto** corrige el dato equivocado de la solicitud a **July**. Vuelve al paso 8. | `Prospecto` | corrige → `SolicitudCredito.corregirDato()` | `SolicitudCredito` (campo, valorNuevo) | `Prospecto` → `July` | 2.1.1.1, 2.1.1.2, 2.1.1.3 |
 
@@ -640,19 +658,18 @@ La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consu
 | Nivel | 3 · incluido por [CU 2.1.1](#cu-2-1-1), dentro de [CU 2.1](#cu-2-1) |
 | Capacidad | 2.1.1.1 Identidad y contacto |
 | Actor externo | Ninguno, lo resuelve July |
-| Objetivo | Que July tenga los nombres, la cédula y el correo del prospecto, confirmados por él. |
-| Pasos de CU 2.1.1 | 1, 2, 3, 8, 9, 10, 2a, 3a, 10b |
+| Objetivo | Que July tenga los nombres, la cédula, el correo y el teléfono del prospecto, confirmados por él. |
+| Pasos de CU 2.1.1 | 4, 5, 8, 9, 10, 4a, 5a, 10b |
 
 | Paso | Especificación |
 |---|---|
-| 1 | **Prospecto** inicia la solicitud de crédito para la línea confirmada a **July**. |
-| 2 | **July** solicita los nombres, la cédula y el correo al **Prospecto**. |
-| 3 | **Prospecto** entrega los nombres, la cédula y el correo a **July**. |
+| 4 | **July** solicita los nombres, la cédula, el correo y el teléfono al **Prospecto**. |
+| 5 | **Prospecto** entrega los nombres, la cédula, el correo y el teléfono a **July**. |
 | 8 | **July** resume la solicitud de crédito con todos los datos recibidos. |
 | 9 | **July** solicita la confirmación del resumen de la solicitud al **Prospecto**. |
 | 10 | **Prospecto** confirma el resumen de la solicitud a **July**. Fin. |
-| 2a | **July** muestra los nombres, la cédula y el correo registrados del socio al **Prospecto**. |
-| 3a | **Prospecto** confirma los nombres, la cédula y el correo registrados a **July**. Continúa en el paso 4. |
+| 4a | **July** muestra los nombres, la cédula, el correo y el teléfono registrados del socio al **Prospecto**. |
+| 5a | **Prospecto** confirma los nombres, la cédula, el correo y el teléfono registrados a **July**. Continúa en el paso 6. |
 | 10b | **Prospecto** corrige el dato equivocado de la solicitud a **July**. Vuelve al paso 8. |
 
 <a id="cu-2-1-1-2"></a>
@@ -664,12 +681,12 @@ La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consu
 | Capacidad | 2.1.1.2 Ingresos y actividad |
 | Actor externo | Ninguno, lo resuelve July |
 | Objetivo | Que July tenga los ingresos mensuales y la actividad económica que declara el prospecto. |
-| Pasos de CU 2.1.1 | 4, 5, 8, 9, 10, 10b |
+| Pasos de CU 2.1.1 | 6, 7, 8, 9, 10, 10b |
 
 | Paso | Especificación |
 |---|---|
-| 4 | **July** solicita los ingresos mensuales y la actividad económica al **Prospecto**. |
-| 5 | **Prospecto** declara los ingresos mensuales y la actividad económica a **July**. |
+| 6 | **July** solicita los ingresos mensuales y la actividad económica al **Prospecto**. |
+| 7 | **Prospecto** declara los ingresos mensuales y la actividad económica a **July**. |
 | 8 | **July** resume la solicitud de crédito con todos los datos recibidos. |
 | 9 | **July** solicita la confirmación del resumen de la solicitud al **Prospecto**. |
 | 10 | **Prospecto** confirma el resumen de la solicitud a **July**. Fin. |
@@ -683,13 +700,14 @@ La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consu
 | Nivel | 3 · incluido por [CU 2.1.1](#cu-2-1-1), dentro de [CU 2.1](#cu-2-1) |
 | Capacidad | 2.1.1.3 Monto, plazo y destino |
 | Actor externo | Ninguno, lo resuelve July |
-| Objetivo | Que July tenga el monto, el plazo y el destino del crédito que pide el prospecto. |
-| Pasos de CU 2.1.1 | 6, 7, 8, 9, 10, 10b |
+| Objetivo | Que July tenga el monto, el plazo y el destino del crédito que pide el prospecto, para simular y precalificar. |
+| Pasos de CU 2.1.1 | 1, 2, 3, 8, 9, 10, 10b |
 
 | Paso | Especificación |
 |---|---|
-| 6 | **July** solicita el monto, el plazo y el destino del crédito al **Prospecto**. |
-| 7 | **Prospecto** indica el monto, el plazo y el destino del crédito a **July**. |
+| 1 | **Prospecto** inicia la solicitud de crédito para la línea confirmada a **July**. |
+| 2 | **July** solicita el monto, el plazo y el destino del crédito al **Prospecto**. |
+| 3 | **Prospecto** indica el monto, el plazo y el destino del crédito a **July**. |
 | 8 | **July** resume la solicitud de crédito con todos los datos recibidos. |
 | 9 | **July** solicita la confirmación del resumen de la solicitud al **Prospecto**. |
 | 10 | **Prospecto** confirma el resumen de la solicitud a **July**. Fin. |
@@ -816,7 +834,7 @@ La condición «socio por verificar» se resuelve en CU 2.3.1, cuando July consu
 | Incluye | [CU 2.2.2](#cu-2-2-2), [CU 2.2.1](#cu-2-2-1) |
 | Objetivo | Que el prospecto elija una línea de crédito, conozca sus condiciones y elija un escenario de cuota y plazo. |
 | Disparador | El prospecto pregunta qué créditos ofrece la cooperativa o pide simular su crédito. |
-| Precondiciones | La solicitud tiene monto y plazo declarados (CU 2.1). |
+| Precondiciones | La solicitud tiene monto y plazo declarados (CU 2.1.1, paso 3). La identidad y los ingresos pueden completarse después, antes de precalificar (CU 2.3). |
 | Postcondiciones | El prospecto eligió una línea y un escenario, y July lo guardó para la precalificación. |
 
 Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU 2.2.1).
@@ -844,7 +862,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Incluye | [CU 2.2.1.1](#cu-2-2-1-1), [CU 2.2.1.2](#cu-2-2-1-2), [CU 2.2.1.3](#cu-2-2-1-3) |
 | Objetivo | Mostrar cuánto pagaría la persona según la línea, el monto y el plazo, y dejarla comparar opciones. |
 | Disparador | El prospecto pide simular su crédito. |
-| Precondiciones | Hay una línea elegida con su tasa y plazos vigentes (CU 2.2.2) y un monto y un plazo declarados (CU 2.1.1). |
+| Precondiciones | Hay una línea elegida con su tasa y plazos vigentes (CU 2.2.2) y un monto y un plazo declarados (CU 2.1.1, paso 3). |
 | Postcondiciones | El prospecto eligió un escenario y July lo guardó para la precalificación. |
 
 **Flujo principal**
@@ -1090,9 +1108,8 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | | *A2 · El caso queda «a revisar» (reemplaza los pasos 7 y 8)* | | | | | |
 | 7b | **July** clasifica la precalificación como «a revisar». | `July` | clasifica → `Precalificacion.clasificar()` | `Precalificacion` (clasificacion = aRevisar) | `July` (interno) | 2.3.1.3 |
 | 8b | **July** envía el caso de revisión con la precalificación al **Comité de crédito**. | `July` | envía → `CasoRevision.enviar()` | `CasoRevision` (precalificacion, motivo) | `July` → `ComiteCredito` | 2.3.1.3 |
-| 9b | **Comité de crédito** registra el caso de revisión en su bandeja. | `ComiteCredito` | registra → `CasoRevision.registrar()` | `CasoRevision` (numeroCaso, estado = recibido) | `ComiteCredito` (interno) | 2.3.1.3 |
-| 10b | **Comité de crédito** confirma el acuse de recepción del caso a **July**. | `ComiteCredito` | confirma → `AcuseRecepcion.confirmar()` | `AcuseRecepcion` (numeroCaso, fechaHora) | `ComiteCredito` → `July` | 2.3.1.3 |
-| 11b | **July** informa el número del caso de revisión al **Prospecto**. Fin. | `July` | informa → `CasoRevision.informar()` | `CasoRevision` (numeroCaso, estado) | `July` → `Prospecto` | 2.3.1.3 |
+| 9b | **Comité de crédito** confirma el acuse de recepción del caso con su número a **July**. | `ComiteCredito` | confirma → `AcuseRecepcion.confirmar()` | `AcuseRecepcion` (numeroCaso, fechaHora) | `ComiteCredito` → `July` | 2.3.1.3 |
+| 10b | **July** informa el número del caso de revisión al **Prospecto**. Fin. | `July` | informa → `CasoRevision.informar()` | `CasoRevision` (numeroCaso, estado) | `July` → `Prospecto` | 2.3.1.3 |
 
 <a id="cu-2-3-1-1"></a>
 ##### CU 2.3.1.1 · Evaluar la capacidad de pago (nivel 3)
@@ -1140,7 +1157,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Capacidad | 2.3.1.3 Clasificación final |
 | Actor externo | Comité de crédito |
 | Objetivo | Que el prospecto quede clasificado según la tabla de decisión, y los casos dudosos lleguen al Comité de crédito. |
-| Pasos de CU 2.3.1 | 2, 3, 7, 8, 7b, 8b, 9b, 10b, 11b |
+| Pasos de CU 2.3.1 | 2, 3, 7, 8, 7b, 8b, 9b, 10b |
 
 | Paso | Especificación |
 |---|---|
@@ -1150,9 +1167,8 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 8 | **July** comunica el resultado preliminar y no vinculante de la precalificación al **Prospecto**. Fin. |
 | 7b | **July** clasifica la precalificación como «a revisar». |
 | 8b | **July** envía el caso de revisión con la precalificación al **Comité de crédito**. |
-| 9b | **Comité de crédito** registra el caso de revisión en su bandeja. |
-| 10b | **Comité de crédito** confirma el acuse de recepción del caso a **July**. |
-| 11b | **July** informa el número del caso de revisión al **Prospecto**. Fin. |
+| 9b | **Comité de crédito** confirma el acuse de recepción del caso con su número a **July**. |
+| 10b | **July** informa el número del caso de revisión al **Prospecto**. Fin. |
 
 <a id="cu-2-3-2"></a>
 #### CU 2.3.2 · Recibir orientación sobre el resultado (nivel 2)
@@ -1269,6 +1285,8 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 
 **Actor principal:** Asesor comercial · **Objetivo del flujo:** Poner cada lead precalificado en manos de un asesor y llevarlo hasta el desembolso o la pérdida, con su estado sincronizado en el CRM.
 
+Entran a este flujo los leads precalificados como APTO o A_REVISAR. Un lead NO_APTO recibe una alternativa de monto o plazo (CU 2.3.2, A1) y solo entra si vuelve a simular y su nueva precalificación es APTO o A_REVISAR.
+
 <a id="cu-3-1"></a>
 ### CU 3.1 · Recibir la oportunidad precalificada (nivel 1)
 
@@ -1276,58 +1294,52 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 |---|---|
 | Nivel | 1 · etapa Entrega de oportunidades |
 | Capacidad | 3.1 Entrega de oportunidades |
-| Actor principal | Asesor comercial |
+| Actor principal | Asesor comercial (beneficiario: recibe la oportunidad lista; el caso lo dispara el fin de la precalificación) |
 | Incluye | [CU 3.1.1](#cu-3-1-1), [CU 3.1.2](#cu-3-1-2) |
-| Objetivo | Que el asesor reciba la ficha completa del prospecto y el lead quede registrado una sola vez en el CRM. |
-| Disparador | El asesor abre un lead precalificado. |
+| Objetivo | Que cada lead precalificado tenga su ficha completa y quede registrado una sola vez en el CRM antes de asignarse a un asesor. |
+| Disparador | El lead termina la precalificación como APTO o A_REVISAR (CU 2.3.1). |
 | Precondiciones | El prospecto completó la precalificación (flujo 2). |
-| Postcondiciones | El asesor revisó la ficha y el lead existe en el CRM con su identificador enlazado en July. |
+| Postcondiciones | La ficha del lead está consolidada y el lead existe en el CRM con su identificador enlazado en July, o su registro quedó pendiente. |
 
 **Flujo**
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | Caso incluido |
 |---|---|---|---|---|---|---|
-| 1 | **Asesor comercial** solicita la ficha del prospecto a **July**. | `AsesorComercial` | solicita → `FichaProspecto.solicitar()` | `FichaProspecto` (numeroSeguimiento) | `AsesorComercial` → `July` | CU 3.1.1 |
-| 2 | **July** presenta la ficha consolidada con su prioridad y su historial al **Asesor comercial**. | `July` | presenta → `FichaProspecto.presentar()` | `FichaProspecto` (datos, simulacion, resultado, prioridad, historial) | `July` → `AsesorComercial` | CU 3.1.1 |
-| 3 | **Asesor comercial** solicita el registro del lead en el CRM a **July**. | `AsesorComercial` | solicita → `Lead.solicitarRegistroCRM()` | `Lead` (fichaProspecto) | `AsesorComercial` → `July` | CU 3.1.2 |
-| 4 | **July** crea el lead con su ficha en el **CRM de la cooperativa**. | `July` | crea → `Lead.crear()` | `Lead` (fichaProspecto, cedula, telefono) | `July` → `CRMCooperativa` | CU 3.1.2 |
-| 5 | **CRM de la cooperativa** devuelve el identificador del lead a **July**. | `CRMCooperativa` | devuelve → `Lead.devolverIdentificador()` | `Lead` (idCRM) | `CRMCooperativa` → `July` | CU 3.1.2 |
-| 6 | **July** confirma el registro del lead con su identificador del CRM al **Asesor comercial**. Fin. | `July` | confirma → `Lead.confirmarRegistro()` | `Lead` (idCRM, enlaceCRM) | `July` → `AsesorComercial` | CU 3.1.2 |
+| 1 | **July** consolida la ficha del prospecto con datos, simulación, resultado y prioridad. | `July` | consolida → `FichaProspecto.consolidar()` | `FichaProspecto` (datos, simulacion, resultado, prioridad) | `July` (interno) | CU 3.1.1 |
+| 2 | **July** crea el lead con su ficha en el **CRM de la cooperativa**. | `July` | crea → `Lead.crear()` | `Lead` (fichaProspecto, cedula, telefono) | `July` → `CRMCooperativa` | CU 3.1.2 |
+| 3 | **CRM de la cooperativa** devuelve el identificador del lead a **July**. | `CRMCooperativa` | devuelve → `Lead.devolverIdentificador()` | `Lead` (idCRM) | `CRMCooperativa` → `July` | CU 3.1.2 |
+| 4 | **July** vincula el identificador del CRM al lead. Fin. | `July` | vincula → `Lead.vincularIdentificador()` | `Lead` (idCRM) | `July` (interno) | CU 3.1.2 |
 
 <a id="cu-3-1-1"></a>
-#### CU 3.1.1 · Revisar la ficha del prospecto (nivel 2)
+#### CU 3.1.1 · Generar la ficha del prospecto (nivel 2)
 
 | Campo | Especificación |
 |---|---|
 | Nivel | 2 · incluido por [CU 3.1](#cu-3-1) |
 | Capacidad | 3.1.1 Generación de la ficha |
-| Actor principal | Asesor comercial |
+| Actor principal | Asesor comercial (beneficiario) |
 | Actores secundarios | Jefe comercial |
 | Incluye | [CU 3.1.1.1](#cu-3-1-1-1), [CU 3.1.1.2](#cu-3-1-1-2), [CU 3.1.1.3](#cu-3-1-1-3) |
-| Objetivo | Darle al asesor, en una sola ficha, todo lo que July sabe del prospecto, con su prioridad y su historial. |
-| Disparador | El asesor abre un lead precalificado. |
-| Precondiciones | El prospecto completó la precalificación (flujo 2). El Jefe comercial definió los criterios de prioridad. |
-| Postcondiciones | El asesor tiene la ficha consolidada, priorizada y con el historial completo. |
+| Objetivo | Reunir en una sola ficha todo lo que July sabe del prospecto, con su prioridad y su historial, para el asesor al que se asigne. |
+| Disparador | El lead termina la precalificación como APTO o A_REVISAR (CU 2.3.1). |
+| Precondiciones | El Jefe comercial definió los criterios de prioridad. |
+| Postcondiciones | La ficha está consolidada, priorizada y con el historial completo. |
 
 **Flujo principal**
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | CU nivel 3 |
 |---|---|---|---|---|---|---|
-| 1 | **Asesor comercial** solicita la ficha del prospecto por el número de seguimiento del lead a **July**. | `AsesorComercial` | solicita → `FichaProspecto.solicitar()` | `FichaProspecto` (numeroSeguimiento) | `AsesorComercial` → `July` | 3.1.1.1 |
-| 2 | **July** consulta los criterios de prioridad vigentes al **Jefe comercial**. | `July` | consulta → `CriterioPrioridad.consultar()` | `CriterioPrioridad` (version) | `July` → `JefeComercial` | 3.1.1.2 |
-| 3 | **Jefe comercial** entrega los criterios de lead caliente, tibio y frío a **July**. | `JefeComercial` | entrega → `CriterioPrioridad.entregar()` | `CriterioPrioridad` (nivel, condicion) | `JefeComercial` → `July` | 3.1.1.2 |
-| 4 | **July** consolida la ficha con datos, simulación, resultado y prioridad. | `July` | consolida → `FichaProspecto.consolidar()` | `FichaProspecto` (datos, simulacion, resultado, prioridad) | `July` (interno) | 3.1.1.1, 3.1.1.2 |
-| 5 | **July** presenta la ficha consolidada del prospecto al **Asesor comercial**. | `July` | presenta → `FichaProspecto.presentar()` | `FichaProspecto` (datos, simulacion, resultado, prioridad) | `July` → `AsesorComercial` | 3.1.1.1, 3.1.1.2 |
-| 6 | **Asesor comercial** solicita el historial de la conversación a **July**. | `AsesorComercial` | solicita → `Conversacion.solicitarHistorial()` | `Conversacion` (historial) | `AsesorComercial` → `July` | 3.1.1.3 |
-| 7 | **July** adjunta el historial completo de la conversación en la ficha. | `July` | adjunta → `Conversacion.adjuntarHistorial()` | `Conversacion` (historial) | `July` (interno) | 3.1.1.3 |
-| 8 | **July** presenta la ficha con el historial adjunto al **Asesor comercial**. Fin. | `July` | presenta → `FichaProspecto.presentar()` | `FichaProspecto` (historial) | `July` → `AsesorComercial` | 3.1.1.3 |
+| 1 | **July** consulta los criterios de prioridad vigentes al **Jefe comercial**. | `July` | consulta → `CriterioPrioridad.consultar()` | `CriterioPrioridad` (version) | `July` → `JefeComercial` | 3.1.1.2 |
+| 2 | **Jefe comercial** entrega los criterios de lead caliente, tibio y frío a **July**. | `JefeComercial` | entrega → `CriterioPrioridad.entregar()` | `CriterioPrioridad` (nivel, condicion) | `JefeComercial` → `July` | 3.1.1.2 |
+| 3 | **July** consolida la ficha con datos, simulación, resultado y prioridad. | `July` | consolida → `FichaProspecto.consolidar()` | `FichaProspecto` (datos, simulacion, resultado, prioridad) | `July` (interno) | 3.1.1.1, 3.1.1.2 |
+| 4 | **July** adjunta el historial completo de la conversación en la ficha. Fin. | `July` | adjunta → `Conversacion.adjuntarHistorial()` | `Conversacion` (historial) | `July` (interno) | 3.1.1.3 |
 
 **Flujos alternativos**
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | CU nivel 3 |
 |---|---|---|---|---|---|---|
-| | *A1 · La ficha tiene datos incompletos (reemplaza el paso 5)* | | | | | |
-| 5a | **July** presenta la ficha con los datos faltantes marcados al **Asesor comercial**. Continúa en el paso 6. | `July` | presenta → `FichaProspecto.presentarIncompleta()` | `FichaProspecto` (datosFaltantes) | `July` → `AsesorComercial` | 3.1.1.1 |
+| | *A1 · La ficha tiene datos incompletos (reemplaza el paso 3)* | | | | | |
+| 3a | **July** consolida la ficha con los datos faltantes marcados. Continúa en el paso 4. | `July` | consolida → `FichaProspecto.consolidarIncompleta()` | `FichaProspecto` (datosFaltantes) | `July` (interno) | 3.1.1.1 |
 
 <a id="cu-3-1-1-1"></a>
 ##### CU 3.1.1.1 · Consolidar datos, simulación y resultado (nivel 3)
@@ -1338,14 +1350,12 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Capacidad | 3.1.1.1 Consolidación de datos |
 | Actor externo | Ninguno, lo resuelve July |
 | Objetivo | Que la ficha junte los datos, la simulación elegida y el resultado de la precalificación, marcando lo que falte. |
-| Pasos de CU 3.1.1 | 1, 4, 5, 5a |
+| Pasos de CU 3.1.1 | 3, 3a |
 
 | Paso | Especificación |
 |---|---|
-| 1 | **Asesor comercial** solicita la ficha del prospecto por el número de seguimiento del lead a **July**. |
-| 4 | **July** consolida la ficha con datos, simulación, resultado y prioridad. |
-| 5 | **July** presenta la ficha consolidada del prospecto al **Asesor comercial**. |
-| 5a | **July** presenta la ficha con los datos faltantes marcados al **Asesor comercial**. Continúa en el paso 6. |
+| 3 | **July** consolida la ficha con datos, simulación, resultado y prioridad. |
+| 3a | **July** consolida la ficha con los datos faltantes marcados. Continúa en el paso 4. |
 
 <a id="cu-3-1-1-2"></a>
 ##### CU 3.1.1.2 · Priorizar el lead (caliente, tibio, frío) (nivel 3)
@@ -1356,14 +1366,13 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Capacidad | 3.1.1.2 Priorización del lead |
 | Actor externo | Jefe comercial |
 | Objetivo | Que la ficha lleve la prioridad que resulta de los criterios del Jefe comercial. |
-| Pasos de CU 3.1.1 | 2, 3, 4, 5 |
+| Pasos de CU 3.1.1 | 1, 2, 3 |
 
 | Paso | Especificación |
 |---|---|
-| 2 | **July** consulta los criterios de prioridad vigentes al **Jefe comercial**. |
-| 3 | **Jefe comercial** entrega los criterios de lead caliente, tibio y frío a **July**. |
-| 4 | **July** consolida la ficha con datos, simulación, resultado y prioridad. |
-| 5 | **July** presenta la ficha consolidada del prospecto al **Asesor comercial**. |
+| 1 | **July** consulta los criterios de prioridad vigentes al **Jefe comercial**. |
+| 2 | **Jefe comercial** entrega los criterios de lead caliente, tibio y frío a **July**. |
+| 3 | **July** consolida la ficha con datos, simulación, resultado y prioridad. |
 
 <a id="cu-3-1-1-3"></a>
 ##### CU 3.1.1.3 · Adjuntar el historial de conversación (nivel 3)
@@ -1373,14 +1382,12 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Nivel | 3 · incluido por [CU 3.1.1](#cu-3-1-1), dentro de [CU 3.1](#cu-3-1) |
 | Capacidad | 3.1.1.3 Historial de conversación |
 | Actor externo | Ninguno, lo resuelve July |
-| Objetivo | Que el asesor vea en la ficha el historial completo de la conversación. |
-| Pasos de CU 3.1.1 | 6, 7, 8 |
+| Objetivo | Que la ficha lleve el historial completo de la conversación. |
+| Pasos de CU 3.1.1 | 4 |
 
 | Paso | Especificación |
 |---|---|
-| 6 | **Asesor comercial** solicita el historial de la conversación a **July**. |
-| 7 | **July** adjunta el historial completo de la conversación en la ficha. |
-| 8 | **July** presenta la ficha con el historial adjunto al **Asesor comercial**. Fin. |
+| 4 | **July** adjunta el historial completo de la conversación en la ficha. Fin. |
 
 <a id="cu-3-1-2"></a>
 #### CU 3.1.2 · Registrar el lead en el CRM (nivel 2)
@@ -1389,39 +1396,38 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 |---|---|
 | Nivel | 2 · incluido por [CU 3.1](#cu-3-1) |
 | Capacidad | 3.1.2 Integración con CRM |
-| Actor principal | Asesor comercial |
-| Actores secundarios | CRM de la cooperativa |
+| Actor principal | Asesor comercial (beneficiario) |
+| Actores secundarios | CRM de la cooperativa, Jefe comercial |
 | Incluye | [CU 3.1.2.1](#cu-3-1-2-1), [CU 3.1.2.2](#cu-3-1-2-2), [CU 3.1.2.3](#cu-3-1-2-3) |
-| Objetivo | Crear o actualizar el lead en el CRM a pedido del asesor, sin que nadie lo digite, sin duplicados y sin perderlo si el CRM falla. |
-| Disparador | El asesor solicita registrar la ficha revisada en el CRM. |
-| Precondiciones | La ficha del prospecto está generada (CU 3.1.1). |
-| Postcondiciones | El lead existe una sola vez en el CRM, con su identificador enlazado en July, o el registro quedó pendiente. |
+| Objetivo | Crear o actualizar el lead en el CRM sin intervención manual, sin duplicados y sin perderlo si el CRM falla. |
+| Disparador | La ficha del prospecto está consolidada (CU 3.1.1). |
+| Precondiciones | El prospecto tiene la cédula y el teléfono validados (CU 2.1.2). |
+| Postcondiciones | El lead existe una sola vez en el CRM, con su identificador enlazado en July, o el registro quedó pendiente y el Jefe comercial recibió el aviso. |
 
 **Flujo principal**
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | CU nivel 3 |
 |---|---|---|---|---|---|---|
-| 1 | **Asesor comercial** solicita el registro del lead en el CRM con la ficha revisada a **July**. | `AsesorComercial` | solicita → `Lead.solicitarRegistroCRM()` | `Lead` (fichaProspecto) | `AsesorComercial` → `July` | 3.1.2.1 |
-| 2 | **July** busca el lead por cédula y teléfono en el **CRM de la cooperativa**. | `July` | busca → `Lead.buscar()` | `Lead` (cedula, telefono) | `July` → `CRMCooperativa` | 3.1.2.2 |
-| 3 | **CRM de la cooperativa** responde la ausencia de registro previo del lead a **July**. | `CRMCooperativa` | responde → `Lead.responderSinRegistro()` | `Lead` (registro = no encontrado) | `CRMCooperativa` → `July` | 3.1.2.2 |
-| 4 | **July** crea el lead con su ficha en el **CRM de la cooperativa**. | `July` | crea → `Lead.crear()` | `Lead` (fichaProspecto, cedula, telefono) | `July` → `CRMCooperativa` | 3.1.2.1 |
-| 5 | **CRM de la cooperativa** devuelve el identificador del lead a **July**. | `CRMCooperativa` | devuelve → `Lead.devolverIdentificador()` | `Lead` (idCRM) | `CRMCooperativa` → `July` | 3.1.2.1 |
-| 6 | **July** confirma el registro del lead con su identificador del CRM al **Asesor comercial**. Fin. | `July` | confirma → `Lead.confirmarRegistro()` | `Lead` (idCRM, enlaceCRM) | `July` → `AsesorComercial` | 3.1.2.1 |
+| 1 | **July** busca el lead por cédula y teléfono en el **CRM de la cooperativa**. | `July` | busca → `Lead.buscar()` | `Lead` (cedula, telefono) | `July` → `CRMCooperativa` | 3.1.2.2 |
+| 2 | **CRM de la cooperativa** responde la ausencia de registro previo del lead a **July**. | `CRMCooperativa` | responde → `Lead.responderSinRegistro()` | `Lead` (registro = no encontrado) | `CRMCooperativa` → `July` | 3.1.2.2 |
+| 3 | **July** crea el lead con su ficha en el **CRM de la cooperativa**. | `July` | crea → `Lead.crear()` | `Lead` (fichaProspecto, cedula, telefono) | `July` → `CRMCooperativa` | 3.1.2.1 |
+| 4 | **CRM de la cooperativa** devuelve el identificador del lead a **July**. | `CRMCooperativa` | devuelve → `Lead.devolverIdentificador()` | `Lead` (idCRM) | `CRMCooperativa` → `July` | 3.1.2.1 |
+| 5 | **July** vincula el identificador del CRM al lead. Fin. | `July` | vincula → `Lead.vincularIdentificador()` | `Lead` (idCRM) | `July` (interno) | 3.1.2.1 |
 
 **Flujos alternativos**
 
 | Paso | Especificación | Sujeto | Verbo → método | Sustantivo → entidad (atributos) | Relación (sujeto → receptor) | CU nivel 3 |
 |---|---|---|---|---|---|---|
-| | *A1 · El lead ya existe en el CRM (reemplaza los pasos 3 y 4)* | | | | | |
-| 3a | **CRM de la cooperativa** responde con el registro existente del lead a **July**. | `CRMCooperativa` | responde → `Lead.responderRegistroExistente()` | `Lead` (idCRM) | `CRMCooperativa` → `July` | 3.1.2.2 |
-| 4a | **July** actualiza el registro existente del lead con la ficha en el **CRM de la cooperativa**. Continúa en el paso 5. | `July` | actualiza → `Lead.actualizar()` | `Lead` (idCRM, fichaProspecto) | `July` → `CRMCooperativa` | 3.1.2.1, 3.1.2.2 |
-| | *A2 · El CRM falla (reemplaza el paso 5)* | | | | | |
-| 5b | **CRM de la cooperativa** devuelve el error de integración a **July**. | `CRMCooperativa` | devuelve → `ErrorIntegracion.devolver()` | `ErrorIntegracion` (codigo, descripcion) | `CRMCooperativa` → `July` | 3.1.2.3 |
-| 6b | **July** registra el intento fallido de envío del lead. | `July` | registra → `EnvioCRM.registrarIntento()` | `EnvioCRM` (intentos, esperaProgresiva) | `July` (interno) | 3.1.2.3 |
-| 7b | **July** reintenta, tras la espera progresiva, el envío del lead al **CRM de la cooperativa**. Vuelve al paso 5. | `July` | reintenta → `EnvioCRM.reintentar()` | `EnvioCRM` (intentos) | `July` → `CRMCooperativa` | 3.1.2.3 |
-| | *A3 · Se agotan los reintentos (reemplaza el paso 7b)* | | | | | |
-| 7c | **July** marca como pendiente el envío del lead. | `July` | marca → `EnvioCRM.marcarPendiente()` | `EnvioCRM` (estado = pendiente) | `July` (interno) | 3.1.2.3 |
-| 8c | **July** avisa el registro pendiente del lead al **Asesor comercial**. Fin. | `July` | avisa → `EnvioCRM.avisarPendiente()` | `EnvioCRM` (estado = pendiente, intentos) | `July` → `AsesorComercial` | 3.1.2.3 |
+| | *A1 · El lead ya existe en el CRM (reemplaza los pasos 2 y 3)* | | | | | |
+| 2a | **CRM de la cooperativa** responde con el registro existente del lead a **July**. | `CRMCooperativa` | responde → `Lead.responderRegistroExistente()` | `Lead` (idCRM) | `CRMCooperativa` → `July` | 3.1.2.2 |
+| 3a | **July** actualiza el registro existente del lead con la ficha en el **CRM de la cooperativa**. Continúa en el paso 4. | `July` | actualiza → `Lead.actualizar()` | `Lead` (idCRM, fichaProspecto) | `July` → `CRMCooperativa` | 3.1.2.1, 3.1.2.2 |
+| | *A2 · El CRM falla (reemplaza el paso 4)* | | | | | |
+| 4b | **CRM de la cooperativa** devuelve el error de integración a **July**. | `CRMCooperativa` | devuelve → `ErrorIntegracion.devolver()` | `ErrorIntegracion` (codigo, descripcion) | `CRMCooperativa` → `July` | 3.1.2.3 |
+| 5b | **July** registra el intento fallido de envío del lead. | `July` | registra → `EnvioCRM.registrarIntento()` | `EnvioCRM` (intentos, esperaProgresiva) | `July` (interno) | 3.1.2.3 |
+| 6b | **July** reintenta, tras la espera progresiva, el envío del lead al **CRM de la cooperativa**. Vuelve al paso 4. | `July` | reintenta → `EnvioCRM.reintentar()` | `EnvioCRM` (intentos) | `July` → `CRMCooperativa` | 3.1.2.3 |
+| | *A3 · Se agotan los reintentos (reemplaza el paso 6b)* | | | | | |
+| 6c | **July** marca como pendiente el envío del lead. | `July` | marca → `EnvioCRM.marcarPendiente()` | `EnvioCRM` (estado = pendiente) | `July` (interno) | 3.1.2.3 |
+| 7c | **July** avisa el registro pendiente del lead al **Jefe comercial**. Fin. | `July` | avisa → `EnvioCRM.avisarPendiente()` | `EnvioCRM` (estado = pendiente, intentos) | `July` → `JefeComercial` | 3.1.2.3 |
 
 <a id="cu-3-1-2-1"></a>
 ##### CU 3.1.2.1 · Crear o actualizar el lead en el CRM (nivel 3)
@@ -1432,15 +1438,14 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Capacidad | 3.1.2.1 Alta o actualización |
 | Actor externo | CRM de la cooperativa |
 | Objetivo | Que el lead quede creado o actualizado en el CRM, con su identificador enlazado en July. |
-| Pasos de CU 3.1.2 | 1, 4, 5, 6, 4a |
+| Pasos de CU 3.1.2 | 3, 4, 5, 3a |
 
 | Paso | Especificación |
 |---|---|
-| 1 | **Asesor comercial** solicita el registro del lead en el CRM con la ficha revisada a **July**. |
-| 4 | **July** crea el lead con su ficha en el **CRM de la cooperativa**. |
-| 5 | **CRM de la cooperativa** devuelve el identificador del lead a **July**. |
-| 6 | **July** confirma el registro del lead con su identificador del CRM al **Asesor comercial**. Fin. |
-| 4a | **July** actualiza el registro existente del lead con la ficha en el **CRM de la cooperativa**. Continúa en el paso 5. |
+| 3 | **July** crea el lead con su ficha en el **CRM de la cooperativa**. |
+| 4 | **CRM de la cooperativa** devuelve el identificador del lead a **July**. |
+| 5 | **July** vincula el identificador del CRM al lead. Fin. |
+| 3a | **July** actualiza el registro existente del lead con la ficha en el **CRM de la cooperativa**. Continúa en el paso 4. |
 
 <a id="cu-3-1-2-2"></a>
 ##### CU 3.1.2.2 · Controlar registros duplicados (nivel 3)
@@ -1451,14 +1456,14 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Capacidad | 3.1.2.2 Control de duplicados |
 | Actor externo | CRM de la cooperativa |
 | Objetivo | Que July busque el lead por cédula y teléfono antes de crearlo, para no duplicarlo. |
-| Pasos de CU 3.1.2 | 2, 3, 3a, 4a |
+| Pasos de CU 3.1.2 | 1, 2, 2a, 3a |
 
 | Paso | Especificación |
 |---|---|
-| 2 | **July** busca el lead por cédula y teléfono en el **CRM de la cooperativa**. |
-| 3 | **CRM de la cooperativa** responde la ausencia de registro previo del lead a **July**. |
-| 3a | **CRM de la cooperativa** responde con el registro existente del lead a **July**. |
-| 4a | **July** actualiza el registro existente del lead con la ficha en el **CRM de la cooperativa**. Continúa en el paso 5. |
+| 1 | **July** busca el lead por cédula y teléfono en el **CRM de la cooperativa**. |
+| 2 | **CRM de la cooperativa** responde la ausencia de registro previo del lead a **July**. |
+| 2a | **CRM de la cooperativa** responde con el registro existente del lead a **July**. |
+| 3a | **July** actualiza el registro existente del lead con la ficha en el **CRM de la cooperativa**. Continúa en el paso 4. |
 
 <a id="cu-3-1-2-3"></a>
 ##### CU 3.1.2.3 · Reintentar el envío ante fallos (nivel 3)
@@ -1467,17 +1472,17 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 |---|---|
 | Nivel | 3 · incluido por [CU 3.1.2](#cu-3-1-2), dentro de [CU 3.1](#cu-3-1) |
 | Capacidad | 3.1.2.3 Reintentos ante fallos |
-| Actor externo | CRM de la cooperativa |
-| Objetivo | Que un fallo del CRM se reintente con espera progresiva y, si se agotan los intentos, el asesor sepa que el registro quedó pendiente. |
-| Pasos de CU 3.1.2 | 5b, 6b, 7b, 7c, 8c |
+| Actor externo | CRM de la cooperativa, Jefe comercial |
+| Objetivo | Que un fallo del CRM se reintente con espera progresiva y, si se agotan los intentos, el Jefe comercial sepa que el registro quedó pendiente. |
+| Pasos de CU 3.1.2 | 4b, 5b, 6b, 6c, 7c |
 
 | Paso | Especificación |
 |---|---|
-| 5b | **CRM de la cooperativa** devuelve el error de integración a **July**. |
-| 6b | **July** registra el intento fallido de envío del lead. |
-| 7b | **July** reintenta, tras la espera progresiva, el envío del lead al **CRM de la cooperativa**. Vuelve al paso 5. |
-| 7c | **July** marca como pendiente el envío del lead. |
-| 8c | **July** avisa el registro pendiente del lead al **Asesor comercial**. Fin. |
+| 4b | **CRM de la cooperativa** devuelve el error de integración a **July**. |
+| 5b | **July** registra el intento fallido de envío del lead. |
+| 6b | **July** reintenta, tras la espera progresiva, el envío del lead al **CRM de la cooperativa**. Vuelve al paso 4. |
+| 6c | **July** marca como pendiente el envío del lead. |
+| 7c | **July** avisa el registro pendiente del lead al **Jefe comercial**. Fin. |
 
 <a id="cu-3-2"></a>
 ### CU 3.2 · Dar seguimiento al lead hasta su cierre (nivel 1)
@@ -1488,10 +1493,10 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Capacidad | 3.2 Asignación y seguimiento |
 | Actor principal | Asesor comercial |
 | Incluye | [CU 3.2.1](#cu-3-2-1), [CU 3.2.2](#cu-3-2-2) |
-| Objetivo | Que cada lead llegue al asesor correcto y se cierre como desembolsado o perdido, con el embudo comercial actualizado. |
+| Objetivo | Que cada lead llegue al asesor correcto y se cierre como desembolsado o perdido, con su estado final sincronizado en el CRM. |
 | Disparador | El asesor marca su disponibilidad para recibir leads. |
-| Precondiciones | El lead está en el CRM (CU 3.1.2). |
-| Postcondiciones | El lead quedó cerrado en July y en el CRM, y el embudo del Jefe comercial está actualizado. |
+| Precondiciones | La ficha del lead está consolidada (CU 3.1.1). |
+| Postcondiciones | El lead quedó cerrado en July y en el CRM. |
 
 **Flujo**
 
@@ -1501,8 +1506,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 2 | **July** asigna el lead según la regla de enrutamiento. | `July` | asigna → `AsignacionLead.asignar()` | `AsignacionLead` (asesor, plazoAtencion) | `July` (interno) | CU 3.2.1 |
 | 3 | **July** notifica el lead asignado al **Asesor comercial**. | `July` | notifica → `Lead.notificar()` | `Lead` (numeroSeguimiento, prioridad) | `July` → `AsesorComercial` | CU 3.2.1 |
 | 4 | **Asesor comercial** registra el estado final del lead a **July**. | `AsesorComercial` | registra → `Lead.registrarEstadoFinal()` | `Lead` (estado, motivoCierre) | `AsesorComercial` → `July` | CU 3.2.2 |
-| 5 | **July** sincroniza el estado final del lead con el **CRM de la cooperativa**. | `July` | sincroniza → `Lead.sincronizarEstado()` | `Lead` (estado, motivoCierre) | `July` → `CRMCooperativa` | CU 3.2.2 |
-| 6 | **CRM de la cooperativa** actualiza el embudo comercial al **Jefe comercial**. Fin. | `CRMCooperativa` | actualiza → `EmbudoComercial.actualizar()` | `EmbudoComercial` (leadsPorEstado) | `CRMCooperativa` → `JefeComercial` | CU 3.2.2 |
+| 5 | **July** sincroniza el estado final del lead con el **CRM de la cooperativa**. Fin. | `July` | sincroniza → `Lead.sincronizarEstado()` | `Lead` (estado, motivoCierre) | `July` → `CRMCooperativa` | CU 3.2.2 |
 
 <a id="cu-3-2-1"></a>
 #### CU 3.2.1 · Recibir el lead asignado (nivel 2)
@@ -1514,10 +1518,10 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Actor principal | Asesor comercial |
 | Actores secundarios | Jefe comercial, Prospecto |
 | Incluye | [CU 3.2.1.1](#cu-3-2-1-1), [CU 3.2.1.2](#cu-3-2-1-2), [CU 3.2.1.3](#cu-3-2-1-3) |
-| Objetivo | Poner cada lead en manos del asesor correcto, avisarle y que continúe la conversación sin volver a pedir datos. |
-| Disparador | Hay un lead registrado en el CRM sin asesor asignado. |
-| Precondiciones | El lead está en el CRM (CU 3.1.2). El Jefe comercial definió las reglas de enrutamiento. |
-| Postcondiciones | El lead tiene un asesor asignado que ya continúa la conversación con el prospecto. |
+| Objetivo | Poner cada lead en manos del asesor correcto, avisarle y que continúe la conversación con la ficha y el historial, sin volver a pedir datos. |
+| Disparador | Hay un lead con la ficha consolidada y sin asesor asignado. |
+| Precondiciones | La ficha del lead está consolidada (CU 3.1.1). El Jefe comercial definió las reglas de enrutamiento. |
+| Postcondiciones | El lead tiene un asesor asignado que ya tiene la ficha y continúa la conversación con el prospecto. |
 
 **Flujo principal**
 
@@ -1529,7 +1533,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 4 | **July** asigna el lead según la regla de enrutamiento. | `July` | asigna → `AsignacionLead.asignar()` | `AsignacionLead` (asesor, fechaAsignacion, plazoAtencion) | `July` (interno) | 3.2.1.1 |
 | 5 | **July** notifica el lead asignado con su plazo de atención al **Asesor comercial**. | `July` | notifica → `Lead.notificar()` | `Lead` (numeroSeguimiento, prioridad, plazoAtencion) | `July` → `AsesorComercial` | 3.2.1.2 |
 | 6 | **Asesor comercial** acepta la asignación del lead a **July**. | `AsesorComercial` | acepta → `AsignacionLead.aceptar()` | `AsignacionLead` (fechaAceptacion) | `AsesorComercial` → `July` | 3.2.1.3 |
-| 7 | **July** traspasa la conversación, con su historial, a la bandeja del asesor asignado. | `July` | traspasa → `Conversacion.traspasar()` | `Conversacion` (historial, asesorAsignado) | `July` (interno) | 3.2.1.3 |
+| 7 | **July** traspasa la conversación, con su historial y la ficha del prospecto, a la bandeja del asesor asignado. | `July` | traspasa → `Conversacion.traspasar()` | `Conversacion` (historial, fichaProspecto, asesorAsignado) | `July` (interno) | 3.2.1.3 |
 | 8 | **July** avisa el cambio de asesor de la conversación al **Prospecto**. | `July` | avisa → `Conversacion.avisarCambioAsesor()` | `Conversacion` (asesorAsignado) | `July` → `Prospecto` | 3.2.1.3 |
 | 9 | **Prospecto** continúa la conversación con el **Asesor comercial**. Fin. | `Prospecto` | continúa → `Conversacion.continuar()` | `Conversacion` (mensaje) | `Prospecto` → `AsesorComercial` | 3.2.1.3 |
 
@@ -1586,13 +1590,13 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Nivel | 3 · incluido por [CU 3.2.1](#cu-3-2-1), dentro de [CU 3.2](#cu-3-2) |
 | Capacidad | 3.2.1.3 Traspaso con contexto |
 | Actor externo | Prospecto |
-| Objetivo | Que el asesor continúe la conversación con el prospecto desde el historial, sin volver a pedir datos. |
+| Objetivo | Que el asesor continúe la conversación con el prospecto desde la ficha y el historial, sin volver a pedir datos. |
 | Pasos de CU 3.2.1 | 6, 7, 8, 9 |
 
 | Paso | Especificación |
 |---|---|
 | 6 | **Asesor comercial** acepta la asignación del lead a **July**. |
-| 7 | **July** traspasa la conversación, con su historial, a la bandeja del asesor asignado. |
+| 7 | **July** traspasa la conversación, con su historial y la ficha del prospecto, a la bandeja del asesor asignado. |
 | 8 | **July** avisa el cambio de asesor de la conversación al **Prospecto**. |
 | 9 | **Prospecto** continúa la conversación con el **Asesor comercial**. Fin. |
 
@@ -1604,12 +1608,14 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Nivel | 2 · incluido por [CU 3.2](#cu-3-2) |
 | Capacidad | 3.2.2 Seguimiento y cierre |
 | Actor principal | Asesor comercial |
-| Actores secundarios | Prospecto, WhatsApp Business API, Personal de agencia, Comité de crédito, CRM de la cooperativa, Jefe comercial |
+| Actores secundarios | Prospecto, WhatsApp Business API, Personal de agencia, Comité de crédito, CRM de la cooperativa |
 | Incluye | [CU 3.2.2.1](#cu-3-2-2-1), [CU 3.2.2.2](#cu-3-2-2-2), [CU 3.2.2.3](#cu-3-2-2-3) |
-| Objetivo | Llevar el lead hasta el desembolso o la pérdida: recordar pendientes, confirmar la cita, resolver el crédito y registrar el cierre con su motivo. |
+| Objetivo | Llevar el lead hasta el desembolso o la pérdida: recordar pendientes, confirmar la cita, registrar la atención y los documentos, enviar la solicitud al comité, registrar su resolución y cerrar el lead con su motivo. |
 | Disparador | El asesor tiene un lead asignado con documentos o cita pendientes. |
 | Precondiciones | El lead está asignado (CU 3.2.1) y tiene una cita reservada (CU 2.3.2). |
-| Postcondiciones | El lead quedó cerrado (desembolsado o perdido, con motivo) en July y en el CRM, y el embudo del Jefe comercial está actualizado. |
+| Postcondiciones | El lead quedó cerrado (desembolsado o perdido, con motivo) en July y en el CRM. |
+
+Todos los pasos pasan por July: lo que ocurre en la agencia y en el comité se registra en July (pasos 6, 8 y 10), para que el estado del lead y de la solicitud no dependa de sistemas que July no ve.
 
 **Flujo principal**
 
@@ -1620,13 +1626,14 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 3 | **WhatsApp Business API** entrega el recordatorio de documentos y cita al **Prospecto**. | `WhatsAppBusinessAPI` | entrega → `Recordatorio.entregar()` | `Recordatorio` (documentos, cita) | `WhatsAppBusinessAPI` → `Prospecto` | 3.2.2.1 |
 | 4 | **Prospecto** confirma su asistencia a la cita a **July**. | `Prospecto` | confirma → `Cita.confirmarAsistencia()` | `Cita` (asistencia = sí) | `Prospecto` → `July` | 3.2.2.2 |
 | 5 | **July** notifica la asistencia confirmada del prospecto al **Personal de agencia**. | `July` | notifica → `Cita.notificarAsistencia()` | `Cita` (fechaHora, asistencia) | `July` → `PersonalAgencia` | 3.2.2.2 |
-| 6 | **Personal de agencia** atiende la cita del prospecto en la agencia. | `PersonalAgencia` | atiende → `Cita.atender()` | `Cita` (estado = atendida) | `PersonalAgencia` (interno) | 3.2.2.2 |
-| 7 | **Personal de agencia** reporta los documentos recibidos al **Asesor comercial**. | `PersonalAgencia` | reporta → `DocumentoRequerido.reportarRecibido()` | `DocumentoRequerido` (nombre, recibido = sí) | `PersonalAgencia` → `AsesorComercial` | 3.2.2.2 |
-| 8 | **Asesor comercial** envía la solicitud de crédito completa para su resolución al **Comité de crédito**. | `AsesorComercial` | envía → `SolicitudCredito.enviar()` | `SolicitudCredito` (monto, plazo, destino, documentos) | `AsesorComercial` → `ComiteCredito` | 3.2.2.3 |
-| 9 | **Comité de crédito** comunica la resolución del crédito al **Asesor comercial**. | `ComiteCredito` | comunica → `ResolucionCredito.comunicar()` | `ResolucionCredito` (decision, fecha) | `ComiteCredito` → `AsesorComercial` | 3.2.2.3 |
-| 10 | **Asesor comercial** registra el estado final del lead (desembolsado o perdido, con motivo) a **July**. | `AsesorComercial` | registra → `Lead.registrarEstadoFinal()` | `Lead` (estado, motivoCierre) | `AsesorComercial` → `July` | 3.2.2.3 |
-| 11 | **July** sincroniza el estado final del lead con el **CRM de la cooperativa**. | `July` | sincroniza → `Lead.sincronizarEstado()` | `Lead` (estado, motivoCierre) | `July` → `CRMCooperativa` | 3.2.2.3 |
-| 12 | **CRM de la cooperativa** actualiza el embudo comercial al **Jefe comercial**. Fin. | `CRMCooperativa` | actualiza → `EmbudoComercial.actualizar()` | `EmbudoComercial` (leadsPorEstado) | `CRMCooperativa` → `JefeComercial` | 3.2.2.3 |
+| 6 | **Personal de agencia** registra la atención de la cita a **July**. | `PersonalAgencia` | registra → `Cita.registrarAtencion()` | `Cita` (estado = atendida) | `PersonalAgencia` → `July` | 3.2.2.2 |
+| 7 | **July** notifica la cita atendida al **Asesor comercial**. | `July` | notifica → `Cita.notificarAtencion()` | `Cita` (fechaHora, estado) | `July` → `AsesorComercial` | 3.2.2.2 |
+| 8 | **Asesor comercial** registra los documentos recibidos en la agencia a **July**. | `AsesorComercial` | registra → `DocumentoRequerido.registrarRecibido()` | `DocumentoRequerido` (nombre, recibido = sí) | `AsesorComercial` → `July` | 3.2.2.2 |
+| 9 | **July** envía la solicitud de crédito completa para su resolución al **Comité de crédito**. | `July` | envía → `SolicitudCredito.enviar()` | `SolicitudCredito` (monto, plazo, destino, documentos) | `July` → `ComiteCredito` | 3.2.2.3 |
+| 10 | **Comité de crédito** comunica la resolución del crédito a **July**. | `ComiteCredito` | comunica → `ResolucionCredito.comunicar()` | `ResolucionCredito` (decision, fecha) | `ComiteCredito` → `July` | 3.2.2.3 |
+| 11 | **July** notifica la resolución del crédito al **Asesor comercial**. | `July` | notifica → `ResolucionCredito.notificar()` | `ResolucionCredito` (decision) | `July` → `AsesorComercial` | 3.2.2.3 |
+| 12 | **Asesor comercial** registra el estado final del lead (desembolsado o perdido, con motivo) a **July**. | `AsesorComercial` | registra → `Lead.registrarEstadoFinal()` | `Lead` (estado, motivoCierre) | `AsesorComercial` → `July` | 3.2.2.3 |
+| 13 | **July** sincroniza el estado final del lead con el **CRM de la cooperativa**. Fin. | `July` | sincroniza → `Lead.sincronizarEstado()` | `Lead` (estado, motivoCierre) | `July` → `CRMCooperativa` | 3.2.2.3 |
 
 **Flujos alternativos**
 
@@ -1637,7 +1644,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 5a | **July** envía la plantilla de reactivación a **WhatsApp Business API**. Vuelve al paso 3. | `July` | envía → `PlantillaMensaje.enviarReactivacion()` | `PlantillaMensaje` (tipo = reactivacion) | `July` → `WhatsAppBusinessAPI` | 3.2.2.1 |
 | | *A2 · Se agotan los intentos de reactivación (reemplaza el paso 5a)* | | | | | |
 | 5b | **July** marca el lead como frío. | `July` | marca → `Lead.marcarFrio()` | `Lead` (prioridad = frio) | `July` (interno) | 3.2.2.1, 3.2.2.3 |
-| 6b | **July** informa el lead frío con sus intentos de reactivación al **Asesor comercial**. Continúa en el paso 10. | `July` | informa → `Lead.informarFrio()` | `Lead` (prioridad, intentosReactivacion) | `July` → `AsesorComercial` | 3.2.2.1, 3.2.2.3 |
+| 6b | **July** informa el lead frío con sus intentos de reactivación al **Asesor comercial**. Continúa en el paso 12. | `July` | informa → `Lead.informarFrio()` | `Lead` (prioridad, intentosReactivacion) | `July` → `AsesorComercial` | 3.2.2.1, 3.2.2.3 |
 | | *A3 · El prospecto pide cambiar la cita (reemplaza el paso 4)* | | | | | |
 | 4c | **Prospecto** solicita el cambio de fecha de la cita a **July**. | `Prospecto` | solicita → `Cita.solicitarCambio()` | `Cita` (fechaNueva) | `Prospecto` → `July` | 3.2.2.2 |
 | 5c | **July** consulta los horarios disponibles para la fecha nueva al **Personal de agencia**. | `July` | consulta → `HorarioDisponible.consultar()` | `HorarioDisponible` (agencia, fecha) | `July` → `PersonalAgencia` | 3.2.2.2 |
@@ -1664,7 +1671,7 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | 4a | **Prospecto** deja sin respuesta el recordatorio a **July**. |
 | 5a | **July** envía la plantilla de reactivación a **WhatsApp Business API**. Vuelve al paso 3. |
 | 5b | **July** marca el lead como frío. |
-| 6b | **July** informa el lead frío con sus intentos de reactivación al **Asesor comercial**. Continúa en el paso 10. |
+| 6b | **July** informa el lead frío con sus intentos de reactivación al **Asesor comercial**. Continúa en el paso 12. |
 
 <a id="cu-3-2-2-2"></a>
 ##### CU 3.2.2.2 · Confirmar la cita en agencia (nivel 3)
@@ -1674,15 +1681,16 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 | Nivel | 3 · incluido por [CU 3.2.2](#cu-3-2-2), dentro de [CU 3.2](#cu-3-2) |
 | Capacidad | 3.2.2.2 Confirmación de citas |
 | Actor externo | Prospecto, Personal de agencia |
-| Objetivo | Que la asistencia a la cita quede confirmada, o la cita reprogramada, y la agencia reporte los documentos recibidos. |
-| Pasos de CU 3.2.2 | 4, 5, 6, 7, 4c, 5c, 6c, 7c, 8c |
+| Objetivo | Que la asistencia a la cita quede confirmada, o la cita reprogramada, y que July registre la atención y los documentos recibidos. |
+| Pasos de CU 3.2.2 | 4, 5, 6, 7, 8, 4c, 5c, 6c, 7c, 8c |
 
 | Paso | Especificación |
 |---|---|
 | 4 | **Prospecto** confirma su asistencia a la cita a **July**. |
 | 5 | **July** notifica la asistencia confirmada del prospecto al **Personal de agencia**. |
-| 6 | **Personal de agencia** atiende la cita del prospecto en la agencia. |
-| 7 | **Personal de agencia** reporta los documentos recibidos al **Asesor comercial**. |
+| 6 | **Personal de agencia** registra la atención de la cita a **July**. |
+| 7 | **July** notifica la cita atendida al **Asesor comercial**. |
+| 8 | **Asesor comercial** registra los documentos recibidos en la agencia a **July**. |
 | 4c | **Prospecto** solicita el cambio de fecha de la cita a **July**. |
 | 5c | **July** consulta los horarios disponibles para la fecha nueva al **Personal de agencia**. |
 | 6c | **Personal de agencia** confirma el horario disponible para la fecha nueva a **July**. |
@@ -1696,16 +1704,16 @@ Primero se elige la línea (CU 2.2.2) y luego se calcula con sus condiciones (CU
 |---|---|
 | Nivel | 3 · incluido por [CU 3.2.2](#cu-3-2-2), dentro de [CU 3.2](#cu-3-2) |
 | Capacidad | 3.2.2.3 Estados y cierre |
-| Actor externo | CRM de la cooperativa, Jefe comercial, Comité de crédito |
-| Objetivo | Que la solicitud se resuelva, el lead se cierre con su motivo y el estado quede sincronizado en el CRM y en el embudo. |
-| Pasos de CU 3.2.2 | 8, 9, 10, 11, 12, 5b, 6b |
+| Actor externo | Comité de crédito, CRM de la cooperativa |
+| Objetivo | Que la solicitud llegue al comité, su resolución quede registrada, el lead se cierre con su motivo y el estado quede sincronizado en el CRM. |
+| Pasos de CU 3.2.2 | 9, 10, 11, 12, 13, 5b, 6b |
 
 | Paso | Especificación |
 |---|---|
-| 8 | **Asesor comercial** envía la solicitud de crédito completa para su resolución al **Comité de crédito**. |
-| 9 | **Comité de crédito** comunica la resolución del crédito al **Asesor comercial**. |
-| 10 | **Asesor comercial** registra el estado final del lead (desembolsado o perdido, con motivo) a **July**. |
-| 11 | **July** sincroniza el estado final del lead con el **CRM de la cooperativa**. |
-| 12 | **CRM de la cooperativa** actualiza el embudo comercial al **Jefe comercial**. Fin. |
+| 9 | **July** envía la solicitud de crédito completa para su resolución al **Comité de crédito**. |
+| 10 | **Comité de crédito** comunica la resolución del crédito a **July**. |
+| 11 | **July** notifica la resolución del crédito al **Asesor comercial**. |
+| 12 | **Asesor comercial** registra el estado final del lead (desembolsado o perdido, con motivo) a **July**. |
+| 13 | **July** sincroniza el estado final del lead con el **CRM de la cooperativa**. Fin. |
 | 5b | **July** marca el lead como frío. |
-| 6b | **July** informa el lead frío con sus intentos de reactivación al **Asesor comercial**. Continúa en el paso 10. |
+| 6b | **July** informa el lead frío con sus intentos de reactivación al **Asesor comercial**. Continúa en el paso 12. |

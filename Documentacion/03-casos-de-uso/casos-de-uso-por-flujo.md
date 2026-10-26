@@ -1,6 +1,6 @@
 # Casos de uso de July por flujo de valor
 
-**ID:** CU-06 · **Versión:** 1.1 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
+**ID:** CU-06 · **Versión:** 1.2 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
 **Deriva de:** CU-03 a CU-05 (diagramas de draw.io por flujo de valor)  
 **Especificación completa:** [CU-08](especificaciones-casos-de-uso.md)
 
@@ -106,11 +106,11 @@ Actor principal: **Prospecto**. Archivo: `casos-de-uso-flujo-02-….drawio`.
 
 ## Flujo de valor 3: Entrega, seguimiento y conversión
 
-Actor principal: **Asesor comercial**. Archivo: `casos-de-uso-flujo-03-….drawio`.
+Actor principal: **Asesor comercial**. Archivo: `casos-de-uso-flujo-03-….drawio`. Entran los leads precalificados como APTO o A_REVISAR. CU 3.1 lo dispara el fin de la precalificación: July genera la ficha y registra el lead en el CRM antes de asignarlo, y el asesor es su beneficiario.
 
 ### Nivel 1 · 3.1 Recibir la oportunidad precalificada (etapa Entrega de oportunidades)
 
-**Nivel 2 · 3.1.1 Revisar la ficha del prospecto**
+**Nivel 2 · 3.1.1 Generar la ficha del prospecto**
 
 | Nivel 3 | Caso de uso | Actores externos |
 |---|---|---|
@@ -124,7 +124,7 @@ Actor principal: **Asesor comercial**. Archivo: `casos-de-uso-flujo-03-….drawi
 |---|---|---|
 | 3.1.2.1 | Crear o actualizar el lead en el CRM | CRM de la cooperativa |
 | 3.1.2.2 | Controlar registros duplicados | CRM de la cooperativa |
-| 3.1.2.3 | Reintentar el envío ante fallos | CRM de la cooperativa |
+| 3.1.2.3 | Reintentar el envío ante fallos | CRM de la cooperativa, Jefe comercial |
 
 ### Nivel 1 · 3.2 Dar seguimiento al lead hasta su cierre (etapa Asignación y seguimiento)
 
@@ -142,4 +142,4 @@ Actor principal: **Asesor comercial**. Archivo: `casos-de-uso-flujo-03-….drawi
 |---|---|---|
 | 3.2.2.1 | Enviar recordatorios y reactivar | Prospecto, WhatsApp Business API |
 | 3.2.2.2 | Confirmar la cita en agencia | Prospecto, Personal de agencia |
-| 3.2.2.3 | Actualizar el estado y registrar el cierre | CRM de la cooperativa, Jefe comercial, Comité de crédito |
+| 3.2.2.3 | Actualizar el estado y registrar el cierre | CRM de la cooperativa, Comité de crédito |

@@ -243,6 +243,12 @@
     <element xsi:type="archimate:BusinessActor" name="Delegado de protección de datos" id="id-act-dpd">
       <documentation>Vigila el consentimiento y atiende los derechos del titular.</documentation>
     </element>
+    <element xsi:type="archimate:BusinessActor" name="Comité de crédito" id="id-act-comite">
+      <documentation>Aprueba la tabla de decisión de precalificación, recibe los casos «a revisar» y resuelve los créditos.</documentation>
+    </element>
+    <element xsi:type="archimate:BusinessActor" name="Equipo de marketing" id="id-act-marketing">
+      <documentation>Define las campañas y recibe el origen de cada conversación.</documentation>
+    </element>
   </folder>
   <folder name="Application" id="id-b0782d8f39f04a44a8482ac3c177c715" type="application">
     <element xsi:type="archimate:ApplicationComponent" name="July · asistente virtual" id="id-july">
@@ -266,79 +272,79 @@
     <element xsi:type="archimate:ApplicationEvent" name="Temporizador: pendiente vencido" id="id-evt-timer">
       <documentation>Evento programado que dispara recordatorios y reactivaciones.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-01 Iniciar conversación" id="id-cu01">
+    <element xsi:type="archimate:ApplicationService" name="SA-01 Iniciar conversación" id="id-cu01">
       <documentation>Recibir la primera consulta por cualquier canal y responder como July en menos de 2 minutos.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-02 Aceptar aviso de privacidad" id="id-cu02">
+    <element xsi:type="archimate:ApplicationService" name="SA-02 Aceptar aviso de privacidad" id="id-cu02">
       <documentation>Obtener el consentimiento expreso según la LOPDP antes de pedir datos personales.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-03 Registrar lead" id="id-cu03">
-      <documentation>Crear el registro trazable del lead desde el primer contacto. Lo dispara CU-02.</documentation>
+    <element xsi:type="archimate:ApplicationService" name="SA-03 Registrar lead" id="id-cu03">
+      <documentation>Crear el registro trazable del lead desde el primer contacto. Lo dispara SA-02.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-04 Identificar intención y responder preguntas frecuentes" id="id-cu04">
+    <element xsi:type="archimate:ApplicationService" name="SA-04 Identificar intención y responder preguntas frecuentes" id="id-cu04">
       <documentation>Saber qué línea de crédito busca la persona o resolver su duda.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-05 Reconocer socio existente" id="id-cu05">
-      <documentation>Saber si la persona ya es socia o ya escribió antes. Lo dispara CU-07.</documentation>
+    <element xsi:type="archimate:ApplicationService" name="SA-05 Reconocer socio existente" id="id-cu05">
+      <documentation>Saber si la persona ya es socia o ya escribió antes. Lo dispara SA-07.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-06 Derivar a asesor humano" id="id-cu06">
+    <element xsi:type="archimate:ApplicationService" name="SA-06 Derivar a asesor humano" id="id-cu06">
       <documentation>Pasar la conversación a una persona cuando July no puede resolverla o el prospecto lo pide.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-07 Capturar datos del prospecto" id="id-cu07">
+    <element xsi:type="archimate:ApplicationService" name="SA-07 Capturar datos del prospecto" id="id-cu07">
       <documentation>Reunir, conversando, los datos que necesitan la simulación y la precalificación.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-08 Retomar conversación abandonada" id="id-cu08">
+    <element xsi:type="archimate:ApplicationService" name="SA-08 Retomar conversación abandonada" id="id-cu08">
       <documentation>Continuar donde la persona se quedó, sin volver a pedirle lo que ya dio.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-09 Simular crédito" id="id-cu09">
+    <element xsi:type="archimate:ApplicationService" name="SA-09 Simular crédito" id="id-cu09">
       <documentation>Mostrar cuánto pagaría la persona según la línea, el monto y el plazo.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-10 Comparar escenarios" id="id-cu10">
+    <element xsi:type="archimate:ApplicationService" name="SA-10 Comparar escenarios" id="id-cu10">
       <documentation>Recalcular con otro monto u otro plazo para elegir la opción que le conviene.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-11 Precalificar prospecto" id="id-cu11">
+    <element xsi:type="archimate:ApplicationService" name="SA-11 Precalificar prospecto" id="id-cu11">
       <documentation>Dar una respuesta preliminar y no vinculante sobre la viabilidad del crédito.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-12 Consultar requisitos y agendar cita" id="id-cu12">
+    <element xsi:type="archimate:ApplicationService" name="SA-12 Consultar requisitos y agendar cita" id="id-cu12">
       <documentation>Decir qué documentos preparar, cómo hacerse socio y reservar una cita en agencia.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-13 Generar ficha del prospecto" id="id-cu13">
+    <element xsi:type="archimate:ApplicationService" name="SA-13 Generar ficha del prospecto" id="id-cu13">
       <documentation>Consolidar todo lo que July sabe del prospecto en una ficha lista para trabajar.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-14 Sincronizar lead con el CRM" id="id-cu14">
+    <element xsi:type="archimate:ApplicationService" name="SA-14 Sincronizar lead con el CRM" id="id-cu14">
       <documentation>Crear o actualizar el lead en el CRM sin intervención manual y sin duplicados.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-15 Asignar lead a asesor" id="id-cu15">
+    <element xsi:type="archimate:ApplicationService" name="SA-15 Asignar lead a asesor" id="id-cu15">
       <documentation>Poner cada lead en manos del asesor correcto y avisarle.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-16 Atender lead asignado" id="id-cu16">
+    <element xsi:type="archimate:ApplicationService" name="SA-16 Atender lead asignado" id="id-cu16">
       <documentation>Revisar la ficha y seguir la conversación sin pedir otra vez los datos.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-17 Enviar recordatorios y reactivar leads" id="id-cu17">
+    <element xsi:type="archimate:ApplicationService" name="SA-17 Enviar recordatorios y reactivar leads" id="id-cu17">
       <documentation>Recordar documentos o citas pendientes y reactivar conversaciones abandonadas.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-18 Confirmar cita en agencia" id="id-cu18">
+    <element xsi:type="archimate:ApplicationService" name="SA-18 Confirmar cita en agencia" id="id-cu18">
       <documentation>Confirmar y recordar las citas reservadas por July.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-19 Actualizar estado y cerrar lead" id="id-cu19">
+    <element xsi:type="archimate:ApplicationService" name="SA-19 Actualizar estado y cerrar lead" id="id-cu19">
       <documentation>Mover el lead por sus estados hasta el desembolso o la pérdida y registrar el motivo.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-20 Configurar guiones, intenciones y plantillas" id="id-cu20">
+    <element xsi:type="archimate:ApplicationService" name="SA-20 Configurar guiones, intenciones y plantillas" id="id-cu20">
       <documentation>Cambiar lo que July dice y entiende sin programar.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-21 Gestionar líneas, tasas y requisitos" id="id-cu21">
+    <element xsi:type="archimate:ApplicationService" name="SA-21 Gestionar líneas, tasas y requisitos" id="id-cu21">
       <documentation>Mantener el catálogo que usan el simulador y la orientación.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-22 Configurar reglas de precalificación" id="id-cu22">
+    <element xsi:type="archimate:ApplicationService" name="SA-22 Configurar reglas de precalificación" id="id-cu22">
       <documentation>Ajustar la tabla de decisión aprobada por el comité de crédito.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-23 Configurar priorización y enrutamiento" id="id-cu23">
+    <element xsi:type="archimate:ApplicationService" name="SA-23 Configurar priorización y enrutamiento" id="id-cu23">
       <documentation>Definir qué es un lead caliente, tibio o frío y cómo se reparten.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-24 Consultar trazabilidad y embudo" id="id-cu24">
+    <element xsi:type="archimate:ApplicationService" name="SA-24 Consultar trazabilidad y embudo" id="id-cu24">
       <documentation>Reconstruir el recorrido de cada lead y medir el embudo.</documentation>
     </element>
-    <element xsi:type="archimate:ApplicationService" name="CU-25 Atender derechos sobre datos personales" id="id-cu25">
+    <element xsi:type="archimate:ApplicationService" name="SA-25 Atender derechos sobre datos personales" id="id-cu25">
       <documentation>Acceso, rectificación, eliminación y retiro del consentimiento según la LOPDP.</documentation>
     </element>
   </folder>
@@ -572,6 +578,9 @@
     <element xsi:type="archimate:ServingRelationship" id="id-rel-210" source="id-cap-3-1" target="id-st6"/>
     <element xsi:type="archimate:ServingRelationship" id="id-rel-211" source="id-st7" target="id-vs3"/>
     <element xsi:type="archimate:ServingRelationship" id="id-rel-212" source="id-cap-3-2" target="id-st7"/>
+    <element xsi:type="archimate:ServingRelationship" id="id-rel-213" source="id-cu01" target="id-act-marketing"/>
+    <element xsi:type="archimate:ServingRelationship" id="id-rel-214" source="id-cu11" target="id-act-comite"/>
+    <element xsi:type="archimate:ServingRelationship" id="id-rel-215" source="id-cu22" target="id-act-comite"/>
   </folder>
   <folder name="Views" id="id-01a43f6ab334420382d0ce361037ff54" type="diagrams">
     <folder name="Extras" id="id-1d627b6d5833416985a1e9cd872f4260"/>
@@ -1021,6 +1030,7 @@
         <sourceConnection xsi:type="archimate:Connection" id="id-04c1d38f91f54e54b39b5e4e050a481f" source="id-n-p1-001" target="id-n-p1-007" archimateRelationship="id-rel-074"/>
         <child xsi:type="archimate:DiagramObject" id="id-n-p1-002" targetConnections="id-ae2c0eb3118f45b799b754b902f52dea" archimateElement="id-cu01">
           <bounds x="30" y="45" width="260" height="55"/>
+          <sourceConnection xsi:type="archimate:Connection" id="id-c-p1-mk" source="id-n-p1-002" target="id-n-p1-025" archimateRelationship="id-rel-213"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p1-001" source="id-n-p1-002" target="id-n-p1-008" archimateRelationship="id-rel-059"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p1-002" source="id-n-p1-002" target="id-n-p1-010" archimateRelationship="id-rel-060"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p1-003" source="id-n-p1-002" target="id-n-p1-011" archimateRelationship="id-rel-061"/>
@@ -1112,6 +1122,9 @@
       <child xsi:type="archimate:DiagramObject" id="id-n-p1-024" targetConnections="id-c-p1-020" archimateElement="id-cap-1-2-1-3">
         <bounds x="850" y="645" width="230" height="45"/>
       </child>
+      <child xsi:type="archimate:DiagramObject" id="id-n-p1-025" targetConnections="id-c-p1-mk" archimateElement="id-act-marketing">
+        <bounds x="20" y="85" width="180" height="55"/>
+      </child>
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="Paquete 2 · Perfilamiento, simulación y precalificación" id="id-view-p2">
       <child xsi:type="archimate:DiagramObject" id="id-n-p2-001" textAlignment="1" archimateElement="id-pkg-p2">
@@ -1151,6 +1164,7 @@
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-n-p2-006" targetConnections="id-a141f9010121430cbd4698f3b27e3482" archimateElement="id-cu11">
           <bounds x="30" y="365" width="260" height="55"/>
+          <sourceConnection xsi:type="archimate:Connection" id="id-c-p2-cc" source="id-n-p2-006" target="id-n-p2-025" archimateRelationship="id-rel-214"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p2-005" source="id-n-p2-006" target="id-n-p2-008" archimateRelationship="id-rel-091"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p2-019" source="id-n-p2-006" target="id-n-p2-019" archimateRelationship="id-rel-179"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p2-020" source="id-n-p2-006" target="id-n-p2-020" archimateRelationship="id-rel-180"/>
@@ -1215,6 +1229,9 @@
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-n-p2-024" targetConnections="id-c-p2-024" archimateElement="id-cap-2-3-2-3">
         <bounds x="850" y="810" width="230" height="45"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="id-n-p2-025" targetConnections="id-c-p2-cc" archimateElement="id-act-comite">
+        <bounds x="20" y="395" width="180" height="55"/>
       </child>
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="Paquete 3 · Gestión comercial" id="id-view-p3">
@@ -1359,6 +1376,7 @@
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-n-p4-004" targetConnections="id-7b296b3227194ed4986c426e160c1da6" archimateElement="id-cu22">
           <bounds x="30" y="205" width="260" height="55"/>
+          <sourceConnection xsi:type="archimate:Connection" id="id-c-p4-cc" source="id-n-p4-004" target="id-n-p4-017" archimateRelationship="id-rel-215"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-c-p4-004" source="id-n-p4-004" target="id-n-p4-009" archimateRelationship="id-rel-133"/>
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-n-p4-005" targetConnections="id-a6237d79015d4f4da73abc13388e969a" archimateElement="id-cu23">
@@ -1402,6 +1420,9 @@
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-n-p4-016" targetConnections="id-c-p4-012" archimateElement="id-cap-2-2-2-3">
         <bounds x="876" y="278" width="230" height="45"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="id-n-p4-017" targetConnections="id-c-p4-cc" archimateElement="id-act-comite">
+        <bounds x="20" y="285" width="180" height="55"/>
       </child>
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="Mapa de capacidades (etapa 1)" id="id-view-caps">

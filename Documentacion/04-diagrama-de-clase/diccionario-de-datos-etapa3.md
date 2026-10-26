@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | **ID** | CLS-01 |
-| **Versión** | 2.1 |
+| **Versión** | 2.2 |
 | **Fecha** | 2026-10-24 |
 | **Deriva de** | [CU-08 · Especificaciones de casos de uso](../03-casos-de-uso/especificaciones-casos-de-uso.md) |
 | **Estado** | Borrador |
@@ -22,7 +22,7 @@ Diccionario de datos del asistente July (Cooperativa Padre Julián Lorente). Cad
 
 ## 1. Criterios de consolidación
 
-CU-08 nombra **47 entidades** y **189 métodos distintos**: una clase por sustantivo y un método por oración. Para un chatbot eso es demasiado, y muchos de esos métodos hacen lo mismo. El diccionario los reduce a **15 clases** y **56 métodos** con un criterio de programador: **solo es clase lo que tiene identidad propia y cambia de estado en la conversación, o un sistema con el que July habla.** Todo lo demás pasa a atributo, a enumeración o al retorno de un método.
+CU-08 nombra **46 entidades** y **185 métodos distintos**: una clase por sustantivo y un método por oración. Para un chatbot eso es demasiado, y muchos de esos métodos hacen lo mismo. El diccionario los reduce a **15 clases** y **55 métodos** con un criterio de programador: **solo es clase lo que tiene identidad propia y cambia de estado en la conversación, o un sistema con el que July habla.** Todo lo demás pasa a atributo, a enumeración o al retorno de un método.
 
 | # | Regla | Ejemplo en CU-08 | Queda como |
 |---|---|---|---|
@@ -34,7 +34,7 @@ CU-08 nombra **47 entidades** y **189 métodos distintos**: una clase por sustan
 | 6 | **Un sistema externo responde con el retorno de su método,** y sus fallas y reintentos quedan dentro de ese método. | `Socio.consultar` + `responderCondicion` + `responderSinRegistro`; `EnvioCRM`, `ErrorIntegracion` | `SistemaCore.consultarSocio()` → `Prospecto \| null`; `CRMCooperativa.sincronizarLead()` |
 | 7 | **Lo que es 1 a 1 con otra clase se vuelve atributo suyo.** | `Consentimiento`, `Socio` → `Prospecto`; `Precalificacion`, `PerfilEconomico`, `CasoRevision` → `SolicitudCredito`; `AsignacionLead` → `Lead`; `OrigenConversacion`, `SesionChat` → `Conversacion` | Atributos |
 | 8 | **Un estado se cambia con un método `actualizarEstado()`**, no con un método por transición. | `confirmar`, `enviar` al comité, `comunicar` resolución; `confirmarAsistencia`, `atender` | `SolicitudCredito.actualizarEstado()`, `Cita.actualizarEstado()` |
-| 9 | **Un actor que solo publica configuración o recibe avisos no es una clase.** Jefe comercial, Personal de agencia, Comité de crédito, Área de productos, Administrador y Marketing aparecen como `publicadoPor` o como destinatario de `notificar()`. Solo `AsesorComercial` es clase, porque guarda disponibilidad y carga. | 7 actores internos | `AsesorComercial` |
+| 9 | **Un actor que solo publica configuración o recibe avisos no es una clase.** Jefe comercial, Personal de agencia, Comité de crédito, Área de productos, Administrador, Marketing y Delegado de protección de datos aparecen como `publicadoPor` o como destinatario de `notificar()`. Solo `AsesorComercial` es clase, porque guarda disponibilidad y carga. | 8 actores internos | `AsesorComercial` |
 
 Las enumeraciones de la sección 3 no son entidades: son los valores permitidos de un atributo. En el diagrama de clases pueden ir como «enumeration» al costado o quedarse solo en este diccionario.
 
@@ -94,7 +94,7 @@ La sección [6](#6-trazabilidad-con-cu-08) muestra a dónde fue cada entidad y c
 |---|---|---|
 | NUEVO | `Lead.registrar()` | 1.2.2 (7, A3·7c, A4·5d) |
 | EN_CAPTURA | `SolicitudCredito.iniciar()` | 2.1.1 (1) |
-| PRECALIFICADO | `SolicitudCredito.precalificar()` | 2.3.1 (7, A2·7b) |
+| PRECALIFICADO | `SolicitudCredito.precalificar()` | 2.3.1 (7, A2·7b). Solo los APTO o A_REVISAR pasan al flujo 3. |
 | ASIGNADO | `Lead.asignar()` | 3.2.1 (4, A1·7a) |
 | EN_GESTION | `Lead.aceptarAsignacion()` | 3.2.1 (6) |
 | DESEMBOLSADO, PERDIDO | `Lead.actualizarEstado()` | 3.2.2 (10) |
@@ -118,8 +118,8 @@ Asistente virtual de la cooperativa: el sistema que se diseña. Recibe cada mens
 
 | Método | Entrada | Salida | Qué hace | Pasos de CU-08 |
 |---|---|---|---|---|
-| `atender()` | `mensaje: Mensaje` | `void` | Recibe un mensaje entrante y lo enruta al paso del flujo que corresponde: consulta, dato, selección, confirmación o pedido. En un pico de demanda lo deja en cola y avisa el tiempo de espera. | 1.1.2 (A3·7c); 1.2 (1, 5); 1.2.1 (1, 8, A2·8b); 1.2.2 (1, 4); 2.1.1 (A1·3a); 2.1.2 (A4·11d); 2.2 (1); 2.2.1 (1, 5, 8); 2.2.2 (1); 2.3 (1, 4, 6); 2.3.1 (1); 2.3.2 (1, 3, 5, 9, A1·3a); 3.2.2 (A3·4c) |
-| `notificar()` | `destinatario: String, contenido: String` | `void` | Envía un aviso interno a un colaborador o a un área: lead asignado, reasignación, lead frío, registro pendiente en el CRM, cita reservada, asistencia confirmada u origen de campaña. | 1.1.1 (4, A2·4b); 1.2.1 (A2·9b); 2.3.2 (11); 3.1.2 (A3·8c); 3.2 (3); 3.2.1 (5, A1·8a); 3.2.2 (5, A2·6b) |
+| `atender()` | `mensaje: Mensaje` | `void` | Recibe un mensaje entrante y lo enruta al paso del flujo que corresponde: consulta, dato, selección, confirmación o pedido. En un pico de demanda lo deja en cola y avisa el tiempo de espera. | 1.1.2 (A3·7c); 1.2 (1, 5); 1.2.1 (1, 8, A2·8b); 1.2.2 (1, 4); 2.1.1 (A1·5a); 2.1.2 (A4·11d); 2.2 (1); 2.2.1 (1, 5, 8); 2.2.2 (1); 2.3 (1, 4, 6); 2.3.1 (1); 2.3.2 (1, 3, 5, 9, A1·3a); 3.2.2 (A3·4c) |
+| `notificar()` | `destinatario: String, contenido: String` | `void` | Envía un aviso interno a un colaborador o a un área: lead asignado, reasignación, lead frío, registro pendiente en el CRM, cita reservada, asistencia confirmada, cita atendida, resolución del crédito, origen de campaña o retiro del consentimiento. Lo entrega el Servicio de notificaciones del modelo ArchiMate: en el panel si el destinatario es un asesor y por correo si es un área. | 1.1.1 (4, A2·4b); 1.2.1 (A2·9b); 2.3.2 (11); 3.1.2 (A3·7c); 3.2 (3); 3.2.1 (5, A1·8a); 3.2.2 (5, 7, 11, A2·6b) |
 
 **Relaciones:**
 
@@ -183,9 +183,8 @@ CRM comercial donde se gestiona el embudo de ventas.
 
 | Método | Entrada | Salida | Qué hace | Pasos de CU-08 |
 |---|---|---|---|---|
-| `buscarLead()` | `cedula: String, telefono: String` | `String \| null` | Busca un registro previo del lead y devuelve su idCRM, o null. | 3.1.2 (2, 3, A1·3a) |
-| `sincronizarLead()` | `lead: Lead` | `String` | Crea el lead si no tiene idCRM o lo actualiza si ya existe (datos, ficha y estado final). Reintenta con espera progresiva y devuelve el idCRM. | 3.1 (3, 4, 5); 3.1.2 (1, 4, 5, A1·4a, A2·5b, A2·6b, A2·7b, A3·7c); 3.2 (5); 3.2.2 (11) |
-| `consultarEmbudo()` | `—` | `Map<EstadoLead, Integer>` | Devuelve la cantidad de leads por estado para el Jefe comercial. | 3.2 (6); 3.2.2 (12) |
+| `buscarLead()` | `cedula: String, telefono: String` | `String \| null` | Busca un registro previo del lead y devuelve su idCRM, o null. | 3.1.2 (1, 2, A1·2a) |
+| `sincronizarLead()` | `lead: Lead` | `String` | Crea el lead si no tiene idCRM o lo actualiza si ya existe (datos, ficha y estado final). Reintenta con espera progresiva y devuelve el idCRM. | 3.1 (2, 3); 3.1.2 (3, 4, A1·3a, A2·4b, A2·5b, A2·6b, A3·6c); 3.2 (5); 3.2.2 (13) |
 
 **Relaciones:**
 
@@ -216,7 +215,7 @@ Persona que contacta a la cooperativa. Guarda su identidad, su condición de soc
 
 | Método | Entrada | Salida | Qué hace | Pasos de CU-08 |
 |---|---|---|---|---|
-| `registrarConsentimiento()` | `aceptado: Boolean, versionAviso: String` | `void` | Guarda la aceptación o el rechazo del aviso con su versión. Sin aceptación solo se ofrece el menú básico. | 1.2 (3); 1.2.1 (5, 6, A1·5a, A1·6a) |
+| `registrarConsentimiento()` | `aceptado: Boolean, versionAviso: String` | `void` | Guarda la aceptación o el rechazo del aviso con su versión. Sin aceptación solo se ofrece el menú básico. También registra el retiro del consentimiento (regla R2 de CU-08). | 1.2 (3); 1.2.1 (5, 6, A1·5a, A1·6a) |
 
 **Relaciones:**
 
@@ -269,7 +268,7 @@ Hilo de mensajes entre el prospecto, July y, si hay traspaso, el asesor. Guarda 
 |---|---|---|---|---|
 | `abrir()` | `canal: TipoCanal, prospecto: Prospecto, tokenSesion: String \| null` | `Conversacion` | «estático» Crea la conversación con el primer mensaje del prospecto. | 1.1 (1) |
 | `registrarMensaje()` | `mensaje: Mensaje` | `void` | Añade un mensaje entrante al historial y actualiza la última actividad. | 3.2.1 (9) |
-| `enviarMensaje()` | `emisor: Emisor, contenido: String, opciones: List<String>` | `Mensaje` | Registra y envía por el canal un mensaje de July o del asesor. Las opciones, si las hay, se muestran como respuestas cerradas. | 1.1 (4); 1.1.2 (7, A3·8c); 1.2 (7); 1.2.1 (A2·12b); 1.2.2 (3, 8, A1·3a); 2.1.1 (A1·2a); 2.1.2 (6, A3·5c); 2.2 (5); 2.2.1 (4, 7, 10, A1·3a); 2.2.2 (10); 2.3 (7); 2.3.1 (A2·11b); 2.3.2 (8, 13); 3.2.1 (8); 3.2.2 (A3·8c) |
+| `enviarMensaje()` | `emisor: Emisor, contenido: String, opciones: List<String>` | `Mensaje` | Registra y envía por el canal un mensaje de July o del asesor. Las opciones, si las hay, se muestran como respuestas cerradas. | 1.1 (4); 1.1.2 (7, A3·8c); 1.2 (7); 1.2.1 (A2·12b); 1.2.2 (3, 8, A1·3a); 2.1.1 (A1·4a); 2.1.2 (6, A3·5c); 2.2 (5); 2.2.1 (4, 7, 10, A1·3a); 2.2.2 (10); 2.3 (7); 2.3.1 (A2·10b); 2.3.2 (8, 13); 3.2.1 (8); 3.2.2 (A3·8c) |
 | `etiquetarOrigen()` | `campana: String \| null` | `void` | Guarda la campaña de origen; null = origen directo. | 1.1 (2); 1.1.1 (3, A2·3b) |
 | `guardarAvance()` | `paso: String` | `void` | Guarda el último paso completado del flujo. | 2.1 (5); 2.1.2 (5) |
 | `marcarAbandonada()` | `—` | `void` | Pasa a ABANDONADA cuando vence `July.tiempoAbandono` sin respuesta del prospecto. | 2.1.2 (A4·7d, A4·8d) |
@@ -316,7 +315,7 @@ Oportunidad comercial: un prospecto con una intención de crédito. Es lo que Ju
 | Atributo | Tipo | Descripción |
 |---|---|---|
 | `idLead` | `UUID` | Identificador interno. |
-| `numeroSeguimiento` | `String` | Código único que recibe el prospecto y con el que el asesor pide la ficha. |
+| `numeroSeguimiento` | `String` | Código único con el que el prospecto y el asesor identifican el lead. |
 | `prospecto` | `Prospecto` | Persona interesada. |
 | `conversacion` | `Conversacion` | Conversación donde nació. |
 | `lineaCredito` | `LineaCredito` | Línea de crédito del lead y de su solicitud: la confirmada en CU 1.2.2 o la elegida después en CU 2.2.2. Es la única referencia a la línea; la solicitud y la simulación la toman de aquí. |
@@ -334,12 +333,12 @@ Oportunidad comercial: un prospecto con una intención de crédito. Es lo que Ju
 |---|---|---|---|---|
 | `registrar()` | `prospecto: Prospecto, conversacion: Conversacion, linea: LineaCredito, necesidad: String` | `Lead` | «estático» Crea el lead en estado NUEVO y genera su número de seguimiento. | 1.2 (6); 1.2.2 (7, A3·7c, A4·5d) |
 | `elegirLinea()` | `linea: LineaCredito` | `void` | Cambia la línea del lead por la que el prospecto elige en el catálogo. Si la solicitud ya tiene monto o plazo, se vuelven a validar con la nueva línea al simular. | 2.2 (3); 2.2.2 (5) |
-| `priorizar()` | `criterios: ReglaNegocio` | `Prioridad` | Calcula la prioridad con los criterios del Jefe comercial; tras las reactivaciones sin respuesta el resultado es FRIO. | 3.1.1 (4); 3.2.2 (A2·5b) |
+| `priorizar()` | `criterios: ReglaNegocio` | `Prioridad` | Calcula la prioridad con los criterios del Jefe comercial; tras las reactivaciones sin respuesta el resultado es FRIO. | 3.1.1 (3); 3.2.2 (A2·5b) |
 | `asignar()` | `enrutamiento: ReglaNegocio, asesores: List<AsesorComercial>` | `AsesorComercial` | Elige un asesor disponible por agencia, producto y carga, pasa el lead a ASIGNADO e inicia el plazo de atención (parámetro `plazoAtencion` de la regla). Si el plazo venció, reasigna excluyendo al asesor anterior. | 3.2 (2); 3.2.1 (4, A1·6a, A1·7a) |
 | `aceptarAsignacion()` | `—` | `void` | Registra que el asesor aceptó el lead dentro del plazo y lo pasa a EN_GESTION. | 3.2.1 (6) |
-| `generarFicha()` | `—` | `String` | Consolida datos, simulación elegida, precalificación, prioridad e historial en la ficha del prospecto, con los datos faltantes marcados. | 3.1 (1, 2); 3.1.1 (1, 4, 5, 6, 7, 8, A1·5a) |
-| `vincularCRM()` | `idCRM: String` | `void` | Guarda el identificador devuelto por el CRM. | 3.1 (6); 3.1.2 (6) |
-| `actualizarEstado()` | `estado: EstadoLead, motivo: String \| null` | `void` | Avanza el lead en el embudo. El motivo es obligatorio para PERDIDO. | 3.2 (4); 3.2.2 (10) |
+| `generarFicha()` | `—` | `String` | Consolida datos, simulación elegida, precalificación, prioridad e historial en la ficha del prospecto, con los datos faltantes marcados. Se genera al terminar una precalificación APTO o A_REVISAR, antes de asignar el lead. | 3.1 (1); 3.1.1 (3, 4, A1·3a) |
+| `vincularCRM()` | `idCRM: String` | `void` | Guarda el identificador devuelto por el CRM. | 3.1 (4); 3.1.2 (5) |
+| `actualizarEstado()` | `estado: EstadoLead, motivo: String \| null` | `void` | Avanza el lead en el embudo. El motivo es obligatorio para PERDIDO. | 3.2 (4); 3.2.2 (12) |
 | `reactivar()` | `—` | `void` | Envía la plantilla de reactivación y suma un intento. Los intentos se agotan al llegar al parámetro `maxReactivaciones` de la regla de PRIORIDAD. | 3.2.2 (A1·4a, A1·5a) |
 
 **Relaciones:**
@@ -383,11 +382,11 @@ Datos que el prospecto entrega para pedir el crédito y su precalificación. Los
 | `campoPendiente()` | `—` | `CampoSolicitud \| null` | Devuelve el siguiente dato que falta pedir; null cuando la captura está completa. | 2.1 (2); 2.1.1 (2, 4, 6); 2.1.2 (A4·13d) |
 | `registrarDato()` | `campo: CampoSolicitud, valor: String` | `String \| null` | Valida y guarda un dato, también al corregirlo: formato de cédula, teléfono y correo; rango de monto y plazo con la línea. Devuelve el motivo del error o null. | 2.1 (3, 4); 2.1.1 (3, 5, 7, A2·10b); 2.1.2 (1, 2, A1·1a, A1·2a, A2·1b, A2·2b) |
 | `resumir()` | `—` | `String` | Arma el resumen de todos los datos para que el prospecto lo confirme. | 2.1 (6); 2.1.1 (8, 9) |
-| `actualizarEstado()` | `estado: EstadoSolicitud` | `void` | Confirma la solicitud (exige captura completa), la envía al comité o registra su resolución. | 2.1 (7); 2.1.1 (10); 3.2.2 (8, 9) |
+| `actualizarEstado()` | `estado: EstadoSolicitud` | `void` | Confirma la solicitud (exige captura completa), la envía al Comité de crédito (EN_RESOLUCION) o registra la resolución que el comité comunica a July (APROBADA o NEGADA). | 2.1 (7); 2.1.1 (10); 3.2.2 (9, 10) |
 | `precalificar()` | `reglas: ReglaNegocio` | `ResultadoPrecalificacion` | Calcula la capacidad de pago y clasifica la simulación elegida con las reglas del comité, y pasa el lead a PRECALIFICADO. Sin registro del core usa solo datos declarados y marca el resultado como condicionado. | 2.3 (2); 2.3.1 (6, 7, A1·6a, A2·7b) |
 | `explicarResultado()` | `—` | `String` | Explica el resultado preliminar y los factores; para NO_APTO incluye el motivo. | 2.3 (3); 2.3.1 (8); 2.3.2 (2, A1·2a) |
-| `derivarARevision()` | `—` | `String` | Envía el caso A_REVISAR al Comité de crédito y devuelve el número de caso. | 2.3.1 (A2·8b, A2·9b, A2·10b) |
-| `registrarDocumento()` | `documento: String` | `void` | Marca un documento como recibido en agencia. | 3.2.2 (7) |
+| `derivarARevision()` | `—` | `String` | Envía el caso A_REVISAR al Comité de crédito y devuelve el número de caso. | 2.3.1 (A2·8b, A2·9b) |
+| `registrarDocumento()` | `documento: String` | `void` | Marca un documento como recibido en agencia; lo registra el asesor en July. | 3.2.2 (8) |
 
 **Relaciones:**
 
@@ -445,7 +444,7 @@ Cita del prospecto en una agencia, con su recordatorio.
 | `consultarHorarios()` | `agencia: String, desde: Date, hasta: Date` | `List<DateTime>` | «estático» Pide a la agenda de la agencia los horarios libres del rango. Lista vacía = sin disponibilidad; ampliar el rango da las fechas más cercanas. | 2.3.2 (6, 7, A3·7c, A3·8c); 3.2.2 (A3·5c) |
 | `reservar()` | `lead: Lead, agencia: String, fechaHora: DateTime` | `Cita` | «estático» Bloquea el horario en la agenda y crea la cita RESERVADA. | 2.3.2 (10, 12) |
 | `reprogramar()` | `fechaHora: DateTime` | `void` | Libera el horario anterior, bloquea el nuevo y pasa a REPROGRAMADA. | 3.2.2 (A3·6c, A3·7c) |
-| `actualizarEstado()` | `estado: EstadoCita` | `void` | Registra la asistencia confirmada (CONFIRMADA) o la atención en agencia (ATENDIDA). | 3.2.2 (4, 6) |
+| `actualizarEstado()` | `estado: EstadoCita` | `void` | Registra la asistencia que confirma el prospecto (CONFIRMADA) o la atención que registra el Personal de agencia (ATENDIDA). | 3.2.2 (4, 6) |
 | `programarRecordatorio()` | `fecha: DateTime` | `void` | Programa y, llegada la fecha, envía la plantilla de recordatorio de documentos y cita. | 3.2.2 (1, 2) |
 
 **Relaciones:**
@@ -496,6 +495,7 @@ Contenido conversacional que publica el Administrador del asistente: guion de bi
 | `clave` | `String` | Pregunta modelo o palabras clave (preguntas frecuentes). |
 | `texto` | `String` | Texto con variables como {nombre} o {fechaCita}. |
 | `opciones` | `List<String>` | Opciones del menú, si es un menú. |
+| `plantillaProveedor` | `String [0..1]` | Nombre de la plantilla aprobada por Meta. Obligatorio para RETOMA, RECORDATORIO y REACTIVACION, que salen fuera de la ventana de 24 horas de WhatsApp. |
 | `version` | `String` | Versión publicada. |
 | `vigente` | `Boolean` | Solo una versión vigente por tipo y clave (hay muchas preguntas frecuentes vigentes, una por clave). |
 
@@ -526,7 +526,7 @@ Parámetros de decisión publicados por versiones: reglas de precalificación (C
 
 | Método | Entrada | Salida | Qué hace | Pasos de CU-08 |
 |---|---|---|---|---|
-| `obtenerVigente()` | `tipo: TipoRegla` | `ReglaNegocio` | «estático» Devuelve la versión vigente de la regla del tipo pedido. | 2.3.1 (2, 3); 3.1.1 (2, 3); 3.2.1 (2, 3) |
+| `obtenerVigente()` | `tipo: TipoRegla` | `ReglaNegocio` | «estático» Devuelve la versión vigente de la regla del tipo pedido. | 2.3.1 (2, 3); 3.1.1 (1, 2); 3.2.1 (2, 3) |
 
 **Relaciones:**
 
@@ -590,7 +590,6 @@ Parámetros de decisión publicados por versiones: reglas de precalificación (C
 | `CriterioPrioridad` | ReglaNegocio (PRIORIDAD) | Misma estructura que las demás reglas: versión y parámetros. |
 | `Derivacion` | Conversacion.traspasar() + July.notificar() | Derivar es traspasar la conversación a un asesor. |
 | `DocumentoRequerido` | LineaCredito.requisitos | Lista de textos de la línea. |
-| `EmbudoComercial` | CRMCooperativa.consultarEmbudo() | El embudo lo calcula el CRM. |
 | `EnvioCRM` | CRMCooperativa.sincronizarLead() | Los reintentos son parte de la integración, no una entidad del dominio. |
 | `ErrorIntegracion` | Falla de SistemaCore, CRMCooperativa o Canal | Se maneja dentro del método que llama al sistema externo. |
 | `ErrorValidacion` | Retorno String \| null de las validaciones | Basta con el motivo del error. |
@@ -626,12 +625,12 @@ Parámetros de decisión publicados por versiones: reglas de precalificación (C
 
 ### 6.2 Métodos de CU-08 unificados
 
-Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre los 245 pasos de los niveles 1 y 2, flujos alternativos incluidos. La columna suma 248 porque tres pasos usan dos métodos: 1.1 (1) abre la conversación con el mensaje recibido, 2.1.2 (A2·2b) registra el monto validando la línea y 3.1.1 (4) consolida la ficha con la prioridad calculada.
+Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre los 237 pasos de los niveles 1 y 2, flujos alternativos incluidos. La columna suma 240 porque tres pasos usan dos métodos: 1.1 (1) abre la conversación con el mensaje recibido, 2.1.2 (A2·2b) registra el monto validando la línea y 3.1.1 (3) consolida la ficha con la prioridad calculada.
 
 | Método del modelo | Métodos de CU-08 que reemplaza | Pasos |
 |---|---|---|
 | `July.atender()` | `Cita.solicitar()`, `Cita.solicitarCambio()`, `ColaAtencion.encolar()`, `Derivacion.solicitar()`, `DocumentoRequerido.consultar()`, `EscenarioSimulacion.solicitarAlternativa()`, `EscenarioSimulacion.solicitarComparacion()`, `HorarioDisponible.seleccionar()`, `IntencionCredito.describir()`, `LineaCredito.confirmar()`, `LineaCredito.consultar()`, `Mensaje.responderRetoma()`, `Mensaje.saludar()`, `OpcionMenu.seleccionar()`, `Precalificacion.solicitar()`, `Precalificacion.solicitarExplicacion()`, `Prospecto.confirmarDatosIdentidad()`, `Simulacion.solicitar()`, `Simulacion.solicitarCostoTotal()` | 25 |
-| `July.notificar()` | `AsignacionLead.informarReasignacion()`, `Cita.notificar()`, `Cita.notificarAsistencia()`, `Derivacion.enviar()`, `EnvioCRM.avisarPendiente()`, `Lead.informarFrio()`, `Lead.notificar()`, `OrigenConversacion.reportar()` | 10 |
+| `July.notificar()` | `AsignacionLead.informarReasignacion()`, `Cita.notificar()`, `Cita.notificarAsistencia()`, `Cita.notificarAtencion()`, `Derivacion.enviar()`, `EnvioCRM.avisarPendiente()`, `Lead.informarFrio()`, `Lead.notificar()`, `OrigenConversacion.reportar()`, `ResolucionCredito.notificar()` | 12 |
 | `Canal.recibir()` | `AcuseRecepcion.confirmar()`, `Consulta.enviar()`, `Consulta.escribir()`, `Mensaje.convertirFormatoComun()`, `Mensaje.entregar()`, `Mensaje.enviar()`, `Webhook.notificar()` | 13 |
 | `Canal.verificarAutenticidad()` | `ErrorIntegracion.devolver()`, `SesionChat.validarToken()`, `Webhook.rechazar()`, `Webhook.verificarFirma()` | 4 |
 | `Canal.enviar()` | `PlantillaMensaje.entregar()`, `Recordatorio.entregar()` | 2 |
@@ -639,8 +638,7 @@ Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre 
 | `SistemaCore.validarCedula()` | `ErrorValidacion.informar()`, `Prospecto.confirmarValidezCedula()`, `Prospecto.verificarCedula()` | 3 |
 | `SistemaCore.consultarSocio()` | `ErrorIntegracion.devolver()`, `Socio.consultar()`, `Socio.responderCondicion()`, `Socio.responderDatos()`, `Socio.responderSinRegistro()`, `Socio.solicitarDatos()` | 6 |
 | `CRMCooperativa.buscarLead()` | `Lead.buscar()`, `Lead.responderRegistroExistente()`, `Lead.responderSinRegistro()` | 3 |
-| `CRMCooperativa.sincronizarLead()` | `EnvioCRM.marcarPendiente()`, `EnvioCRM.registrarIntento()`, `EnvioCRM.reintentar()`, `ErrorIntegracion.devolver()`, `Lead.actualizar()`, `Lead.crear()`, `Lead.devolverIdentificador()`, `Lead.sincronizarEstado()`, `Lead.solicitarRegistroCRM()` | 13 |
-| `CRMCooperativa.consultarEmbudo()` | `EmbudoComercial.actualizar()` | 2 |
+| `CRMCooperativa.sincronizarLead()` | `EnvioCRM.marcarPendiente()`, `EnvioCRM.registrarIntento()`, `EnvioCRM.reintentar()`, `ErrorIntegracion.devolver()`, `Lead.actualizar()`, `Lead.crear()`, `Lead.devolverIdentificador()`, `Lead.sincronizarEstado()` | 11 |
 | `Prospecto.registrarConsentimiento()` | `AvisoPrivacidad.aceptar()`, `AvisoPrivacidad.rechazar()`, `Consentimiento.registrar()` | 5 |
 | `AsesorComercial.cambiarDisponibilidad()` | `AsesorComercial.marcarDisponibilidad()` | 2 |
 | `Conversacion.abrir()` | `Consulta.enviar()` | 1 |
@@ -656,8 +654,8 @@ Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre 
 | `Lead.priorizar()` | `FichaProspecto.consolidar()`, `Lead.marcarFrio()` | 2 |
 | `Lead.asignar()` | `AsignacionLead.asignar()`, `AsignacionLead.reasignar()`, `AsignacionLead.vencerPlazo()` | 4 |
 | `Lead.aceptarAsignacion()` | `AsignacionLead.aceptar()` | 1 |
-| `Lead.generarFicha()` | `Conversacion.adjuntarHistorial()`, `Conversacion.solicitarHistorial()`, `FichaProspecto.consolidar()`, `FichaProspecto.presentar()`, `FichaProspecto.presentarIncompleta()`, `FichaProspecto.solicitar()` | 9 |
-| `Lead.vincularCRM()` | `Lead.confirmarRegistro()` | 2 |
+| `Lead.generarFicha()` | `Conversacion.adjuntarHistorial()`, `FichaProspecto.consolidar()`, `FichaProspecto.consolidarIncompleta()` | 4 |
+| `Lead.vincularCRM()` | `Lead.vincularIdentificador()` | 2 |
 | `Lead.actualizarEstado()` | `Lead.registrarEstadoFinal()` | 2 |
 | `Lead.reactivar()` | `PlantillaMensaje.enviarReactivacion()`, `Recordatorio.dejarSinRespuesta()` | 2 |
 | `SolicitudCredito.iniciar()` | `SolicitudCredito.iniciar()` | 2 |
@@ -667,8 +665,8 @@ Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre 
 | `SolicitudCredito.actualizarEstado()` | `ResolucionCredito.comunicar()`, `SolicitudCredito.confirmar()`, `SolicitudCredito.enviar()` | 4 |
 | `SolicitudCredito.precalificar()` | `Precalificacion.calcularCapacidadPago()`, `Precalificacion.clasificar()`, `Precalificacion.evaluar()`, `Precalificacion.evaluarDatosDeclarados()` | 5 |
 | `SolicitudCredito.explicarResultado()` | `Precalificacion.comunicarResultado()`, `Precalificacion.explicar()`, `Precalificacion.explicarMotivo()` | 4 |
-| `SolicitudCredito.derivarARevision()` | `AcuseRecepcion.confirmar()`, `CasoRevision.enviar()`, `CasoRevision.registrar()` | 3 |
-| `SolicitudCredito.registrarDocumento()` | `DocumentoRequerido.reportarRecibido()` | 1 |
+| `SolicitudCredito.derivarARevision()` | `AcuseRecepcion.confirmar()`, `CasoRevision.enviar()` | 2 |
+| `SolicitudCredito.registrarDocumento()` | `DocumentoRequerido.registrarRecibido()` | 1 |
 | `Simulacion.calcular()` | `EscenarioSimulacion.calcular()`, `Simulacion.calcular()`, `Simulacion.calcularCostoTotal()`, `Simulacion.calcularCuota()` | 4 |
 | `Simulacion.generarTablaAmortizacion()` | `TablaAmortizacion.generar()` | 1 |
 | `Simulacion.elegir()` | `EscenarioSimulacion.confirmar()`, `EscenarioSimulacion.guardar()`, `Simulacion.aceptar()` | 5 |
@@ -676,7 +674,7 @@ Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre 
 | `Cita.consultarHorarios()` | `HorarioDisponible.consultar()`, `HorarioDisponible.entregar()`, `HorarioDisponible.informarSinDisponibilidad()`, `HorarioDisponible.ofrecerCercanos()` | 5 |
 | `Cita.reservar()` | `Cita.confirmarReserva()`, `Cita.reservar()` | 2 |
 | `Cita.reprogramar()` | `Cita.reprogramar()`, `HorarioDisponible.confirmar()` | 2 |
-| `Cita.actualizarEstado()` | `Cita.atender()`, `Cita.confirmarAsistencia()` | 2 |
+| `Cita.actualizarEstado()` | `Cita.confirmarAsistencia()`, `Cita.registrarAtencion()` | 2 |
 | `Cita.programarRecordatorio()` | `PlantillaMensaje.enviar()`, `Recordatorio.programar()` | 2 |
 | `LineaCredito.listarVigentes()` | `CatalogoCredito.consultar()`, `CatalogoCredito.entregar()`, `LineaCredito.consultarCondiciones()`, `LineaCredito.entregarCondiciones()`, `LineaCredito.ofrecerAlternativas()`, `LineaCredito.presentar()`, `Requisito.consultar()`, `Requisito.entregar()` | 9 |
 | `LineaCredito.buscar()` | `IntencionCredito.identificar()`, `LineaCredito.marcarNoVigente()` | 2 |
@@ -689,20 +687,20 @@ Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre 
 
 ## 7. Tabla de resumen
 
-| Entidad | Categoría | Atributos | Métodos (entrada → salida) | Relaciones (tipo → destino [multiplicidad]) | Naturaleza |
-|---|---|---|---|---|---|
-| [`July`](#july) | Control | `capacidadMaxima`: `Integer`<br>`tiempoRespuestaObjetivo`: `Duration`<br>`tiempoAbandono`: `Duration` | `atender(mensaje: Mensaje)` → `void`<br>`notificar(destinatario: String, contenido: String)` → `void` | Dependencia → Conversacion [usa]<br>Dependencia → Canal [usa]<br>Dependencia → SistemaCore [usa]<br>Dependencia → CRMCooperativa [usa] | «control» |
-| [`Canal`](#canal) | Sistema externo | `tipo`: `TipoCanal`<br>`credencial`: `String` | `recibir(carga: String)` → `Mensaje`<br>`verificarAutenticidad(carga: String, firma: String)` → `Boolean`<br>`enviar(destino: String, mensaje: Mensaje)` → `void`<br>`abrirSesion(paginaOrigen: String)` → `String` | Dependencia → Mensaje [crea]<br>Dependencia ← July [usa]<br>Dependencia ← Conversacion [usa] | «interfaz» |
-| [`SistemaCore`](#sistemacore) | Sistema externo | `urlServicio`: `String`<br>`tiempoMaximoRespuesta`: `Duration` | `validarCedula(cedula: String)` → `Boolean`<br>`consultarSocio(prospecto: Prospecto)` → `CondicionSocio` | Dependencia → Prospecto [usa]<br>Dependencia ← July [usa] | «interfaz» |
-| [`CRMCooperativa`](#crmcooperativa) | Sistema externo | `urlServicio`: `String`<br>`maxIntentos`: `Integer` | `buscarLead(cedula: String, telefono: String)` → `String \| null`<br>`sincronizarLead(lead: Lead)` → `String`<br>`consultarEmbudo()` → `Map<EstadoLead, Integer>` | Dependencia → Lead [usa]<br>Dependencia ← July [usa] | «interfaz» |
-| [`Prospecto`](#prospecto) | Actor (entidad) | `idProspecto`: `UUID`<br>`nombres`: `String [0..1]`<br>`cedula`: `String [0..1]`<br>`telefono`: `String [0..1]`<br>`correo`: `String [0..1]`<br>`condicionSocio`: `CondicionSocio`<br>`fechaIngresoSocio`: `Date [0..1]`<br>`edad`: `Integer [0..1]`<br>`actividadRegistrada`: `String [0..1]`<br>`consentimientoAceptado`: `Boolean`<br>`versionAviso`: `String [0..1]`<br>`fechaConsentimiento`: `DateTime [0..1]` | `registrarConsentimiento(aceptado: Boolean, versionAviso: String)` → `void` | Asociación ← Conversacion [* — 1]<br>Asociación ← Lead [* — 1]<br>Dependencia ← SistemaCore [usa] | «entidad» |
-| [`AsesorComercial`](#asesorcomercial) | Actor (entidad) | `idAsesor`: `UUID`<br>`nombre`: `String`<br>`agencia`: `String`<br>`productos`: `List<String>`<br>`disponible`: `Boolean`<br>`cargaActual`: `Integer` | `cambiarDisponibilidad(disponible: Boolean)` → `void` | Asociación ← Conversacion [* — 0..1]<br>Asociación ← Lead [* — 0..1] | «entidad» |
-| [`Conversacion`](#conversacion) | Entidad de negocio | `idConversacion`: `UUID`<br>`prospecto`: `Prospecto`<br>`canal`: `TipoCanal`<br>`campana`: `String [0..1]`<br>`tokenSesion`: `String [0..1]`<br>`estado`: `EstadoConversacion`<br>`ultimoPaso`: `String`<br>`fechaUltimaActividad`: `DateTime`<br>`asesorAsignado`: `AsesorComercial [0..1]`<br>`historial`: `List<Mensaje>` | `abrir(canal: TipoCanal, prospecto: Prospecto, tokenSesion: String \| null)` → `Conversacion`<br>`registrarMensaje(mensaje: Mensaje)` → `void`<br>`enviarMensaje(emisor: Emisor, contenido: String, opciones: List<String>)` → `Mensaje`<br>`etiquetarOrigen(campana: String \| null)` → `void`<br>`guardarAvance(paso: String)` → `void`<br>`marcarAbandonada()` → `void`<br>`retomar()` → `void`<br>`traspasar(asesor: AsesorComercial)` → `void` | Composición → Mensaje [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Dependencia → Canal [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Asociación ← Lead [0..1 — 1]<br>Dependencia ← July [usa] | «entidad» |
-| [`Mensaje`](#mensaje) | Entidad de negocio | `idMensaje`: `UUID`<br>`idExterno`: `String`<br>`emisor`: `Emisor`<br>`tipo`: `TipoMensaje`<br>`contenido`: `String`<br>`adjuntos`: `List<String>`<br>`fechaHora`: `DateTime` | — | Composición ← Conversacion [1 — 0..*]<br>Dependencia ← Canal [crea] | «entidad» |
-| [`Lead`](#lead) | Entidad de negocio | `idLead`: `UUID`<br>`numeroSeguimiento`: `String`<br>`prospecto`: `Prospecto`<br>`conversacion`: `Conversacion`<br>`lineaCredito`: `LineaCredito`<br>`necesidad`: `String`<br>`prioridad`: `Prioridad [0..1]`<br>`estado`: `EstadoLead`<br>`asesor`: `AsesorComercial [0..1]`<br>`fechaAsignacion`: `DateTime [0..1]`<br>`intentosReactivacion`: `Integer`<br>`idCRM`: `String [0..1]`<br>`motivoCierre`: `String [0..1]`<br>`fechaRegistro`: `DateTime` | `registrar(prospecto: Prospecto, conversacion: Conversacion, linea: LineaCredito, necesidad: String)` → `Lead`<br>`elegirLinea(linea: LineaCredito)` → `void`<br>`priorizar(criterios: ReglaNegocio)` → `Prioridad`<br>`asignar(enrutamiento: ReglaNegocio, asesores: List<AsesorComercial>)` → `AsesorComercial`<br>`aceptarAsignacion()` → `void`<br>`generarFicha()` → `String`<br>`vincularCRM(idCRM: String)` → `void`<br>`actualizarEstado(estado: EstadoLead, motivo: String \| null)` → `void`<br>`reactivar()` → `void` | Composición → SolicitudCredito [1 — 0..1]<br>Composición → Cita [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → Conversacion [0..1 — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Asociación → LineaCredito [* — 1]<br>Dependencia → ReglaNegocio [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Dependencia ← CRMCooperativa [usa] | «entidad» |
-| [`SolicitudCredito`](#solicitudcredito) | Entidad de negocio | `idSolicitud`: `UUID`<br>`lead`: `Lead`<br>`monto`: `Decimal [0..1]`<br>`plazo`: `Integer [0..1]`<br>`destino`: `String [0..1]`<br>`ingresosMensuales`: `Decimal [0..1]`<br>`actividadEconomica`: `String [0..1]`<br>`estado`: `EstadoSolicitud`<br>`simulacionElegida`: `Simulacion [0..1]`<br>`resultado`: `ResultadoPrecalificacion [0..1]`<br>`capacidadPago`: `Decimal [0..1]`<br>`factores`: `List<String>`<br>`resultadoCondicionado`: `Boolean`<br>`numeroCasoRevision`: `String [0..1]`<br>`documentosRecibidos`: `List<String>` | `iniciar(lead: Lead)` → `SolicitudCredito`<br>`campoPendiente()` → `CampoSolicitud \| null`<br>`registrarDato(campo: CampoSolicitud, valor: String)` → `String \| null`<br>`resumir()` → `String`<br>`actualizarEstado(estado: EstadoSolicitud)` → `void`<br>`precalificar(reglas: ReglaNegocio)` → `ResultadoPrecalificacion`<br>`explicarResultado()` → `String`<br>`derivarARevision()` → `String`<br>`registrarDocumento(documento: String)` → `void` | Composición → Simulacion [1 — 0..*]<br>Asociación → Simulacion [1 — 0..1]<br>Dependencia → ReglaNegocio [usa]<br>Composición ← Lead [1 — 0..1] | «entidad» |
-| [`Simulacion`](#simulacion) | Entidad de negocio | `idSimulacion`: `UUID`<br>`solicitud`: `SolicitudCredito`<br>`monto`: `Decimal`<br>`plazo`: `Integer`<br>`tasa`: `Decimal`<br>`cuotaMensual`: `Decimal`<br>`intereses`: `Decimal`<br>`seguros`: `Decimal`<br>`cargos`: `Decimal`<br>`totalPagar`: `Decimal` | `calcular(solicitud: SolicitudCredito, monto: Decimal, plazo: Integer)` → `Simulacion`<br>`generarTablaAmortizacion()` → `List<Map<String, Decimal>>`<br>`elegir()` → `void`<br>`sugerirAlternativa(capacidadPago: Decimal)` → `Simulacion` | Composición ← SolicitudCredito [1 — 0..*]<br>Asociación ← SolicitudCredito [1 — 0..1] | «entidad» |
-| [`Cita`](#cita) | Entidad de negocio | `idCita`: `UUID`<br>`lead`: `Lead`<br>`agencia`: `String`<br>`fechaHora`: `DateTime`<br>`estado`: `EstadoCita`<br>`fechaRecordatorio`: `DateTime [0..1]` | `consultarHorarios(agencia: String, desde: Date, hasta: Date)` → `List<DateTime>`<br>`reservar(lead: Lead, agencia: String, fechaHora: DateTime)` → `Cita`<br>`reprogramar(fechaHora: DateTime)` → `void`<br>`actualizarEstado(estado: EstadoCita)` → `void`<br>`programarRecordatorio(fecha: DateTime)` → `void` | Dependencia → PlantillaMensaje [usa]<br>Composición ← Lead [1 — 0..*] | «entidad» |
-| [`LineaCredito`](#lineacredito) | Configuración | `codigo`: `String`<br>`nombre`: `String`<br>`tasa`: `Decimal`<br>`plazos`: `List<Integer>`<br>`montoMinimo`: `Decimal`<br>`montoMaximo`: `Decimal`<br>`palabrasClave`: `List<String>`<br>`requisitos`: `List<String>`<br>`requisitosAfiliacion`: `List<String>`<br>`vigente`: `Boolean`<br>`version`: `String` | `listarVigentes()` → `List<LineaCredito>`<br>`buscar(criterio: String)` → `LineaCredito \| null`<br>`validarCondiciones(monto: Decimal, plazo: Integer \| null)` → `String \| null`<br>`requisitosPara(condicion: CondicionSocio)` → `List<String>` | Asociación ← Lead [* — 1] | «entidad» |
-| [`PlantillaMensaje`](#plantillamensaje) | Configuración | `tipo`: `TipoPlantilla`<br>`clave`: `String`<br>`texto`: `String`<br>`opciones`: `List<String>`<br>`version`: `String`<br>`vigente`: `Boolean` | `obtenerVigente(tipo: TipoPlantilla)` → `PlantillaMensaje`<br>`buscarRespuesta(texto: String)` → `PlantillaMensaje \| null`<br>`componer(datos: Map<String, String>)` → `String` | Dependencia ← Conversacion [usa]<br>Dependencia ← Lead [usa]<br>Dependencia ← Cita [usa] | «entidad» |
-| [`ReglaNegocio`](#reglanegocio) | Configuración | `tipo`: `TipoRegla`<br>`parametros`: `Map<String, String>`<br>`version`: `String`<br>`publicadoPor`: `String`<br>`vigente`: `Boolean` | `obtenerVigente(tipo: TipoRegla)` → `ReglaNegocio` | Dependencia ← Lead [usa]<br>Dependencia ← SolicitudCredito [usa] | «entidad» |
+| Entidad | Descripción | Categoría | Atributos | Métodos (entrada → salida) | Relaciones (tipo → destino [multiplicidad]) | Naturaleza |
+|---|---|---|---|---|---|---|
+| [`July`](#july) | Asistente virtual de la cooperativa y sistema que se diseña: recibe cada mensaje, decide qué caso de uso lo atiende y avisa a los colaboradores. | Control | `capacidadMaxima`: `Integer`<br>`tiempoRespuestaObjetivo`: `Duration`<br>`tiempoAbandono`: `Duration` | `atender(mensaje: Mensaje)` → `void`<br>`notificar(destinatario: String, contenido: String)` → `void` | Dependencia → Conversacion [usa]<br>Dependencia → Canal [usa]<br>Dependencia → SistemaCore [usa]<br>Dependencia → CRMCooperativa [usa] | «control» |
+| [`Canal`](#canal) | Canal digital por el que entra y sale la conversación (WhatsApp Business API o widget web); convierte cada carga al formato común de July. | Sistema externo | `tipo`: `TipoCanal`<br>`credencial`: `String` | `recibir(carga: String)` → `Mensaje`<br>`verificarAutenticidad(carga: String, firma: String)` → `Boolean`<br>`enviar(destino: String, mensaje: Mensaje)` → `void`<br>`abrirSesion(paginaOrigen: String)` → `String` | Dependencia → Mensaje [crea]<br>Dependencia ← July [usa]<br>Dependencia ← Conversacion [usa] | «interfaz» |
+| [`SistemaCore`](#sistemacore) | Sistema transaccional de la cooperativa: fuente oficial de socios y de identidad. | Sistema externo | `urlServicio`: `String`<br>`tiempoMaximoRespuesta`: `Duration` | `validarCedula(cedula: String)` → `Boolean`<br>`consultarSocio(prospecto: Prospecto)` → `CondicionSocio` | Dependencia → Prospecto [usa]<br>Dependencia ← July [usa] | «interfaz» |
+| [`CRMCooperativa`](#crmcooperativa) | CRM comercial donde se registra el lead y se gestiona el embudo de ventas. | Sistema externo | `urlServicio`: `String`<br>`maxIntentos`: `Integer` | `buscarLead(cedula: String, telefono: String)` → `String \| null`<br>`sincronizarLead(lead: Lead)` → `String` | Dependencia → Lead [usa]<br>Dependencia ← July [usa] | «interfaz» |
+| [`Prospecto`](#prospecto) | Persona que contacta a la cooperativa; guarda su identidad, su condición de socio y su consentimiento de datos. | Actor (entidad) | `idProspecto`: `UUID`<br>`nombres`: `String [0..1]`<br>`cedula`: `String [0..1]`<br>`telefono`: `String [0..1]`<br>`correo`: `String [0..1]`<br>`condicionSocio`: `CondicionSocio`<br>`fechaIngresoSocio`: `Date [0..1]`<br>`edad`: `Integer [0..1]`<br>`actividadRegistrada`: `String [0..1]`<br>`consentimientoAceptado`: `Boolean`<br>`versionAviso`: `String [0..1]`<br>`fechaConsentimiento`: `DateTime [0..1]` | `registrarConsentimiento(aceptado: Boolean, versionAviso: String)` → `void` | Asociación ← Conversacion [* — 1]<br>Asociación ← Lead [* — 1]<br>Dependencia ← SistemaCore [usa] | «entidad» |
+| [`AsesorComercial`](#asesorcomercial) | Colaborador que atiende los leads; guarda su agencia, sus productos y su disponibilidad para el enrutamiento. | Actor (entidad) | `idAsesor`: `UUID`<br>`nombre`: `String`<br>`agencia`: `String`<br>`productos`: `List<String>`<br>`disponible`: `Boolean`<br>`cargaActual`: `Integer` | `cambiarDisponibilidad(disponible: Boolean)` → `void` | Asociación ← Conversacion [* — 0..1]<br>Asociación ← Lead [* — 0..1] | «entidad» |
+| [`Conversacion`](#conversacion) | Hilo de mensajes entre el prospecto, July y, si hay traspaso, el asesor; guarda el origen y el avance del flujo. | Entidad de negocio | `idConversacion`: `UUID`<br>`prospecto`: `Prospecto`<br>`canal`: `TipoCanal`<br>`campana`: `String [0..1]`<br>`tokenSesion`: `String [0..1]`<br>`estado`: `EstadoConversacion`<br>`ultimoPaso`: `String`<br>`fechaUltimaActividad`: `DateTime`<br>`asesorAsignado`: `AsesorComercial [0..1]`<br>`historial`: `List<Mensaje>` | `abrir(canal: TipoCanal, prospecto: Prospecto, tokenSesion: String \| null)` → `Conversacion`<br>`registrarMensaje(mensaje: Mensaje)` → `void`<br>`enviarMensaje(emisor: Emisor, contenido: String, opciones: List<String>)` → `Mensaje`<br>`etiquetarOrigen(campana: String \| null)` → `void`<br>`guardarAvance(paso: String)` → `void`<br>`marcarAbandonada()` → `void`<br>`retomar()` → `void`<br>`traspasar(asesor: AsesorComercial)` → `void` | Composición → Mensaje [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Dependencia → Canal [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Asociación ← Lead [0..1 — 1]<br>Dependencia ← July [usa] | «entidad» |
+| [`Mensaje`](#mensaje) | Un mensaje en formato común, sin importar el canal por el que llegó o salió. | Entidad de negocio | `idMensaje`: `UUID`<br>`idExterno`: `String`<br>`emisor`: `Emisor`<br>`tipo`: `TipoMensaje`<br>`contenido`: `String`<br>`adjuntos`: `List<String>`<br>`fechaHora`: `DateTime` | — | Composición ← Conversacion [1 — 0..*]<br>Dependencia ← Canal [crea] | «entidad» |
+| [`Lead`](#lead) | Oportunidad comercial: un prospecto con una intención de crédito, que July entrega al asesor y al CRM. | Entidad de negocio | `idLead`: `UUID`<br>`numeroSeguimiento`: `String`<br>`prospecto`: `Prospecto`<br>`conversacion`: `Conversacion`<br>`lineaCredito`: `LineaCredito`<br>`necesidad`: `String`<br>`prioridad`: `Prioridad [0..1]`<br>`estado`: `EstadoLead`<br>`asesor`: `AsesorComercial [0..1]`<br>`fechaAsignacion`: `DateTime [0..1]`<br>`intentosReactivacion`: `Integer`<br>`idCRM`: `String [0..1]`<br>`motivoCierre`: `String [0..1]`<br>`fechaRegistro`: `DateTime` | `registrar(prospecto: Prospecto, conversacion: Conversacion, linea: LineaCredito, necesidad: String)` → `Lead`<br>`elegirLinea(linea: LineaCredito)` → `void`<br>`priorizar(criterios: ReglaNegocio)` → `Prioridad`<br>`asignar(enrutamiento: ReglaNegocio, asesores: List<AsesorComercial>)` → `AsesorComercial`<br>`aceptarAsignacion()` → `void`<br>`generarFicha()` → `String`<br>`vincularCRM(idCRM: String)` → `void`<br>`actualizarEstado(estado: EstadoLead, motivo: String \| null)` → `void`<br>`reactivar()` → `void` | Composición → SolicitudCredito [1 — 0..1]<br>Composición → Cita [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → Conversacion [0..1 — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Asociación → LineaCredito [* — 1]<br>Dependencia → ReglaNegocio [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Dependencia ← CRMCooperativa [usa] | «entidad» |
+| [`SolicitudCredito`](#solicitudcredito) | Datos que el prospecto entrega para pedir el crédito (monto, plazo, destino, ingresos) y el resultado de su precalificación. | Entidad de negocio | `idSolicitud`: `UUID`<br>`lead`: `Lead`<br>`monto`: `Decimal [0..1]`<br>`plazo`: `Integer [0..1]`<br>`destino`: `String [0..1]`<br>`ingresosMensuales`: `Decimal [0..1]`<br>`actividadEconomica`: `String [0..1]`<br>`estado`: `EstadoSolicitud`<br>`simulacionElegida`: `Simulacion [0..1]`<br>`resultado`: `ResultadoPrecalificacion [0..1]`<br>`capacidadPago`: `Decimal [0..1]`<br>`factores`: `List<String>`<br>`resultadoCondicionado`: `Boolean`<br>`numeroCasoRevision`: `String [0..1]`<br>`documentosRecibidos`: `List<String>` | `iniciar(lead: Lead)` → `SolicitudCredito`<br>`campoPendiente()` → `CampoSolicitud \| null`<br>`registrarDato(campo: CampoSolicitud, valor: String)` → `String \| null`<br>`resumir()` → `String`<br>`actualizarEstado(estado: EstadoSolicitud)` → `void`<br>`precalificar(reglas: ReglaNegocio)` → `ResultadoPrecalificacion`<br>`explicarResultado()` → `String`<br>`derivarARevision()` → `String`<br>`registrarDocumento(documento: String)` → `void` | Composición → Simulacion [1 — 0..*]<br>Asociación → Simulacion [1 — 0..1]<br>Dependencia → ReglaNegocio [usa]<br>Composición ← Lead [1 — 0..1] | «entidad» |
+| [`Simulacion`](#simulacion) | Escenario de crédito: un monto a un plazo con su cuota, intereses, seguros, cargos y total a pagar. | Entidad de negocio | `idSimulacion`: `UUID`<br>`solicitud`: `SolicitudCredito`<br>`monto`: `Decimal`<br>`plazo`: `Integer`<br>`tasa`: `Decimal`<br>`cuotaMensual`: `Decimal`<br>`intereses`: `Decimal`<br>`seguros`: `Decimal`<br>`cargos`: `Decimal`<br>`totalPagar`: `Decimal` | `calcular(solicitud: SolicitudCredito, monto: Decimal, plazo: Integer)` → `Simulacion`<br>`generarTablaAmortizacion()` → `List<Map<String, Decimal>>`<br>`elegir()` → `void`<br>`sugerirAlternativa(capacidadPago: Decimal)` → `Simulacion` | Composición ← SolicitudCredito [1 — 0..*]<br>Asociación ← SolicitudCredito [1 — 0..1] | «entidad» |
+| [`Cita`](#cita) | Cita del prospecto en una agencia, con su estado y su recordatorio. | Entidad de negocio | `idCita`: `UUID`<br>`lead`: `Lead`<br>`agencia`: `String`<br>`fechaHora`: `DateTime`<br>`estado`: `EstadoCita`<br>`fechaRecordatorio`: `DateTime [0..1]` | `consultarHorarios(agencia: String, desde: Date, hasta: Date)` → `List<DateTime>`<br>`reservar(lead: Lead, agencia: String, fechaHora: DateTime)` → `Cita`<br>`reprogramar(fechaHora: DateTime)` → `void`<br>`actualizarEstado(estado: EstadoCita)` → `void`<br>`programarRecordatorio(fecha: DateTime)` → `void` | Dependencia → PlantillaMensaje [usa]<br>Composición ← Lead [1 — 0..*] | «entidad» |
+| [`LineaCredito`](#lineacredito) | Producto de crédito del catálogo, con su tasa, plazos, montos y requisitos; lo publica el Área de productos y crédito. | Configuración | `codigo`: `String`<br>`nombre`: `String`<br>`tasa`: `Decimal`<br>`plazos`: `List<Integer>`<br>`montoMinimo`: `Decimal`<br>`montoMaximo`: `Decimal`<br>`palabrasClave`: `List<String>`<br>`requisitos`: `List<String>`<br>`requisitosAfiliacion`: `List<String>`<br>`vigente`: `Boolean`<br>`version`: `String` | `listarVigentes()` → `List<LineaCredito>`<br>`buscar(criterio: String)` → `LineaCredito \| null`<br>`validarCondiciones(monto: Decimal, plazo: Integer \| null)` → `String \| null`<br>`requisitosPara(condicion: CondicionSocio)` → `List<String>` | Asociación ← Lead [* — 1] | «entidad» |
+| [`PlantillaMensaje`](#plantillamensaje) | Contenido conversacional publicado por versiones: bienvenida, aviso de privacidad, menús, preguntas frecuentes y plantillas de retoma, recordatorio y reactivación. | Configuración | `tipo`: `TipoPlantilla`<br>`clave`: `String`<br>`texto`: `String`<br>`opciones`: `List<String>`<br>`plantillaProveedor`: `String [0..1]`<br>`version`: `String`<br>`vigente`: `Boolean` | `obtenerVigente(tipo: TipoPlantilla)` → `PlantillaMensaje`<br>`buscarRespuesta(texto: String)` → `PlantillaMensaje \| null`<br>`componer(datos: Map<String, String>)` → `String` | Dependencia ← Conversacion [usa]<br>Dependencia ← Lead [usa]<br>Dependencia ← Cita [usa] | «entidad» |
+| [`ReglaNegocio`](#reglanegocio) | Parámetros de decisión publicados por versiones: reglas de precalificación, criterios de prioridad y reglas de enrutamiento. | Configuración | `tipo`: `TipoRegla`<br>`parametros`: `Map<String, String>`<br>`version`: `String`<br>`publicadoPor`: `String`<br>`vigente`: `Boolean` | `obtenerVigente(tipo: TipoRegla)` → `ReglaNegocio` | Dependencia ← Lead [usa]<br>Dependencia ← SolicitudCredito [usa] | «entidad» |

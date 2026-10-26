@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | **ID** | REV-01 |
-| **Versión** | 1.0 |
+| **Versión** | 1.1 |
 | **Fecha** | 2026-10-24 |
 | **Deriva de** | CAP-03, CU-02 a CU-08, CLS-01 |
 | **Estado** | Borrador |
@@ -14,7 +14,7 @@ Revisión de la documentación de July con mirada de desarrollo: ¿un equipo pod
 
 1. [Qué se revisó y cómo](#1-qué-se-revisó-y-cómo)
 2. [Hallazgos corregidos](#2-hallazgos-corregidos)
-3. [Decisiones pendientes](#3-decisiones-pendientes)
+3. [Decisiones aplicadas](#3-decisiones-aplicadas)
 4. [Cadena de trazabilidad](#4-cadena-de-trazabilidad)
 5. [Vista de desarrollo](#5-vista-de-desarrollo)
 
@@ -23,12 +23,12 @@ Revisión de la documentación de July con mirada de desarrollo: ¿un equipo pod
 | Documento | Revisión |
 |---|---|
 | Índice (`README.md`) | Rutas, filas, estructura y archivos sin registrar. |
-| CAP-01 a CAP-03, CU-01 | Nombres de capacidades y etapas, servicios «CU-01» a «CU-25», actores, sincronía del XML con el modelo nativo. |
+| CAP-01 a CAP-03, CU-01 | Nombres de capacidades y etapas, servicios «CU-01» a «CU-25» (hoy SA-01 a SA-25), actores, sincronía del XML con el modelo nativo. |
 | CU-02 a CU-05 | Identificadores y nombres de los casos en draw.io frente a CU-08. |
 | CU-06 a CU-08 | Coherencia de nombres, flujos, precondiciones, objetivos y numeración de pasos. |
 | CLS-01 | Atributos, tipos, multiplicidades, estados, métodos y trazabilidad paso a paso con CU-08. |
 
-La trazabilidad CU-08 → CLS-01 se verificó con un script que lee las tablas de ambos documentos: los **245 pasos** de los niveles 1 y 2 tienen método, ningún método cita un paso que no existe y los **56 métodos** de la sección 4 coinciden con la sección 6.2.
+La trazabilidad CU-08 → CLS-01 se verifica con un script que lee las tablas de ambos documentos: cada paso de los niveles 1 y 2 tiene método, ningún método cita un paso que no existe, y la tabla 6.2 de CLS-01 lista exactamente los métodos de CU-08 de esos pasos con su conteo. Tras aplicar las decisiones de la sección 3 hay **237 pasos** y **55 métodos**.
 
 ## 2. Hallazgos corregidos
 
@@ -47,7 +47,7 @@ Tipos: **I** inconsistencia entre documentos, **R** redundancia, **A** ambigüed
 | C09 | T | CU-08, CAP-03 | No había enlace entre los 25 servicios del modelo ArchiMate y los casos de CU-08. | Tabla de correspondencia en CU-08, derivada de las realizaciones de capacidades del modelo. |
 | C10 | A | CU-08 | CU 1.2.2 consulta al Sistema core «por el teléfono», pero quien llega por el widget web aún no lo ha dado. | Flujo alternativo A4 (paso 5d): el lead queda «socio por verificar» y se resuelve en CU 2.3.1 con la cédula. |
 | C11 | A | CU-08, CLS-01 | En CU 2.3.2 (paso 12) la cita quedaba «confirmada» al reservarla, y en CU 3.2.2 (paso 4) «confirmada» era la asistencia del prospecto. | Paso 12 deja la cita RESERVADA; CLS-01 documenta las transiciones de `EstadoCita`. |
-| C12 | I | CU-08 | El objetivo de CU 3.1.2 decía «sin intervención manual», pero el paso 1 lo dispara el asesor. | Objetivo: «a pedido del asesor, sin que nadie lo digite». |
+| C12 | I | CU-08 | El objetivo de CU 3.1.2 decía «sin intervención manual», pero el paso 1 lo dispara el asesor. | Primero se reformuló el objetivo; con P04 el registro pasa a ser automático y el objetivo vuelve a «sin intervención manual», ahora coherente con los pasos. |
 | C13 | I | CU-08 | La regla 7 trataba al Comité de crédito, al Jefe comercial y al Equipo de marketing solo como configuración, pero reciben avisos y el comité resuelve créditos. | Regla 7 y tabla de participantes aclaradas. |
 | C14 | I | CLS-01 | `Prospecto` exigía nombres, cédula, correo y teléfono, pero se crea con el primer mensaje, cuando aún no los hay (llegan en CU 2.1.1). Lo mismo con la versión y la fecha del consentimiento. | Atributos opcionales; `condicionSocio` empieza en POR_VERIFICAR. |
 | C15 | A | CLS-01 | `SistemaCore.consultarSocio()` devolvía `Prospecto \| null`: no distinguía «no es socio» de «el core no respondió», y la actividad registrada no tenía atributo donde guardarse. | Devuelve `CondicionSocio` y completa el prospecto; nuevo atributo `actividadRegistrada`. |
@@ -57,47 +57,47 @@ Tipos: **I** inconsistencia entre documentos, **R** redundancia, **A** ambigüed
 | C19 | I | CLS-01 | «Solo una versión vigente por tipo» de `PlantillaMensaje` impedía tener varias preguntas frecuentes. | Una versión vigente por tipo y clave. |
 | C20 | A | CLS-01 | El tiempo de abandono, el plazo de atención del asesor y el máximo de reactivaciones no tenían dónde configurarse. | `July.tiempoAbandono`; parámetros `plazoAtencion` y `maxReactivaciones` en `ReglaNegocio`. |
 | C21 | A | CLS-01 | `Mensaje.tipo` era texto libre; `cargaActual` parecía un dato guardado; `agencia` no decía si es nombre o código. | Enumeración `TipoMensaje`; `cargaActual` derivado; `agencia` es un código compartido con `Cita`. |
-| C22 | I | CLS-01 | La sección 6.2 decía sumar 244 pasos, pero su columna sumaba 247. | Explicado: tres pasos usan dos métodos. Hoy: 245 pasos, la columna suma 248. |
+| C22 | I | CLS-01 | La sección 6.2 decía sumar 244 pasos, pero su columna sumaba 247. | Explicado: tres pasos usan dos métodos. Tras la sección 3: 237 pasos y la columna suma 240. |
 | C23 | I | CLS-01 | Los datos de `SolicitudCredito` eran obligatorios, aunque se capturan uno a uno durante EN_CAPTURA. | Opcionales mientras se capturan; confirmar la solicitud exige que estén todos. |
 
-## 3. Decisiones pendientes
+## 3. Decisiones aplicadas
 
-Son cambios de alcance o de negocio, o requieren abrir Archi o draw.io. Se recomienda una opción para cada uno.
+Las once decisiones que quedaron abiertas en la versión 1.0 se aplicaron con la opción recomendada. Lo que no se pudo hacer sin la herramienta de origen está en la columna «Queda».
 
-| # | Tema | Problema | Recomendación |
-|---|---|---|---|
-| P01 | Identificadores | «CU-NN» nombra a la vez documentos (CU-01 a CU-08) y servicios ArchiMate («CU-01» a «CU-25»). Además, CU-01 es un XML de la carpeta `02-mapa-capacidades/`, cuyo prefijo es CAP. | Renombrar en Archi los servicios a «SA-NN» (servicio de aplicación), volver a exportar el XML y dar a la exportación un ID CAP. Mientras tanto, el índice explica cómo citar cada uno. |
-| P02 | Exportaciones | El XML (CU-01) es la exportación de CAP-01; no hay exportación de CAP-03, que añade el flujo de valor. Los PNG de CU-03 a CU-05 muestran todavía los nombres de etapa anteriores, y CU-02 no tiene PNG. | En Archi: *Archivo › Exportar › Open Exchange* desde CAP-03. En draw.io: volver a exportar los cuatro PNG. |
-| P03 | Redundancia de modelos | CAP-02 y CAP-03 son el mismo archivo, byte a byte. | Trabajar solo en CAP-03 y marcar CAP-02 como Obsoleto cuando CAP-03 se apruebe. |
-| P04 | Orden del flujo 3 | En CU 3.1 el asesor abre la ficha y pide registrar el lead en el CRM, pero el lead recién se le asigna en CU 3.2.1, cuyo disparador es «lead en el CRM sin asesor». No queda claro qué asesor abre la ficha. | Que July genere la ficha y sincronice el CRM al terminar la precalificación, sin esperar a un asesor; luego asigna; el asesor asignado revisa la ficha. Hay que reescribir los pasos 1 de CU 3.1.1 y 3.1.2. |
-| P05 | Entrada al flujo 3 | No se dice si un prospecto NO_APTO pasa al asesor. | Pasan APTO y A_REVISAR. Un NO_APTO recibe la alternativa (CU 2.3.2·A1) y solo pasa si vuelve a simular y cambia el resultado. |
-| P06 | Frontera de July | En los pasos 6 a 9 de CU 3.2.2, en el 9b de CU 2.3.1 y en el último paso de CU 3.2 y CU 3.2.2 (el CRM actualiza el embudo) July no participa, pero CLS-01 les asigna métodos de July (`Cita.actualizarEstado(ATENDIDA)`, `registrarDocumento()`, `SolicitudCredito.actualizarEstado()` con EN_RESOLUCION, APROBADA o NEGADA, `consultarEmbudo()`). | Decidir quién informa a July: lo más simple es que el asesor lo registre desde su panel (receptor July). Si no, quitar esos métodos del alcance. |
-| P07 | Alcance del reto | Los servicios ArchiMate «CU-20», «CU-22» y «CU-23» (configuración), «CU-24» (trazabilidad y embudo) y «CU-25» (derechos sobre datos, LOPDP) no tienen caso en CU-08, y el Delegado de protección de datos no aparece. | Declarar CU-20 a CU-24 como back-office fuera del reto: la configuración se carga con datos iniciales versionados. CU-25 es obligación legal: especificar al menos el retiro del consentimiento y la eliminación de datos. |
-| P08 | Actores del modelo | CAP-03 no tiene al Comité de crédito ni al Equipo de marketing, y «CU-22 Configurar reglas de precalificación» sirve al Área de productos, mientras CU-08 dice que las reglas las publica el Comité. | Añadir ambos actores en Archi y que CU-22 sirva al Comité. |
-| P09 | Orden del flujo 2 | Para simular (CU 2.2), CU-08 exige la captura completa (cédula, ingresos, actividad) de CU 2.1. En captación conviene que la persona vea su cuota antes de dar datos personales. | Permitir CU 2.2 con solo la línea, el monto y el plazo, y pedir identidad e ingresos antes de precalificar. Es un cambio de negocio; validarlo con la cooperativa. |
-| P10 | Avisos internos | El modelo tiene un «Servicio de notificaciones»; CLS-01 solo dice `July.notificar(destinatario, contenido)`. No se sabe por qué canal llegan los avisos. | Definir el canal (correo, panel del asesor o tarea en el CRM) y modelar el servicio como interfaz si es externo. |
-| P11 | Plantillas de WhatsApp | La retoma, los recordatorios y las reactivaciones salen fuera de la ventana de 24 horas de WhatsApp, y Meta solo permite enviar ahí plantillas aprobadas. CLS-01 no guarda ese vínculo. | Añadir a `PlantillaMensaje` el nombre de la plantilla aprobada en el proveedor. |
+| # | Tema | Problema | Decisión aplicada | Queda |
+|---|---|---|---|---|
+| P01 | Identificadores | «CU-NN» nombraba a la vez documentos (CU-01 a CU-08) y servicios ArchiMate («CU-01» a «CU-25»). CU-01 era además un XML de la carpeta CAP. | En CAP-03 los servicios pasan a SA-01 a SA-25 (nombres y documentación). CU-01 se retira y su archivo pasa a ser CAP-05. CAP-01 y CAP-02 quedan Obsoletos y conservan la numeración vieja como historia. | — |
+| P02 | Exportaciones | No había XML de CAP-03, y los PNG de los flujos mostraban los nombres de etapa anteriores. | El XML se regeneró desde CAP-03 (CAP-05, `mapa-capacidades-y-casos-de-uso-etapa3.xml`) con `archi-a-open-exchange.py`. El conversor se validó regenerando el XML de CAP-01: coincidieron todos los elementos, relaciones, nodos y conexiones del original. | Volver a exportar desde draw.io los PNG de CU-03 a CU-05 y crear el de CU-02 (draw.io no está instalado en este equipo). |
+| P03 | Redundancia de modelos | CAP-02 y CAP-03 eran idénticos. | CAP-03 es el único modelo vigente; CAP-02 queda Obsoleto. Ya no son idénticos: CAP-03 tiene P01 y P08. | — |
+| P04 | Orden del flujo 3 | El asesor abría la ficha y pedía el registro en el CRM antes de que el lead se le asignara. | CU 3.1 lo dispara el fin de la precalificación: July consolida la ficha (CU 3.1.1, renombrado «Generar la ficha del prospecto») y registra el lead en el CRM (CU 3.1.2) sin intervención del asesor; si se agotan los reintentos avisa al Jefe comercial. El asesor recibe la ficha con la conversación al aceptar la asignación (CU 3.2.1, paso 7). | — |
+| P05 | Entrada al flujo 3 | No se decía si un NO_APTO pasa al asesor. | Pasan APTO y A_REVISAR. Un NO_APTO recibe la alternativa (CU 2.3.2·A1) y solo entra si vuelve a simular y su nueva precalificación cambia. Anotado en CU-08, CU-06 y en la tabla de estados de CLS-01. | — |
+| P06 | Frontera de July | Varios pasos ocurrían entre la agencia, el asesor y el comité, sin July, pero CLS-01 les daba métodos de July. | En CU 3.2.2 la agencia registra la atención en July (paso 6), el asesor registra los documentos (8), July envía la solicitud al comité (9) y el comité le comunica la resolución (10). En CU 2.3.1 se quitó el paso interno del comité. `CRMCooperativa.consultarEmbudo()` sale del modelo: el embudo lo calcula el CRM (SA-24, fuera del reto). | — |
+| P07 | Alcance del reto | SA-20 a SA-25 no tenían caso en CU-08. | CU-08 declara fuera del reto el back-office de configuración (SA-20 a SA-23) y el embudo (SA-24): la configuración se carga como datos iniciales versionados. SA-25 queda cubierto por las reglas transversales R1 (consentimiento previo) y R2 (retiro del consentimiento, con aviso al Delegado de protección de datos). | — |
+| P08 | Actores del modelo | Faltaban el Comité de crédito y el Equipo de marketing. | Añadidos a CAP-03, con sus relaciones de servicio (SA-01 → Equipo de marketing; SA-11 y SA-22 → Comité de crédito) y sus nodos en las vistas de los paquetes 1, 2 y 4. SA-22 sigue sirviendo también al Área de productos, que carga la tabla que el comité aprueba. | Revisar en Archi la ubicación de los tres nodos nuevos. |
+| P09 | Orden del flujo 2 | Para simular había que entregar antes la identidad y los ingresos. | CU 2.1.1 pide primero monto, plazo y destino (pasos 2 y 3); con eso el prospecto puede simular (CU 2.2) y luego July retoma la captura. La identidad incluye ahora el teléfono, que faltaba para quien llega por la web. | Validar el cambio con la cooperativa. |
+| P10 | Avisos internos | No se sabía por qué canal llegan los avisos de `July.notificar()`. | Los entrega el Servicio de notificaciones del modelo: en el panel si el destinatario es un asesor y por correo si es un área. | — |
+| P11 | Plantillas de WhatsApp | La retoma, los recordatorios y las reactivaciones salen fuera de la ventana de 24 horas. | Nuevo atributo `PlantillaMensaje.plantillaProveedor` con el nombre de la plantilla aprobada por Meta, obligatorio para esos tres tipos. | — |
 
 ## 4. Cadena de trazabilidad
 
-Cada capacidad de nivel 2 del mapa tiene un caso de nivel 2 en CU-08, uno en el diagrama general CU-02 y las clases de CLS-01 que lo realizan.
+Cada capacidad de nivel 2 del mapa tiene un caso de nivel 2 en CU-08 y en el diagrama general CU-02, los servicios de CAP-03 que la realizan y las clases de CLS-01 que la implementan.
 
 | Capacidad nivel 2 | Caso de uso (CU-08, CU-02) | Servicio ArchiMate | Clases principales (CLS-01) |
 |---|---|---|---|
-| 1.1.1 Recepción multicanal | CU 1.1.1 Recibir la consulta por WhatsApp o web | «CU-01» | `Canal`, `Conversacion`, `Mensaje` |
-| 1.1.2 Unificación de mensajes | CU 1.1.2 Unificar los mensajes entrantes | «CU-01» | `Canal`, `July`, `Mensaje` |
-| 1.2.1 Atención inmediata | CU 1.2.1 Recibir atención inmediata | «CU-01», «CU-02», «CU-06» | `PlantillaMensaje`, `Prospecto`, `Conversacion` |
-| 1.2.2 Identificación del prospecto | CU 1.2.2 Identificar al prospecto y su necesidad | «CU-03», «CU-04», «CU-05» | `LineaCredito`, `SistemaCore`, `Lead` |
-| 2.1.1 Captura conversacional | CU 2.1.1 Entregar los datos conversando | «CU-07» | `SolicitudCredito`, `Prospecto` |
-| 2.1.2 Validación y continuidad | CU 2.1.2 Validar los datos y mantener la continuidad | «CU-07», «CU-08» | `SolicitudCredito`, `SistemaCore`, `Conversacion` |
-| 2.2.1 Cálculo del crédito | CU 2.2.1 Calcular las condiciones del crédito | «CU-09», «CU-10» | `Simulacion`, `LineaCredito` |
-| 2.2.2 Productos y condiciones | CU 2.2.2 Consultar productos y condiciones | «CU-21» | `LineaCredito`, `Lead` |
-| 2.3.1 Evaluación por reglas | CU 2.3.1 Evaluar al prospecto con reglas | «CU-11» | `SolicitudCredito`, `ReglaNegocio`, `SistemaCore` |
-| 2.3.2 Orientación y requisitos | CU 2.3.2 Recibir orientación sobre el resultado | «CU-11», «CU-12» | `SolicitudCredito`, `LineaCredito`, `Cita` |
-| 3.1.1 Generación de la ficha | CU 3.1.1 Revisar la ficha del prospecto | «CU-13» | `Lead`, `ReglaNegocio`, `Conversacion` |
-| 3.1.2 Integración con CRM | CU 3.1.2 Registrar el lead en el CRM | «CU-14» | `CRMCooperativa`, `Lead` |
-| 3.2.1 Asignación a asesor | CU 3.2.1 Recibir el lead asignado | «CU-15», «CU-16» | `Lead`, `AsesorComercial`, `Conversacion` |
-| 3.2.2 Seguimiento y cierre | CU 3.2.2 Hacer seguimiento y cerrar el lead | «CU-17», «CU-18», «CU-19» | `Cita`, `Lead`, `SolicitudCredito`, `CRMCooperativa` |
+| 1.1.1 Recepción multicanal | CU 1.1.1 Recibir la consulta por WhatsApp o web | SA-01 | `Canal`, `Conversacion`, `Mensaje` |
+| 1.1.2 Unificación de mensajes | CU 1.1.2 Unificar los mensajes entrantes | SA-01 | `Canal`, `July`, `Mensaje` |
+| 1.2.1 Atención inmediata | CU 1.2.1 Recibir atención inmediata | SA-01, SA-02, SA-06 | `PlantillaMensaje`, `Prospecto`, `Conversacion` |
+| 1.2.2 Identificación del prospecto | CU 1.2.2 Identificar al prospecto y su necesidad | SA-03, SA-04, SA-05 | `LineaCredito`, `SistemaCore`, `Lead` |
+| 2.1.1 Captura conversacional | CU 2.1.1 Entregar los datos conversando | SA-07 | `SolicitudCredito`, `Prospecto` |
+| 2.1.2 Validación y continuidad | CU 2.1.2 Validar los datos y mantener la continuidad | SA-07, SA-08 | `SolicitudCredito`, `SistemaCore`, `Conversacion` |
+| 2.2.1 Cálculo del crédito | CU 2.2.1 Calcular las condiciones del crédito | SA-09, SA-10 | `Simulacion`, `LineaCredito` |
+| 2.2.2 Productos y condiciones | CU 2.2.2 Consultar productos y condiciones | SA-21 | `LineaCredito`, `Lead` |
+| 2.3.1 Evaluación por reglas | CU 2.3.1 Evaluar al prospecto con reglas | SA-11 | `SolicitudCredito`, `ReglaNegocio`, `SistemaCore` |
+| 2.3.2 Orientación y requisitos | CU 2.3.2 Recibir orientación sobre el resultado | SA-11, SA-12 | `SolicitudCredito`, `LineaCredito`, `Cita` |
+| 3.1.1 Generación de la ficha | CU 3.1.1 Generar la ficha del prospecto | SA-13 | `Lead`, `ReglaNegocio`, `Conversacion` |
+| 3.1.2 Integración con CRM | CU 3.1.2 Registrar el lead en el CRM | SA-14 | `CRMCooperativa`, `Lead` |
+| 3.2.1 Asignación a asesor | CU 3.2.1 Recibir el lead asignado | SA-15, SA-16 | `Lead`, `AsesorComercial`, `Conversacion` |
+| 3.2.2 Seguimiento y cierre | CU 3.2.2 Hacer seguimiento y cerrar el lead | SA-17, SA-18, SA-19 | `Cita`, `Lead`, `SolicitudCredito`, `CRMCooperativa` |
 
 El detalle por paso está en CU-08 (columna «CU nivel 3») y en CLS-01 (columna «Pasos de CU-08» y sección 6).
 
