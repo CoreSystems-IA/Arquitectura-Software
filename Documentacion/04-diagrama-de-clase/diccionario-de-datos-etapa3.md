@@ -3,8 +3,8 @@
 | Campo | Valor |
 |---|---|
 | **ID** | CLS-01 |
-| **Versión** | 2.2 |
-| **Fecha** | 2026-10-24 |
+| **Versión** | 2.3 |
+| **Fecha** | 2026-10-29 |
 | **Deriva de** | [CU-08 · Especificaciones de casos de uso](../03-casos-de-uso/especificaciones-casos-de-uso.md) |
 | **Estado** | Borrador |
 
@@ -31,7 +31,7 @@ CU-08 nombra **46 entidades** y **185 métodos distintos**: una clase por sustan
 | 3 | **Todo aviso interno es un solo método.** Los avisos a asesores, jefe comercial, agencia y marketing son `July.notificar()`. | `Lead.notificar`, `Lead.informarFrio`, `Cita.notificar`, `EnvioCRM.avisarPendiente`… | `July.notificar()` |
 | 4 | **La captura de datos pasa por un solo punto.** Pedir el siguiente dato y registrarlo con su validación es igual para cédula, teléfono, monto, ingresos o una corrección. | `entregarCedula`, `validarFormatoCedula`, `entregarTelefono`, `validarMonto`, `corregirDato`… | `SolicitudCredito.campoPendiente()` y `registrarDato()` |
 | 5 | **Los pares consulta / entrega de configuración son una lectura.** El contenido conversacional se lee con `PlantillaMensaje.obtenerVigente()` y las reglas con `ReglaNegocio.obtenerVigente()`. | `GuionBienvenida`, `MenuOpciones`, `PreguntaFrecuente`; `ReglaPrecalificacion`, `CriterioPrioridad`, `ReglaEnrutamiento` | `PlantillaMensaje`, `ReglaNegocio` |
-| 6 | **Un sistema externo responde con el retorno de su método,** y sus fallas y reintentos quedan dentro de ese método. | `Socio.consultar` + `responderCondicion` + `responderSinRegistro`; `EnvioCRM`, `ErrorIntegracion` | `SistemaCore.consultarSocio()` → `Prospecto \| null`; `CRMCooperativa.sincronizarLead()` |
+| 6 | **Un sistema externo responde con el retorno de su método,** y sus fallas y reintentos quedan dentro de ese método. | `Socio.consultar` + `responderCondicion` + `responderSinRegistro`; `EnvioCRM`, `ErrorIntegracion` | `SistemaCore.consultarSocio()` → `CondicionSocio`; `CRMCooperativa.sincronizarLead()` |
 | 7 | **Lo que es 1 a 1 con otra clase se vuelve atributo suyo.** | `Consentimiento`, `Socio` → `Prospecto`; `Precalificacion`, `PerfilEconomico`, `CasoRevision` → `SolicitudCredito`; `AsignacionLead` → `Lead`; `OrigenConversacion`, `SesionChat` → `Conversacion` | Atributos |
 | 8 | **Un estado se cambia con un método `actualizarEstado()`**, no con un método por transición. | `confirmar`, `enviar` al comité, `comunicar` resolución; `confirmarAsistencia`, `atender` | `SolicitudCredito.actualizarEstado()`, `Cita.actualizarEstado()` |
 | 9 | **Un actor que solo publica configuración o recibe avisos no es una clase.** Jefe comercial, Personal de agencia, Comité de crédito, Área de productos, Administrador, Marketing y Delegado de protección de datos aparecen como `publicadoPor` o como destinatario de `notificar()`. Solo `AsesorComercial` es clase, porque guarda disponibilidad y carga. | 8 actores internos | `AsesorComercial` |
@@ -48,9 +48,10 @@ La sección [6](#6-trazabilidad-con-cu-08) muestra a dónde fue cada entidad y c
 | Atributo y método | `camelCase`. Los métodos empiezan con un verbo en infinitivo. |
 | Tipos | `String`, `Integer`, `Decimal` (dinero y tasas), `Boolean`, `Date`, `DateTime`, `Duration`, `UUID`, `List<T>`, `Map<K, V>` y las enumeraciones de la sección 3. |
 | `[0..1]` | Atributo opcional. Sin marca, el atributo es obligatorio. |
-| `T \| null` | El método puede devolver «no encontrado» o «sin error». |
+| `T \| null` | En una salida, el método puede devolver «no encontrado» o «sin error». En una entrada, el dato puede no venir. |
+| `/atributo` | Atributo derivado: se calcula a partir de otros datos y no se guarda. |
 | «estático» | El método crea la instancia o busca entre todas; no se llama sobre un objeto existente. |
-| Atributo con tipo de clase | Es el extremo navegable de una relación de la sección 5. |
+| Atributo con tipo de clase | Es el extremo navegable de una relación de la sección 5: la clase que lo tiene llega a la otra. La columna «Navegación» de la sección 5 dice en qué sentido se recorre cada relación. |
 
 **Naturaleza** de cada clase, según los estereotipos de análisis de UML:
 
@@ -97,7 +98,31 @@ La sección [6](#6-trazabilidad-con-cu-08) muestra a dónde fue cada entidad y c
 | PRECALIFICADO | `SolicitudCredito.precalificar()` | 2.3.1 (7, A2·7b). Solo los APTO o A_REVISAR pasan al flujo 3. |
 | ASIGNADO | `Lead.asignar()` | 3.2.1 (4, A1·7a) |
 | EN_GESTION | `Lead.aceptarAsignacion()` | 3.2.1 (6) |
-| DESEMBOLSADO, PERDIDO | `Lead.actualizarEstado()` | 3.2.2 (10) |
+| DESEMBOLSADO, PERDIDO | `Lead.actualizarEstado()` | 3.2.2 (12) |
+
+Un lead NO_APTO se queda en PRECALIFICADO: recibe una alternativa (2.3.2·A1·4a) y, si vuelve a simular, `precalificar()` lo clasifica de nuevo. No entra al flujo 3 ni pasa a PERDIDO, porque CU-08 no tiene un paso que lo cierre.
+
+**Transiciones de `EstadoConversacion`:**
+
+| Estado | Lo fija | Paso de CU-08 |
+|---|---|---|
+| ACTIVA | `Conversacion.abrir()`; `Conversacion.retomar()` la reactiva | 1.1 (1); 2.1.2 (A4·9d) |
+| DERIVADA | `Conversacion.traspasar()` | 1.2.1 (A2·11b); 3.2.1 (7) |
+| ABANDONADA | `Conversacion.marcarAbandonada()` | 2.1.2 (A4·8d) |
+| CERRADA | `Lead.actualizarEstado()`, al llevar el lead a DESEMBOLSADO o PERDIDO | 3.2.2 (12) |
+
+Una conversación sin lead (por ejemplo, la que solo resolvió una pregunta frecuente) no se cierra: pasa a ABANDONADA al vencer `July.tiempoAbandono`.
+
+**Transiciones de `EstadoSolicitud`:**
+
+| Estado | Lo fija | Paso de CU-08 |
+|---|---|---|
+| EN_CAPTURA | `SolicitudCredito.iniciar()` | 2.1.1 (1) |
+| CONFIRMADA | `SolicitudCredito.actualizarEstado()` | 2.1.1 (10) |
+| EN_RESOLUCION | `SolicitudCredito.actualizarEstado()` | 3.2.2 (9) |
+| APROBADA, NEGADA | `SolicitudCredito.actualizarEstado()` | 3.2.2 (10) |
+
+`derivarARevision()` no cambia el estado: la revisión de un caso A_REVISAR es preliminar y la solicitud sigue CONFIRMADA, con `resultado` = A_REVISAR y su `numeroCasoRevision`. EN_RESOLUCION es la solicitud formal que se envía al comité con los documentos ya recibidos en agencia.
 
 **Transiciones de `EstadoCita`.** RESERVADA: la agencia bloqueó el horario y confirmó la reserva (2.3.2·10 a 12). CONFIRMADA: el prospecto confirmó su asistencia (3.2.2·4). REPROGRAMADA: se cambió el horario (3.2.2·A3·7c). ATENDIDA: la agencia atendió al prospecto (3.2.2·6).
 
@@ -127,6 +152,7 @@ Asistente virtual de la cooperativa: el sistema que se diseña. Recibe cada mens
 - **Dependencia** («usa») hacia `Canal`: Recibe los mensajes de los canales.
 - **Dependencia** («usa») hacia `SistemaCore`: Valida cédulas y consulta socios.
 - **Dependencia** («usa») hacia `CRMCooperativa`: Sincroniza los leads.
+- **Dependencia** («usa») hacia `Mensaje`: Recibe cada mensaje entrante.
 
 #### Canal
 
@@ -140,7 +166,7 @@ Canal digital por el que llega y sale la conversación: WhatsApp Business API o 
 
 | Método | Entrada | Salida | Qué hace | Pasos de CU-08 |
 |---|---|---|---|---|
-| `recibir()` | `carga: String` | `Mensaje` | Convierte la carga del proveedor al formato común y devuelve el acuse de recepción. | 1.1 (1, 3); 1.1.1 (1, 2, A1·3a, A1·4a); 1.1.2 (1, 2, 4, 5, 6, A1·1a, A1·2a) |
+| `recibir()` | `carga: String` | `Mensaje` | Convierte la carga del proveedor al formato común y la devuelve como `Mensaje`. Responder sin error es el acuse de recepción al proveedor. | 1.1 (1, 3); 1.1.1 (1, 2, A1·3a, A1·4a); 1.1.2 (1, 2, 4, 5, 6, A1·1a, A1·2a) |
 | `verificarAutenticidad()` | `carga: String, firma: String` | `Boolean` | Comprueba la firma del webhook o el token de la sesión web. Si es falsa, la carga se rechaza. | 1.1.2 (3, A1·3a, A2·4b, A2·5b) |
 | `enviar()` | `destino: String, mensaje: Mensaje` | `void` | Entrega un mensaje o una plantilla al prospecto. | 2.1.2 (A4·10d); 3.2.2 (3) |
 | `abrirSesion()` | `paginaOrigen: String` | `String` | Solo web: abre la sesión de chat desde una página del sitio y devuelve el token. | 1.1.1 (A1·1a, A1·2a) |
@@ -235,7 +261,8 @@ Colaborador que atiende leads. Es el único actor interno con clase propia, porq
 | `agencia` | `String` | Código de la agencia donde trabaja (el mismo que usa `Cita.agencia`). |
 | `productos` | `List<String>` | Códigos de las líneas que atiende. |
 | `disponible` | `Boolean` | Si puede recibir leads ahora. |
-| `cargaActual` | `Integer` | Derivado: cantidad de sus leads en ASIGNADO o EN_GESTION. No se guarda; se calcula. |
+| `leads` | `List<Lead>` | Leads que tiene asignados. Es el extremo de `Lead.asesor`: la asociación se recorre en ambos sentidos. |
+| `/cargaActual` | `Integer` | Derivado: cantidad de sus `leads` en ASIGNADO o EN_GESTION. No se guarda; se calcula. |
 
 | Método | Entrada | Salida | Qué hace | Pasos de CU-08 |
 |---|---|---|---|---|
@@ -244,7 +271,7 @@ Colaborador que atiende leads. Es el único actor interno con clase propia, porq
 **Relaciones:**
 
 - **Asociación** desde `Conversacion` (* — 0..1): Asesor tras el traspaso.
-- **Asociación** desde `Lead` (* — 0..1): Asesor asignado.
+- **Asociación** desde `Lead` (* — 0..1), navegable en ambos sentidos: Asesor asignado; de ella sale `/cargaActual`.
 
 #### Conversacion
 
@@ -271,7 +298,7 @@ Hilo de mensajes entre el prospecto, July y, si hay traspaso, el asesor. Guarda 
 | `enviarMensaje()` | `emisor: Emisor, contenido: String, opciones: List<String>` | `Mensaje` | Registra y envía por el canal un mensaje de July o del asesor. Las opciones, si las hay, se muestran como respuestas cerradas. | 1.1 (4); 1.1.2 (7, A3·8c); 1.2 (7); 1.2.1 (A2·12b); 1.2.2 (3, 8, A1·3a); 2.1.1 (A1·4a); 2.1.2 (6, A3·5c); 2.2 (5); 2.2.1 (4, 7, 10, A1·3a); 2.2.2 (10); 2.3 (7); 2.3.1 (A2·10b); 2.3.2 (8, 13); 3.2.1 (8); 3.2.2 (A3·8c) |
 | `etiquetarOrigen()` | `campana: String \| null` | `void` | Guarda la campaña de origen; null = origen directo. | 1.1 (2); 1.1.1 (3, A2·3b) |
 | `guardarAvance()` | `paso: String` | `void` | Guarda el último paso completado del flujo. | 2.1 (5); 2.1.2 (5) |
-| `marcarAbandonada()` | `—` | `void` | Pasa a ABANDONADA cuando vence `July.tiempoAbandono` sin respuesta del prospecto. | 2.1.2 (A4·7d, A4·8d) |
+| `marcarAbandonada()` | `—` | `void` | Pasa la conversación a ABANDONADA. La llama `July` cuando vence su `tiempoAbandono` sin respuesta del prospecto. | 2.1.2 (A4·7d, A4·8d) |
 | `retomar()` | `—` | `void` | Envía la plantilla de retoma con el último paso guardado y reactiva la conversación desde ese paso. | 2.1.2 (A4·9d, A4·12d) |
 | `traspasar()` | `asesor: AsesorComercial` | `void` | Pasa la conversación, con su historial, al asesor que aceptó; el estado pasa a DERIVADA. | 1.2.1 (A2·10b, A2·11b); 3.2.1 (7) |
 
@@ -304,6 +331,7 @@ Un mensaje en formato común, sin importar el canal.
 
 - **Composición** desde `Conversacion` (1 — 0..*): El historial no existe sin la conversación.
 - **Dependencia** («crea») desde `Canal`: Convierte cada carga en un Mensaje.
+- **Dependencia** («usa») desde `July`: Recibe cada mensaje entrante.
 
 ### Lead y crédito
 
@@ -323,6 +351,8 @@ Oportunidad comercial: un prospecto con una intención de crédito. Es lo que Ju
 | `prioridad` | `Prioridad [0..1]` | CALIENTE, TIBIO o FRIO. |
 | `estado` | `EstadoLead` | Etapa del embudo. |
 | `asesor` | `AsesorComercial [0..1]` | Asesor asignado. |
+| `solicitud` | `SolicitudCredito [0..1]` | Solicitud del lead; `generarFicha()` toma de ella la simulación elegida y la precalificación. |
+| `citas` | `List<Cita>` | Citas del lead; `asignar()` toma de ellas la agencia. |
 | `fechaAsignacion` | `DateTime [0..1]` | Inicio del plazo de atención. Que el asesor aceptó se ve en `estado` = EN_GESTION. |
 | `intentosReactivacion` | `Integer` | Reactivaciones enviadas sin respuesta. |
 | `idCRM` | `String [0..1]` | Identificador en el CRM. |
@@ -338,16 +368,16 @@ Oportunidad comercial: un prospecto con una intención de crédito. Es lo que Ju
 | `aceptarAsignacion()` | `—` | `void` | Registra que el asesor aceptó el lead dentro del plazo y lo pasa a EN_GESTION. | 3.2.1 (6) |
 | `generarFicha()` | `—` | `String` | Consolida datos, simulación elegida, precalificación, prioridad e historial en la ficha del prospecto, con los datos faltantes marcados. Se genera al terminar una precalificación APTO o A_REVISAR, antes de asignar el lead. | 3.1 (1); 3.1.1 (3, 4, A1·3a) |
 | `vincularCRM()` | `idCRM: String` | `void` | Guarda el identificador devuelto por el CRM. | 3.1 (4); 3.1.2 (5) |
-| `actualizarEstado()` | `estado: EstadoLead, motivo: String \| null` | `void` | Avanza el lead en el embudo. El motivo es obligatorio para PERDIDO. | 3.2 (4); 3.2.2 (12) |
+| `actualizarEstado()` | `estado: EstadoLead, motivo: String \| null` | `void` | Avanza el lead en el embudo. El motivo es obligatorio para PERDIDO. Al llegar a DESEMBOLSADO o PERDIDO, cierra su conversación (CERRADA). | 3.2 (4); 3.2.2 (12) |
 | `reactivar()` | `—` | `void` | Envía la plantilla de reactivación y suma un intento. Los intentos se agotan al llegar al parámetro `maxReactivaciones` de la regla de PRIORIDAD. | 3.2.2 (A1·4a, A1·5a) |
 
 **Relaciones:**
 
-- **Composición** con `SolicitudCredito` (1 — 0..1): La solicitud pertenece al lead.
-- **Composición** con `Cita` (1 — 0..*): Citas agendadas para el lead.
+- **Composición** con `SolicitudCredito` (1 — 0..1), navegable en ambos sentidos: La solicitud pertenece al lead.
+- **Composición** con `Cita` (1 — 0..*), navegable en ambos sentidos: Citas agendadas para el lead.
 - **Asociación** con `Prospecto` (* — 1): Prospecto interesado.
 - **Asociación** con `Conversacion` (0..1 — 1): Conversación de origen.
-- **Asociación** con `AsesorComercial` (* — 0..1): Asesor asignado.
+- **Asociación** con `AsesorComercial` (* — 0..1), navegable en ambos sentidos: Asesor asignado.
 - **Asociación** con `LineaCredito` (* — 1): Línea del lead y de su solicitud.
 - **Dependencia** («usa») hacia `ReglaNegocio`: Criterios de prioridad y enrutamiento.
 - **Dependencia** («usa») hacia `PlantillaMensaje`: Plantilla de reactivación.
@@ -385,15 +415,15 @@ Datos que el prospecto entrega para pedir el crédito y su precalificación. Los
 | `actualizarEstado()` | `estado: EstadoSolicitud` | `void` | Confirma la solicitud (exige captura completa), la envía al Comité de crédito (EN_RESOLUCION) o registra la resolución que el comité comunica a July (APROBADA o NEGADA). | 2.1 (7); 2.1.1 (10); 3.2.2 (9, 10) |
 | `precalificar()` | `reglas: ReglaNegocio` | `ResultadoPrecalificacion` | Calcula la capacidad de pago y clasifica la simulación elegida con las reglas del comité, y pasa el lead a PRECALIFICADO. Sin registro del core usa solo datos declarados y marca el resultado como condicionado. | 2.3 (2); 2.3.1 (6, 7, A1·6a, A2·7b) |
 | `explicarResultado()` | `—` | `String` | Explica el resultado preliminar y los factores; para NO_APTO incluye el motivo. | 2.3 (3); 2.3.1 (8); 2.3.2 (2, A1·2a) |
-| `derivarARevision()` | `—` | `String` | Envía el caso A_REVISAR al Comité de crédito y devuelve el número de caso. | 2.3.1 (A2·8b, A2·9b) |
+| `derivarARevision()` | `—` | `String` | Envía el caso A_REVISAR al Comité de crédito para una revisión preliminar y devuelve el número de caso. No cambia el estado de la solicitud. | 2.3.1 (A2·8b, A2·9b) |
 | `registrarDocumento()` | `documento: String` | `void` | Marca un documento como recibido en agencia; lo registra el asesor en July. | 3.2.2 (8) |
 
 **Relaciones:**
 
-- **Composición** con `Simulacion` (1 — 0..*): Simulaciones calculadas para comparar.
-- **Asociación** con `Simulacion` (1 — 0..1): Simulación elegida (una de las suyas).
+- **Composición** con `Simulacion` (1 — 0..*), navegable de la simulación a la solicitud: Simulaciones calculadas para comparar.
+- **Asociación** con `Simulacion` (0..1 — 0..1): Simulación elegida (una de las suyas).
 - **Dependencia** («usa») hacia `ReglaNegocio`: Reglas de precalificación.
-- **Composición** desde `Lead` (1 — 0..1): La solicitud pertenece al lead.
+- **Composición** desde `Lead` (1 — 0..1), navegable en ambos sentidos: La solicitud pertenece al lead.
 
 #### Simulacion
 
@@ -423,7 +453,7 @@ Un escenario de crédito: un monto a un plazo con su cuota y su costo. Una solic
 **Relaciones:**
 
 - **Composición** desde `SolicitudCredito` (1 — 0..*): Simulaciones calculadas para comparar.
-- **Asociación** desde `SolicitudCredito` (1 — 0..1): Simulación elegida (una de las suyas).
+- **Asociación** desde `SolicitudCredito` (0..1 — 0..1): Simulación elegida (una de las suyas). Las simulaciones no elegidas no tienen solicitud en este extremo.
 
 #### Cita
 
@@ -450,7 +480,7 @@ Cita del prospecto en una agencia, con su recordatorio.
 **Relaciones:**
 
 - **Dependencia** («usa») hacia `PlantillaMensaje`: Plantilla de recordatorio.
-- **Composición** desde `Lead` (1 — 0..*): Citas agendadas para el lead.
+- **Composición** desde `Lead` (1 — 0..*), navegable en ambos sentidos: Citas agendadas para el lead.
 
 ### Configuración
 
@@ -543,32 +573,35 @@ Parámetros de decisión publicados por versiones: reglas de precalificación (C
 | Asociación | Una clase guarda una referencia a otra. Multiplicidad: origen — destino. |
 | Dependencia | Una clase usa o crea a otra en un método, sin guardarla. |
 
-| # | Origen | Tipo | Destino | Multiplicidad | Descripción |
-|---|---|---|---|---|---|
-| 1 | `Conversacion` | Composición | `Mensaje` | 1 — 0..* | El historial no existe sin la conversación. |
-| 2 | `Lead` | Composición | `SolicitudCredito` | 1 — 0..1 | La solicitud pertenece al lead. |
-| 3 | `SolicitudCredito` | Composición | `Simulacion` | 1 — 0..* | Simulaciones calculadas para comparar. |
-| 4 | `Lead` | Composición | `Cita` | 1 — 0..* | Citas agendadas para el lead. |
-| 5 | `Conversacion` | Asociación | `Prospecto` | * — 1 | Con quién se conversa. |
-| 6 | `Conversacion` | Asociación | `AsesorComercial` | * — 0..1 | Asesor tras el traspaso. |
-| 7 | `Lead` | Asociación | `Prospecto` | * — 1 | Prospecto interesado. |
-| 8 | `Lead` | Asociación | `Conversacion` | 0..1 — 1 | Conversación de origen. |
-| 9 | `Lead` | Asociación | `AsesorComercial` | * — 0..1 | Asesor asignado. |
-| 10 | `Lead` | Asociación | `LineaCredito` | * — 1 | Línea del lead y de su solicitud. |
-| 11 | `SolicitudCredito` | Asociación | `Simulacion` | 1 — 0..1 | Simulación elegida (una de las suyas). |
-| 12 | `July` | Dependencia | `Conversacion` | «usa» | Registra y enruta cada mensaje. |
-| 13 | `July` | Dependencia | `Canal` | «usa» | Recibe los mensajes de los canales. |
-| 14 | `July` | Dependencia | `SistemaCore` | «usa» | Valida cédulas y consulta socios. |
-| 15 | `July` | Dependencia | `CRMCooperativa` | «usa» | Sincroniza los leads. |
-| 16 | `Canal` | Dependencia | `Mensaje` | «crea» | Convierte cada carga en un Mensaje. |
-| 17 | `Conversacion` | Dependencia | `Canal` | «usa» | Envía los mensajes de salida. |
-| 18 | `Conversacion` | Dependencia | `PlantillaMensaje` | «usa» | Bienvenida, menús y retoma. |
-| 19 | `SistemaCore` | Dependencia | `Prospecto` | «usa» | Completa los datos registrados del socio. |
-| 20 | `CRMCooperativa` | Dependencia | `Lead` | «usa» | Crea y actualiza el lead. |
-| 21 | `Lead` | Dependencia | `ReglaNegocio` | «usa» | Criterios de prioridad y enrutamiento. |
-| 22 | `Lead` | Dependencia | `PlantillaMensaje` | «usa» | Plantilla de reactivación. |
-| 23 | `SolicitudCredito` | Dependencia | `ReglaNegocio` | «usa» | Reglas de precalificación. |
-| 24 | `Cita` | Dependencia | `PlantillaMensaje` | «usa» | Plantilla de recordatorio. |
+| # | Origen | Tipo | Destino | Multiplicidad | Navegación | Descripción |
+|---|---|---|---|---|---|---|
+| 1 | `Conversacion` | Composición | `Mensaje` | 1 — 0..* | → | El historial no existe sin la conversación. |
+| 2 | `Lead` | Composición | `SolicitudCredito` | 1 — 0..1 | ↔ | La solicitud pertenece al lead. |
+| 3 | `SolicitudCredito` | Composición | `Simulacion` | 1 — 0..* | ← | Simulaciones calculadas para comparar. |
+| 4 | `Lead` | Composición | `Cita` | 1 — 0..* | ↔ | Citas agendadas para el lead. |
+| 5 | `Conversacion` | Asociación | `Prospecto` | * — 1 | → | Con quién se conversa. |
+| 6 | `Conversacion` | Asociación | `AsesorComercial` | * — 0..1 | → | Asesor tras el traspaso. |
+| 7 | `Lead` | Asociación | `Prospecto` | * — 1 | → | Prospecto interesado. |
+| 8 | `Lead` | Asociación | `Conversacion` | 0..1 — 1 | → | Conversación de origen. |
+| 9 | `Lead` | Asociación | `AsesorComercial` | * — 0..1 | ↔ | Asesor asignado. |
+| 10 | `Lead` | Asociación | `LineaCredito` | * — 1 | → | Línea del lead y de su solicitud. |
+| 11 | `SolicitudCredito` | Asociación | `Simulacion` | 0..1 — 0..1 | → | Simulación elegida (una de las suyas). |
+| 12 | `July` | Dependencia | `Conversacion` | «usa» | → | Registra y enruta cada mensaje. |
+| 13 | `July` | Dependencia | `Canal` | «usa» | → | Recibe los mensajes de los canales. |
+| 14 | `July` | Dependencia | `SistemaCore` | «usa» | → | Valida cédulas y consulta socios. |
+| 15 | `July` | Dependencia | `CRMCooperativa` | «usa» | → | Sincroniza los leads. |
+| 16 | `Canal` | Dependencia | `Mensaje` | «crea» | → | Convierte cada carga en un Mensaje. |
+| 17 | `Conversacion` | Dependencia | `Canal` | «usa» | → | Envía los mensajes de salida. |
+| 18 | `Conversacion` | Dependencia | `PlantillaMensaje` | «usa» | → | Bienvenida, menús y retoma. |
+| 19 | `SistemaCore` | Dependencia | `Prospecto` | «usa» | → | Completa los datos registrados del socio. |
+| 20 | `CRMCooperativa` | Dependencia | `Lead` | «usa» | → | Crea y actualiza el lead. |
+| 21 | `Lead` | Dependencia | `ReglaNegocio` | «usa» | → | Criterios de prioridad y enrutamiento. |
+| 22 | `Lead` | Dependencia | `PlantillaMensaje` | «usa» | → | Plantilla de reactivación. |
+| 23 | `SolicitudCredito` | Dependencia | `ReglaNegocio` | «usa» | → | Reglas de precalificación. |
+| 24 | `Cita` | Dependencia | `PlantillaMensaje` | «usa» | → | Plantilla de recordatorio. |
+| 25 | `July` | Dependencia | `Mensaje` | «usa» | → | Recibe cada mensaje entrante. |
+
+Navegación: → de origen a destino; ← de destino a origen; ↔ en ambos sentidos. Cada extremo navegable es un atributo de la clase que lo recorre.
 
 ## 6. Trazabilidad con CU-08
 
@@ -576,7 +609,7 @@ Parámetros de decisión publicados por versiones: reglas de precalificación (C
 
 | Entidad en CU-08 | Queda como | Motivo |
 |---|---|---|
-| `AcuseRecepcion` | Retorno de Canal.recibir() y de SolicitudCredito.derivarARevision() | Un acuse es la respuesta de una llamada, no un dato que se guarde. |
+| `AcuseRecepcion` | Respuesta sin error de Canal.recibir() y número de caso que devuelve SolicitudCredito.derivarARevision() | Un acuse es la respuesta de una llamada, no un dato que se guarde. |
 | `AsesorComercial` | AsesorComercial | Se conserva: el enrutamiento necesita su disponibilidad y su carga. |
 | `AsignacionLead` | Lead.asesor, fechaAsignacion, estado (ASIGNADO / EN_GESTION) | Una asignación es el estado del lead frente a un asesor. |
 | `AvisoPrivacidad` | PlantillaMensaje (AVISO_PRIVACIDAD) + Prospecto.consentimientoAceptado | El texto es contenido publicado; la respuesta es un dato del prospecto. |
@@ -689,17 +722,17 @@ Cada fila es un método del modelo y los métodos de CU-08 que reemplaza. Cubre 
 
 | Entidad | Descripción | Categoría | Atributos | Métodos (entrada → salida) | Relaciones (tipo → destino [multiplicidad]) | Naturaleza |
 |---|---|---|---|---|---|---|
-| [`July`](#july) | Asistente virtual de la cooperativa y sistema que se diseña: recibe cada mensaje, decide qué caso de uso lo atiende y avisa a los colaboradores. | Control | `capacidadMaxima`: `Integer`<br>`tiempoRespuestaObjetivo`: `Duration`<br>`tiempoAbandono`: `Duration` | `atender(mensaje: Mensaje)` → `void`<br>`notificar(destinatario: String, contenido: String)` → `void` | Dependencia → Conversacion [usa]<br>Dependencia → Canal [usa]<br>Dependencia → SistemaCore [usa]<br>Dependencia → CRMCooperativa [usa] | «control» |
+| [`July`](#july) | Asistente virtual de la cooperativa y sistema que se diseña: recibe cada mensaje, decide qué caso de uso lo atiende y avisa a los colaboradores. | Control | `capacidadMaxima`: `Integer`<br>`tiempoRespuestaObjetivo`: `Duration`<br>`tiempoAbandono`: `Duration` | `atender(mensaje: Mensaje)` → `void`<br>`notificar(destinatario: String, contenido: String)` → `void` | Dependencia → Conversacion [usa]<br>Dependencia → Canal [usa]<br>Dependencia → SistemaCore [usa]<br>Dependencia → CRMCooperativa [usa]<br>Dependencia → Mensaje [usa] | «control» |
 | [`Canal`](#canal) | Canal digital por el que entra y sale la conversación (WhatsApp Business API o widget web); convierte cada carga al formato común de July. | Sistema externo | `tipo`: `TipoCanal`<br>`credencial`: `String` | `recibir(carga: String)` → `Mensaje`<br>`verificarAutenticidad(carga: String, firma: String)` → `Boolean`<br>`enviar(destino: String, mensaje: Mensaje)` → `void`<br>`abrirSesion(paginaOrigen: String)` → `String` | Dependencia → Mensaje [crea]<br>Dependencia ← July [usa]<br>Dependencia ← Conversacion [usa] | «interfaz» |
 | [`SistemaCore`](#sistemacore) | Sistema transaccional de la cooperativa: fuente oficial de socios y de identidad. | Sistema externo | `urlServicio`: `String`<br>`tiempoMaximoRespuesta`: `Duration` | `validarCedula(cedula: String)` → `Boolean`<br>`consultarSocio(prospecto: Prospecto)` → `CondicionSocio` | Dependencia → Prospecto [usa]<br>Dependencia ← July [usa] | «interfaz» |
 | [`CRMCooperativa`](#crmcooperativa) | CRM comercial donde se registra el lead y se gestiona el embudo de ventas. | Sistema externo | `urlServicio`: `String`<br>`maxIntentos`: `Integer` | `buscarLead(cedula: String, telefono: String)` → `String \| null`<br>`sincronizarLead(lead: Lead)` → `String` | Dependencia → Lead [usa]<br>Dependencia ← July [usa] | «interfaz» |
 | [`Prospecto`](#prospecto) | Persona que contacta a la cooperativa; guarda su identidad, su condición de socio y su consentimiento de datos. | Actor (entidad) | `idProspecto`: `UUID`<br>`nombres`: `String [0..1]`<br>`cedula`: `String [0..1]`<br>`telefono`: `String [0..1]`<br>`correo`: `String [0..1]`<br>`condicionSocio`: `CondicionSocio`<br>`fechaIngresoSocio`: `Date [0..1]`<br>`edad`: `Integer [0..1]`<br>`actividadRegistrada`: `String [0..1]`<br>`consentimientoAceptado`: `Boolean`<br>`versionAviso`: `String [0..1]`<br>`fechaConsentimiento`: `DateTime [0..1]` | `registrarConsentimiento(aceptado: Boolean, versionAviso: String)` → `void` | Asociación ← Conversacion [* — 1]<br>Asociación ← Lead [* — 1]<br>Dependencia ← SistemaCore [usa] | «entidad» |
-| [`AsesorComercial`](#asesorcomercial) | Colaborador que atiende los leads; guarda su agencia, sus productos y su disponibilidad para el enrutamiento. | Actor (entidad) | `idAsesor`: `UUID`<br>`nombre`: `String`<br>`agencia`: `String`<br>`productos`: `List<String>`<br>`disponible`: `Boolean`<br>`cargaActual`: `Integer` | `cambiarDisponibilidad(disponible: Boolean)` → `void` | Asociación ← Conversacion [* — 0..1]<br>Asociación ← Lead [* — 0..1] | «entidad» |
+| [`AsesorComercial`](#asesorcomercial) | Colaborador que atiende los leads; guarda su agencia, sus productos y su disponibilidad para el enrutamiento. | Actor (entidad) | `idAsesor`: `UUID`<br>`nombre`: `String`<br>`agencia`: `String`<br>`productos`: `List<String>`<br>`disponible`: `Boolean`<br>`leads`: `List<Lead>`<br>`/cargaActual`: `Integer` | `cambiarDisponibilidad(disponible: Boolean)` → `void` | Asociación ← Conversacion [* — 0..1]<br>Asociación ← Lead [* — 0..1] | «entidad» |
 | [`Conversacion`](#conversacion) | Hilo de mensajes entre el prospecto, July y, si hay traspaso, el asesor; guarda el origen y el avance del flujo. | Entidad de negocio | `idConversacion`: `UUID`<br>`prospecto`: `Prospecto`<br>`canal`: `TipoCanal`<br>`campana`: `String [0..1]`<br>`tokenSesion`: `String [0..1]`<br>`estado`: `EstadoConversacion`<br>`ultimoPaso`: `String`<br>`fechaUltimaActividad`: `DateTime`<br>`asesorAsignado`: `AsesorComercial [0..1]`<br>`historial`: `List<Mensaje>` | `abrir(canal: TipoCanal, prospecto: Prospecto, tokenSesion: String \| null)` → `Conversacion`<br>`registrarMensaje(mensaje: Mensaje)` → `void`<br>`enviarMensaje(emisor: Emisor, contenido: String, opciones: List<String>)` → `Mensaje`<br>`etiquetarOrigen(campana: String \| null)` → `void`<br>`guardarAvance(paso: String)` → `void`<br>`marcarAbandonada()` → `void`<br>`retomar()` → `void`<br>`traspasar(asesor: AsesorComercial)` → `void` | Composición → Mensaje [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Dependencia → Canal [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Asociación ← Lead [0..1 — 1]<br>Dependencia ← July [usa] | «entidad» |
-| [`Mensaje`](#mensaje) | Un mensaje en formato común, sin importar el canal por el que llegó o salió. | Entidad de negocio | `idMensaje`: `UUID`<br>`idExterno`: `String`<br>`emisor`: `Emisor`<br>`tipo`: `TipoMensaje`<br>`contenido`: `String`<br>`adjuntos`: `List<String>`<br>`fechaHora`: `DateTime` | — | Composición ← Conversacion [1 — 0..*]<br>Dependencia ← Canal [crea] | «entidad» |
-| [`Lead`](#lead) | Oportunidad comercial: un prospecto con una intención de crédito, que July entrega al asesor y al CRM. | Entidad de negocio | `idLead`: `UUID`<br>`numeroSeguimiento`: `String`<br>`prospecto`: `Prospecto`<br>`conversacion`: `Conversacion`<br>`lineaCredito`: `LineaCredito`<br>`necesidad`: `String`<br>`prioridad`: `Prioridad [0..1]`<br>`estado`: `EstadoLead`<br>`asesor`: `AsesorComercial [0..1]`<br>`fechaAsignacion`: `DateTime [0..1]`<br>`intentosReactivacion`: `Integer`<br>`idCRM`: `String [0..1]`<br>`motivoCierre`: `String [0..1]`<br>`fechaRegistro`: `DateTime` | `registrar(prospecto: Prospecto, conversacion: Conversacion, linea: LineaCredito, necesidad: String)` → `Lead`<br>`elegirLinea(linea: LineaCredito)` → `void`<br>`priorizar(criterios: ReglaNegocio)` → `Prioridad`<br>`asignar(enrutamiento: ReglaNegocio, asesores: List<AsesorComercial>)` → `AsesorComercial`<br>`aceptarAsignacion()` → `void`<br>`generarFicha()` → `String`<br>`vincularCRM(idCRM: String)` → `void`<br>`actualizarEstado(estado: EstadoLead, motivo: String \| null)` → `void`<br>`reactivar()` → `void` | Composición → SolicitudCredito [1 — 0..1]<br>Composición → Cita [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → Conversacion [0..1 — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Asociación → LineaCredito [* — 1]<br>Dependencia → ReglaNegocio [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Dependencia ← CRMCooperativa [usa] | «entidad» |
-| [`SolicitudCredito`](#solicitudcredito) | Datos que el prospecto entrega para pedir el crédito (monto, plazo, destino, ingresos) y el resultado de su precalificación. | Entidad de negocio | `idSolicitud`: `UUID`<br>`lead`: `Lead`<br>`monto`: `Decimal [0..1]`<br>`plazo`: `Integer [0..1]`<br>`destino`: `String [0..1]`<br>`ingresosMensuales`: `Decimal [0..1]`<br>`actividadEconomica`: `String [0..1]`<br>`estado`: `EstadoSolicitud`<br>`simulacionElegida`: `Simulacion [0..1]`<br>`resultado`: `ResultadoPrecalificacion [0..1]`<br>`capacidadPago`: `Decimal [0..1]`<br>`factores`: `List<String>`<br>`resultadoCondicionado`: `Boolean`<br>`numeroCasoRevision`: `String [0..1]`<br>`documentosRecibidos`: `List<String>` | `iniciar(lead: Lead)` → `SolicitudCredito`<br>`campoPendiente()` → `CampoSolicitud \| null`<br>`registrarDato(campo: CampoSolicitud, valor: String)` → `String \| null`<br>`resumir()` → `String`<br>`actualizarEstado(estado: EstadoSolicitud)` → `void`<br>`precalificar(reglas: ReglaNegocio)` → `ResultadoPrecalificacion`<br>`explicarResultado()` → `String`<br>`derivarARevision()` → `String`<br>`registrarDocumento(documento: String)` → `void` | Composición → Simulacion [1 — 0..*]<br>Asociación → Simulacion [1 — 0..1]<br>Dependencia → ReglaNegocio [usa]<br>Composición ← Lead [1 — 0..1] | «entidad» |
-| [`Simulacion`](#simulacion) | Escenario de crédito: un monto a un plazo con su cuota, intereses, seguros, cargos y total a pagar. | Entidad de negocio | `idSimulacion`: `UUID`<br>`solicitud`: `SolicitudCredito`<br>`monto`: `Decimal`<br>`plazo`: `Integer`<br>`tasa`: `Decimal`<br>`cuotaMensual`: `Decimal`<br>`intereses`: `Decimal`<br>`seguros`: `Decimal`<br>`cargos`: `Decimal`<br>`totalPagar`: `Decimal` | `calcular(solicitud: SolicitudCredito, monto: Decimal, plazo: Integer)` → `Simulacion`<br>`generarTablaAmortizacion()` → `List<Map<String, Decimal>>`<br>`elegir()` → `void`<br>`sugerirAlternativa(capacidadPago: Decimal)` → `Simulacion` | Composición ← SolicitudCredito [1 — 0..*]<br>Asociación ← SolicitudCredito [1 — 0..1] | «entidad» |
+| [`Mensaje`](#mensaje) | Un mensaje en formato común, sin importar el canal por el que llegó o salió. | Entidad de negocio | `idMensaje`: `UUID`<br>`idExterno`: `String`<br>`emisor`: `Emisor`<br>`tipo`: `TipoMensaje`<br>`contenido`: `String`<br>`adjuntos`: `List<String>`<br>`fechaHora`: `DateTime` | — | Composición ← Conversacion [1 — 0..*]<br>Dependencia ← Canal [crea]<br>Dependencia ← July [usa] | «entidad» |
+| [`Lead`](#lead) | Oportunidad comercial: un prospecto con una intención de crédito, que July entrega al asesor y al CRM. | Entidad de negocio | `idLead`: `UUID`<br>`numeroSeguimiento`: `String`<br>`prospecto`: `Prospecto`<br>`conversacion`: `Conversacion`<br>`lineaCredito`: `LineaCredito`<br>`necesidad`: `String`<br>`prioridad`: `Prioridad [0..1]`<br>`estado`: `EstadoLead`<br>`asesor`: `AsesorComercial [0..1]`<br>`solicitud`: `SolicitudCredito [0..1]`<br>`citas`: `List<Cita>`<br>`fechaAsignacion`: `DateTime [0..1]`<br>`intentosReactivacion`: `Integer`<br>`idCRM`: `String [0..1]`<br>`motivoCierre`: `String [0..1]`<br>`fechaRegistro`: `DateTime` | `registrar(prospecto: Prospecto, conversacion: Conversacion, linea: LineaCredito, necesidad: String)` → `Lead`<br>`elegirLinea(linea: LineaCredito)` → `void`<br>`priorizar(criterios: ReglaNegocio)` → `Prioridad`<br>`asignar(enrutamiento: ReglaNegocio, asesores: List<AsesorComercial>)` → `AsesorComercial`<br>`aceptarAsignacion()` → `void`<br>`generarFicha()` → `String`<br>`vincularCRM(idCRM: String)` → `void`<br>`actualizarEstado(estado: EstadoLead, motivo: String \| null)` → `void`<br>`reactivar()` → `void` | Composición → SolicitudCredito [1 — 0..1]<br>Composición → Cita [1 — 0..*]<br>Asociación → Prospecto [* — 1]<br>Asociación → Conversacion [0..1 — 1]<br>Asociación → AsesorComercial [* — 0..1]<br>Asociación → LineaCredito [* — 1]<br>Dependencia → ReglaNegocio [usa]<br>Dependencia → PlantillaMensaje [usa]<br>Dependencia ← CRMCooperativa [usa] | «entidad» |
+| [`SolicitudCredito`](#solicitudcredito) | Datos que el prospecto entrega para pedir el crédito (monto, plazo, destino, ingresos) y el resultado de su precalificación. | Entidad de negocio | `idSolicitud`: `UUID`<br>`lead`: `Lead`<br>`monto`: `Decimal [0..1]`<br>`plazo`: `Integer [0..1]`<br>`destino`: `String [0..1]`<br>`ingresosMensuales`: `Decimal [0..1]`<br>`actividadEconomica`: `String [0..1]`<br>`estado`: `EstadoSolicitud`<br>`simulacionElegida`: `Simulacion [0..1]`<br>`resultado`: `ResultadoPrecalificacion [0..1]`<br>`capacidadPago`: `Decimal [0..1]`<br>`factores`: `List<String>`<br>`resultadoCondicionado`: `Boolean`<br>`numeroCasoRevision`: `String [0..1]`<br>`documentosRecibidos`: `List<String>` | `iniciar(lead: Lead)` → `SolicitudCredito`<br>`campoPendiente()` → `CampoSolicitud \| null`<br>`registrarDato(campo: CampoSolicitud, valor: String)` → `String \| null`<br>`resumir()` → `String`<br>`actualizarEstado(estado: EstadoSolicitud)` → `void`<br>`precalificar(reglas: ReglaNegocio)` → `ResultadoPrecalificacion`<br>`explicarResultado()` → `String`<br>`derivarARevision()` → `String`<br>`registrarDocumento(documento: String)` → `void` | Composición → Simulacion [1 — 0..*]<br>Asociación → Simulacion [0..1 — 0..1]<br>Dependencia → ReglaNegocio [usa]<br>Composición ← Lead [1 — 0..1] | «entidad» |
+| [`Simulacion`](#simulacion) | Escenario de crédito: un monto a un plazo con su cuota, intereses, seguros, cargos y total a pagar. | Entidad de negocio | `idSimulacion`: `UUID`<br>`solicitud`: `SolicitudCredito`<br>`monto`: `Decimal`<br>`plazo`: `Integer`<br>`tasa`: `Decimal`<br>`cuotaMensual`: `Decimal`<br>`intereses`: `Decimal`<br>`seguros`: `Decimal`<br>`cargos`: `Decimal`<br>`totalPagar`: `Decimal` | `calcular(solicitud: SolicitudCredito, monto: Decimal, plazo: Integer)` → `Simulacion`<br>`generarTablaAmortizacion()` → `List<Map<String, Decimal>>`<br>`elegir()` → `void`<br>`sugerirAlternativa(capacidadPago: Decimal)` → `Simulacion` | Composición ← SolicitudCredito [1 — 0..*]<br>Asociación ← SolicitudCredito [0..1 — 0..1] | «entidad» |
 | [`Cita`](#cita) | Cita del prospecto en una agencia, con su estado y su recordatorio. | Entidad de negocio | `idCita`: `UUID`<br>`lead`: `Lead`<br>`agencia`: `String`<br>`fechaHora`: `DateTime`<br>`estado`: `EstadoCita`<br>`fechaRecordatorio`: `DateTime [0..1]` | `consultarHorarios(agencia: String, desde: Date, hasta: Date)` → `List<DateTime>`<br>`reservar(lead: Lead, agencia: String, fechaHora: DateTime)` → `Cita`<br>`reprogramar(fechaHora: DateTime)` → `void`<br>`actualizarEstado(estado: EstadoCita)` → `void`<br>`programarRecordatorio(fecha: DateTime)` → `void` | Dependencia → PlantillaMensaje [usa]<br>Composición ← Lead [1 — 0..*] | «entidad» |
 | [`LineaCredito`](#lineacredito) | Producto de crédito del catálogo, con su tasa, plazos, montos y requisitos; lo publica el Área de productos y crédito. | Configuración | `codigo`: `String`<br>`nombre`: `String`<br>`tasa`: `Decimal`<br>`plazos`: `List<Integer>`<br>`montoMinimo`: `Decimal`<br>`montoMaximo`: `Decimal`<br>`palabrasClave`: `List<String>`<br>`requisitos`: `List<String>`<br>`requisitosAfiliacion`: `List<String>`<br>`vigente`: `Boolean`<br>`version`: `String` | `listarVigentes()` → `List<LineaCredito>`<br>`buscar(criterio: String)` → `LineaCredito \| null`<br>`validarCondiciones(monto: Decimal, plazo: Integer \| null)` → `String \| null`<br>`requisitosPara(condicion: CondicionSocio)` → `List<String>` | Asociación ← Lead [* — 1] | «entidad» |
 | [`PlantillaMensaje`](#plantillamensaje) | Contenido conversacional publicado por versiones: bienvenida, aviso de privacidad, menús, preguntas frecuentes y plantillas de retoma, recordatorio y reactivación. | Configuración | `tipo`: `TipoPlantilla`<br>`clave`: `String`<br>`texto`: `String`<br>`opciones`: `List<String>`<br>`plantillaProveedor`: `String [0..1]`<br>`version`: `String`<br>`vigente`: `Boolean` | `obtenerVigente(tipo: TipoPlantilla)` → `PlantillaMensaje`<br>`buscarRespuesta(texto: String)` → `PlantillaMensaje \| null`<br>`componer(datos: Map<String, String>)` → `String` | Dependencia ← Conversacion [usa]<br>Dependencia ← Lead [usa]<br>Dependencia ← Cita [usa] | «entidad» |
