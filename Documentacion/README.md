@@ -15,7 +15,9 @@ Documentacion/
 ├── 04-diagrama-de-clase/      diccionario de datos y modelo de clases
 ├── 05-revisiones/             revisiones de consistencia y trazabilidad entre documentos
 ├── 06-negocio/                guías del dominio de negocio (cooperativa, crédito y captación)
-└── 07-diagrama-de-robustez/   diagramas de robustez por flujo de valor (draw.io y PNG)
+├── 07-diagrama-de-robustez/   diagramas de robustez por flujo de valor (draw.io y PNG)
+├── 08-modelo-de-dominio/      modelo de dominio conceptual (draw.io y PNG)
+└── 09-arquitectura/           documento de arquitectura de software (SAD)
 ```
 
 | Carpeta | Contenido | Prefijo de ID |
@@ -27,6 +29,8 @@ Documentacion/
 | `05-revisiones/` | Revisiones de consistencia, redundancia y trazabilidad | `REV` |
 | `06-negocio/` | Guías del dominio de negocio para entender a la cooperativa y preparar las reuniones | `NEG` |
 | `07-diagrama-de-robustez/` | Diagramas de robustez (objetos borde, control y entidad) por flujo de valor | `ROB` |
+| `08-modelo-de-dominio/` | Modelo de dominio: conceptos del negocio, sus atributos y asociaciones, sin métodos ni clases de sistema | `DOM` |
+| `09-arquitectura/` | Documento de arquitectura de software (SAD) que reúne las vistas del sistema | `SAD` |
 
 ## Convenciones
 
@@ -65,6 +69,9 @@ Documentacion/
 | REV-01 | Revisión de consistencia, redundancia, ambigüedad y trazabilidad de la etapa 3, con lo corregido, las decisiones tomadas y la vista de desarrollo del chatbot | [`05-revisiones/revision-consistencia-etapa3.md`](05-revisiones/revision-consistencia-etapa3.md) | Revisión (Markdown) | CAP-03, CU-02 a CU-08, CLS-01 | CU-08, CLS-01 | 2026-10-24 | Borrador |
 | NEG-01 | Guía del negocio de una cooperativa de ahorro y crédito y de la captación de prospectos: modelo de negocio, gobierno, regulación en Ecuador, productos, ciclo del crédito, evaluación, amortización, indicadores, embudo de captación y KPI, preguntas para los directivos, caso de ejemplo y diccionario de términos | [`06-negocio/guia-negocio-cooperativa-y-captacion.md`](06-negocio/guia-negocio-cooperativa-y-captacion.md) | Guía (Markdown + Mermaid) | CAP-03, CU-08, CLS-01 | CU-06, CU-08, CLS-01 | 2026-10-24 | Borrador |
 | ROB-01 | Diagramas de robustez de July, etapa 3: un diagrama por flujo de valor (3 páginas, como los diagramas de casos de uso CU-03 a CU-05) que reúne sus casos de nivel 2 con cada objeto borde, control y entidad una sola vez; los controles propios de cada caso van en un marco, cada conexión lleva el caso y el paso de CU-08 (por ejemplo, «2.2.1: 4»), y cada página trae su ficha, su leyenda y la trazabilidad paso → objeto por caso. Cada control lleva el método de CLS-01 que lo implementa (y sus exportaciones `diagrama-de-robustez-flujo-0N-….png`, una por flujo) | [`07-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio`](07-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio) | Diagrama (draw.io + PNG) | CU-08, CLS-01 | CU-03 a CU-05, CLS-02 | 2026-11-03 | Borrador |
+| DOM-01 | Modelo de dominio de July, etapa 3: las 11 clases «entidad» de CLS-01 como conceptos (actores, entidades de negocio y configuración) con sus atributos sin tipo, las 11 asociaciones y composiciones con nombre y multiplicidad, y las 5 dependencias «usa» hacia la configuración; deja fuera July, Canal, SistemaCore y CRMCooperativa (y su exportación [`.png`](08-modelo-de-dominio/modelo-de-dominio-etapa3.png)) | [`08-modelo-de-dominio/modelo-de-dominio-etapa3.drawio`](08-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) | Diagrama (draw.io + PNG) | CLS-01, CU-08 | CLS-02, ROB-01, DOM-02 | 2026-11-03 | Borrador |
+| DOM-02 | Guía breve del modelo de dominio: criterios del modelo, los 11 conceptos con su categoría, las 11 asociaciones y las 5 dependencias de configuración enlazadas con las relaciones de CLS-01, cómo leer el diagrama y cómo mantenerlo | [`08-modelo-de-dominio/modelo-de-dominio-etapa3.md`](08-modelo-de-dominio/modelo-de-dominio-etapa3.md) | Descripción (Markdown) | DOM-01, CLS-01 | DOM-01, CLS-01 | 2026-11-03 | Borrador |
+| SAD-01 | Documento de Arquitectura de Software (SAD) de July, versión 0.1, sobre la plantilla `templates/SAD_Template.docx`: introducción y referencias, representación arquitectónica (con el mapa de capacidades y la cadena de trazabilidad), objetivos y restricciones, vista de casos de uso (diagramas por flujo, impacto arquitectónico, correspondencia con SA-01 a SA-25 y especificación de los 14 casos de nivel 2), vista lógica (diagramas de robustez, diagrama de clases, 25 relaciones y diccionario de clases) y vista de datos (modelo de dominio, diccionario de las 11 entidades, enumeraciones y transiciones). Las vistas de procesos, implementación y despliegue, calidad, seguridad, contacto y los nombres de aprobadores, revisores y autores quedan en blanco | [`09-arquitectura/documento-arquitectura-software-july.docx`](09-arquitectura/documento-arquitectura-software-july.docx) | Documento (Word) | CAP-03, CAP-04, CU-03 a CU-09, CLS-01, CLS-02, ROB-01, DOM-01, DOM-02, REV-01 | Todos los documentos de los que deriva | 2026-11-03 | Borrador |
 
 ## Historial de cambios del índice
 
@@ -84,5 +91,7 @@ Documentacion/
 | 2026-10-29 | Registro de CU-09 (especificación de casos de uso solo con la oración de cada paso, derivada de CU-08). |
 | 2026-10-29 | CLS-01 v2.3 y CLS-02 (con su PNG): revisión de consistencia entre el diccionario y el diagrama. Se corrigieron la multiplicidad de la simulación elegida (0..1 — 0..1), la regla 6, el retorno de `Canal.recibir()` y el paso que cierra el lead (3.2.2·12). Se añadieron la columna de navegación en las relaciones, los atributos `AsesorComercial.leads`, `Lead.solicitud` y `Lead.citas`, la dependencia `July` → `Mensaje` (25 relaciones), las transiciones de `EstadoConversacion` y `EstadoSolicitud`, y las convenciones `/atributo` y `T \| null` en las entradas. |
 | 2026-10-31 | Nueva carpeta `07-diagrama-de-robustez/` (prefijo `ROB`) y registro de ROB-01 con el piloto del CU 2.2.1 (draw.io y PNG). |
+| 2026-11-03 | Nueva carpeta `08-modelo-de-dominio/` (prefijo `DOM`) y registro de DOM-01 (modelo de dominio, derivado de CLS-01 y CU-08; draw.io y PNG) y de DOM-02 (guía breve del modelo de dominio). |
 | 2026-11-03 | ROB-01 completo: se añaden los 13 casos de nivel 2 que faltaban (una página por caso en el mismo `.drawio`) y sus PNG; el piloto CU 2.2.1 se rehace con la misma plantilla. |
 | 2026-11-03 | ROB-01 unificado por flujo de valor: las 14 páginas por caso se reemplazan por 3 diagramas (flujos 1, 2 y 3) que fusionan los objetos compartidos; se borran los 14 PNG por caso y se generan los 3 por flujo. |
+| 2026-11-03 | Nueva carpeta `09-arquitectura/` (prefijo `SAD`) y registro de SAD-01 (documento de arquitectura de software de July, versión 0.1, en Word). |
