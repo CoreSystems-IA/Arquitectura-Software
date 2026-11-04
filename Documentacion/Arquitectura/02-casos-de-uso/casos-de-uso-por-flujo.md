@@ -2,7 +2,7 @@
 
 **ID:** CU-06 · **Versión:** 1.2 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
 **Deriva de:** CU-03 a CU-05 (diagramas de draw.io por flujo de valor)  
-**Especificación completa:** [CU-08](especificaciones-casos-de-uso.md)
+**Especificación completa:** [CU-08](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md)
 
 Hay un diagrama de draw.io por cada flujo de valor. En cada uno, el actor principal solo inicia los casos de nivel 1, que son las etapas de valor. Cada caso de nivel 1 incluye («include») sus casos de nivel 2, y estos incluyen sus casos de nivel 3, que salen de las capacidades del mapa. Los actores externos solo participan en el nivel 3.
 

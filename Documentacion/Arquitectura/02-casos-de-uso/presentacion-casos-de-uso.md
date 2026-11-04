@@ -2,7 +2,7 @@
 
 **ID:** CU-07 · **Versión:** 1.0 · **Fecha:** 2026-10-21 · **Estado:** Obsoleto  
 
-> **Reemplazado por [CU-08 · Especificaciones de casos de uso](especificaciones-casos-de-uso.md).** CU-08 separa cada paso en una oración con un solo verbo, por eso sus números de paso no coinciden con los de esta presentación. Para trazar un paso, un método o una entidad, use CU-08. Esta presentación se conserva solo por sus diagramas de secuencia.
+> **Reemplazado por [CU-08 · Especificaciones de casos de uso](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md).** CU-08 separa cada paso en una oración con un solo verbo, por eso sus números de paso no coinciden con los de esta presentación. Para trazar un paso, un método o una entidad, use CU-08. Esta presentación se conserva solo por sus diagramas de secuencia.
 
 
 **Deriva de:** CU-06 (`casos-de-uso-por-flujo.md`), CU-03 a CU-05 (diagramas de draw.io por flujo de valor) y CAP-02 (mapa de capacidades)  

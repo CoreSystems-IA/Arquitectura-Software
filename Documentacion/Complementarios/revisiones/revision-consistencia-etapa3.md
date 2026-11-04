@@ -8,6 +8,8 @@
 | **Deriva de** | CAP-03, CU-02 a CU-08, CLS-01 |
 | **Estado** | Borrador |
 
+> **Nota (2026-11-04):** la trazabilidad descrita aquí la reemplaza [REV-02](plan-trazabilidad-flujos-unificados.md): la especificación pasó a ser una por flujo de valor y el modelo de clases, la secuencia y la robustez se derivan de ella. Esta revisión se conserva como registro de la etapa 3.
+
 Revisión de la documentación de July con mirada de desarrollo: ¿un equipo podría construir el chatbot solo con estos documentos, sin adivinar? Se buscaron inconsistencias entre documentos, redundancias, ambigüedades y huecos de trazabilidad, y se dejó fuera todo lo que no sirve para construir July.
 
 ## Contenido

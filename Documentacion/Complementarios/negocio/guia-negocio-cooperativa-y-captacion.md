@@ -874,4 +874,4 @@ Antes de la reunión, revisa en las fuentes oficiales los datos que esta guía d
 | Obligaciones de protección de datos | LOPDP y su reglamento |
 | Productos, tasas y requisitos de la cooperativa | Sitio web de la Cooperativa Padre Julián Lorente y su Área de productos y crédito |
 
-**Documentos del proyecto relacionados:** [CAP-03](../02-mapa-capacidades/Archi/mapa-capacidades-y-casos-de-uso-etapa3.archimate) (mapa de capacidades), [CU-06](../03-casos-de-uso/casos-de-uso-por-flujo.md) (casos de uso por flujo), [CU-08](../03-casos-de-uso/especificaciones-casos-de-uso.md) (especificaciones) y [CLS-01](../04-diagrama-de-clase/diccionario-de-datos-etapa3.md) (diccionario de datos).
+**Documentos del proyecto relacionados:** [CAP-03](../../Arquitectura/01-mapa-capacidades/Archi/mapa-capacidades-y-casos-de-uso-etapa3.archimate) (mapa de capacidades), [CU-06](../../Arquitectura/02-casos-de-uso/casos-de-uso-por-flujo.md) (casos de uso por flujo), [CU-08](../../Arquitectura/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) (especificaciones) y [CLS-01](../../Arquitectura/05-diccionario-de-datos/diccionario-de-datos-etapa3.md) (diccionario de datos).
