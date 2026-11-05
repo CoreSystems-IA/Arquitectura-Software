@@ -273,7 +273,7 @@ Cada integrante aporta su punto de vista para que los sistemas agénticos sean *
 </td>
 <td width="33%" align="center">
 <!-- 👇 Reemplaza con la foto real: Assets/Luis.jpeg -->
-<img src="https://placehold.co/160x160/db2777/ffffff?text=Foto" alt="Luis Aguilar" width="160"/>
+<img src="./Assets/luis.jpeg" alt="Luis Aguilar" width="160"/>
 <br/><b>Luis Aguilar</b>
 <br/><i>🎨 UI/UX</i>
 </td>
