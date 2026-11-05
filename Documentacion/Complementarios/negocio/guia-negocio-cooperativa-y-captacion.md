@@ -1,6 +1,6 @@
 # Guía del negocio: cooperativa de ahorro y crédito y captación de prospectos
 
-**ID:** NEG-01 · **Versión:** 1.0 · **Fecha:** 2026-10-24 · **Estado:** Borrador  
+**ID:** NEG-01 · **Versión:** 1.1 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
 **Deriva de:** CAP-03 (mapa de capacidades y flujo de valor), CU-08 (especificaciones de casos de uso), CLS-01 (diccionario de datos)  
 **Propósito:** preparar al equipo para conversar con los directivos de la Cooperativa Padre Julián Lorente: cómo funciona el negocio, cómo se capta y convierte a un prospecto, y qué términos se usarán en el reto de July.
 
@@ -342,7 +342,7 @@ flowchart LR
     D --> E{"¿Cuota ≤ % máximo<br/>del disponible?"}
     E -- "Sí, con holgura" --> F["APTO"]
     E -- "Justo en el límite o<br/>faltan datos" --> G["A_REVISAR"]
-    E -- "No" --> H["NO_APTO →<br/>July sugiere más plazo<br/>o menos monto"]
+    E -- "No" --> H["NO_APTO →<br/>July sugiere más plazo<br/>o menos monto, y ofrece<br/>la revisión con un asesor"]
 ```
 
 **Ejemplo:**

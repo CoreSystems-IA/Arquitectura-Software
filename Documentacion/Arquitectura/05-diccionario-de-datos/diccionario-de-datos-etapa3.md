@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | **ID** | CLS-01 |
-| **Versión** | 3.0 |
+| **Versión** | 3.1 |
 | **Fecha** | 2026-11-04 |
 | **Deriva de** | [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y [CU-08 · Especificaciones de casos de uso](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) |
 | **Estado** | Borrador |
@@ -104,7 +104,7 @@ Los pasos se citan como «F*n*: paso», es decir, flujo *n* de CU-08 y número d
 | EN_GESTION | `Lead.aceptarAsignacion()` | F3: 19 |
 | DESEMBOLSADO, PERDIDO | `Lead.actualizarEstado()` | F3: 51 |
 
-Un lead NO_APTO se queda en PRECALIFICADO: recibe una alternativa (F2: 72l a 74l) y, si vuelve a simular, `precalificar()` lo clasifica de nuevo.
+Un lead NO_APTO se queda en PRECALIFICADO: recibe una alternativa (F2: 72l a 74l) y, si vuelve a simular, `precalificar()` lo clasifica de nuevo. También puede pedir la revisión con un asesor, que sigue el traspaso de la conversación (F1: 25f a 31f).
 
 **Transiciones de `EstadoConversacion`:**
 

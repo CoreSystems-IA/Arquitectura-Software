@@ -1,6 +1,6 @@
 # Especificaciones de casos de uso · July
 
-**ID:** CU-08 · **Versión:** 2.0 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
+**ID:** CU-08 · **Versión:** 2.1 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
 **Deriva de:** CU-03 a CU-06 ([`casos-de-uso-por-flujo.md`](../02-casos-de-uso/casos-de-uso-por-flujo.md)), CAP-03 y las decisiones de [REV-02](../../Complementarios/revisiones/plan-trazabilidad-flujos-unificados.md)  
 **Uso:** fuente del modelo de dominio (DOM-01), del diccionario de datos (CLS-01) y de los diagramas de secuencia (SEC-01)  
 
@@ -269,7 +269,7 @@ Incluye CU 1.2.1 Recibir atención inmediata y CU 1.2.2 Identificar al prospecto
 | 22e | **July** consulta el menú básico vigente al **Administrador del asistente**. | `July` | consulta → `Colaborador.consultarPublicacion(tipo)` | `PlantillaMensaje` (tipo = MENU_BASICO, opciones) | `July` → `Colaborador` | 1.2.1.2 | Ninguno, lo resuelve July |
 | 23e | **Administrador del asistente** devuelve el menú básico publicado a **July**. | `Colaborador` | devuelve → *retorno* | — | `Colaborador` → `July` | 1.2.1.2 | Ninguno, lo resuelve July |
 | 24e | **July** muestra el menú básico de información general al **Prospecto**. Fin. | `July` | muestra → `Prospecto.recibir(mensaje)` | `Mensaje` (contenido, opciones) | `July` → `Prospecto` | 1.2.1.2 | Ninguno, lo resuelve July |
-| | *A6 · El prospecto pide hablar con una persona (reemplaza los pasos 25 a 34)* | | | | | | |
+| | *A6 · El prospecto pide hablar con una persona (reemplaza los pasos 25 a 34; también se llega desde el paso 74l del flujo 2)* | | | | | | |
 | 25f | **Prospecto** solicita hablar con un asesor a **July**. | `Prospecto` | solicita → `July.atender(mensaje)` | `Mensaje` (contenido) | `Prospecto` → `July` | 1.2.1.3 | Asesor comercial |
 | 26f | **July** envía la derivación con el historial de la conversación al **Asesor comercial**. | `July` | envía → `AsesorComercial.recibir(mensaje)` | `Mensaje` (contenido = derivación e historial) | `July` → `AsesorComercial` | 1.2.1.3 | Asesor comercial |
 | 27f | **Asesor comercial** acepta la derivación a **July**. | `AsesorComercial` | acepta → `July.atender(mensaje)` | `Mensaje` (contenido = acepto) | `AsesorComercial` → `July` | 1.2.1.3 | Asesor comercial |
@@ -301,7 +301,7 @@ Incluye CU 1.2.1 Recibir atención inmediata y CU 1.2.2 Identificar al prospecto
 | Objetivo | Convertir la conversación en una solicitud con datos validados, una simulación elegida, un resultado de precalificación y una cita en agencia. |
 | Disparador | El prospecto con lead registrado pide iniciar su solicitud de crédito. |
 | Precondiciones | El lead está registrado y el prospecto aceptó el aviso de privacidad (flujo 1). El Área de productos y crédito publicó el catálogo, el Comité de crédito las reglas de precalificación y el Personal de agencia su agenda. |
-| Postcondiciones | La solicitud está confirmada y precalificada como APTO, A_REVISAR o NO_APTO; la simulación elegida está guardada y, si el prospecto la pidió, la cita está reservada. |
+| Postcondiciones | La solicitud está confirmada y precalificada como APTO, A_REVISAR o NO_APTO; la simulación elegida está guardada y, si el prospecto la pidió, la cita está reservada. Con un resultado NO_APTO, el prospecto puede quedar derivado a un asesor para revisar su caso. |
 
 ### CU 2.1 · Completar el perfil del crédito (nivel 1 · etapa Perfilamiento)
 
@@ -483,7 +483,7 @@ Incluye CU 2.3.1 Evaluar al prospecto con reglas y CU 2.3.2 Recibir orientación
 | 71l | **Solicitud de crédito** devuelve el motivo del resultado «no apto» a **July**. | `SolicitudCredito` | devuelve → *retorno* | — | `SolicitudCredito` → `July` | 2.3.2.1 | Ninguno, lo resuelve July |
 | 72l | **July** sugiere un monto o plazo que quepa en la capacidad de pago en la **Simulación**. | `July` | sugiere → `Simulacion.sugerirAlternativa(capacidadPago)` | `Simulacion` (monto, plazo, cuotaMensual) | `July` → `Simulacion` | 2.3.2.1 | Ninguno, lo resuelve July |
 | 73l | **Simulación** devuelve el escenario alternativo a **July**. | `Simulacion` | devuelve → *retorno* | — | `Simulacion` → `July` | 2.3.2.1 | Ninguno, lo resuelve July |
-| 74l | **July** explica el motivo con el escenario alternativo al **Prospecto**. Fin. El prospecto puede volver a simular desde el paso 37. | `July` | explica → `Prospecto.recibir(mensaje)` | `Mensaje` (contenido) | `July` → `Prospecto` | 2.3.2.1 | Ninguno, lo resuelve July |
+| 74l | **July** explica el motivo con el escenario alternativo y la opción de revisión con un asesor al **Prospecto**. Fin. El prospecto puede volver a simular desde el paso 37 o pedir la revisión con un asesor en el flujo 1, paso 25f (A6). | `July` | explica → `Prospecto.recibir(mensaje)` | `Mensaje` (contenido) | `July` → `Prospecto` | 2.3.2.1 | Ninguno, lo resuelve July |
 | | *A13 · El prospecto no es socio (reemplaza el paso 75)* | | | | | | |
 | 75m | **Línea de crédito** devuelve los documentos con los requisitos de afiliación a **July**. Continúa en el paso 76. | `LineaCredito` | devuelve → *retorno* | — | `LineaCredito` → `July` | 2.3.2.2 | Ninguno, lo resuelve July |
 | | *A14 · No hay horarios libres en la fecha pedida (reemplaza los pasos 79 y 80)* | | | | | | |

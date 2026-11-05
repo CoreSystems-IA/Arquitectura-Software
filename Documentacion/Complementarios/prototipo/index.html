@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>July · Prototipo</title>
+  <meta name="description" content="Prototipo conversacional de July, la asistente de captación de la Cooperativa Padre Julián Lorente.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230069b2'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='700' fill='%23fff'%3EJ%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <span class="marca__nombre">Padre Julián Lorente</span>
+      <span class="marca__detalle">Cooperativa de Ahorro y Crédito</span>
+    </div>
+    <span class="sello">Prototipo de July</span>
+    <div class="cabecera__acciones">
+      <div class="conmutador" role="group" aria-label="Vista">
+        <button type="button" data-vista="chat" aria-pressed="true">Chat</button>
+        <button type="button" data-vista="panel" aria-pressed="false">Panel</button>
+      </div>
+      <button type="button" class="boton boton--borde" id="reiniciar">Reiniciar</button>
+    </div>
+  </header>
+
+  <main class="escritorio" data-vista-activa="chat">
+    <section class="chat" aria-label="Conversación con July">
+      <header class="chat__cabecera">
+        <span class="avatar" aria-hidden="true">J</span>
+        <div>
+          <h1 class="chat__nombre">July</h1>
+          <p class="chat__estado"><span class="punto" aria-hidden="true"></span><span id="canal-activo">WhatsApp</span> · simulado</p>
+        </div>
+      </header>
+      <div class="chat__mensajes" id="mensajes" role="log" aria-live="polite" aria-label="Mensajes"></div>
+      <form class="chat__redactor" id="redactor">
+        <label class="oculto" for="entrada">Escribe tu mensaje</label>
+        <input id="entrada" type="text" autocomplete="off" placeholder="Escribe como lo haría un prospecto…">
+        <button type="submit" class="enviar" aria-label="Enviar">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <section class="panel" aria-label="Lo que pasa por dentro">
+      <nav class="pestanas" role="tablist" aria-label="Secciones del panel">
+        <button type="button" role="tab" id="tab-recorrido" aria-controls="recorrido" aria-selected="true">Recorrido</button>
+        <button type="button" role="tab" id="tab-datos" aria-controls="datos" aria-selected="false" tabindex="-1">Datos</button>
+        <button type="button" role="tab" id="tab-cooperativa" aria-controls="cooperativa" aria-selected="false" tabindex="-1">Cooperativa <span class="insignia" id="pendientes" hidden></span></button>
+        <button type="button" role="tab" id="tab-escenarios" aria-controls="escenarios" aria-selected="false" tabindex="-1">Escenarios</button>
+      </nav>
+
+      <div class="hoja" id="recorrido" role="tabpanel" aria-labelledby="tab-recorrido">
+        <ol class="etapas" id="etapas"></ol>
+        <dl class="metricas">
+          <div><dt>Primera respuesta</dt><dd id="metrica-respuesta">—</dd><dd class="metricas__meta">meta: menos de 2 min</dd></div>
+          <div><dt>Pasos de CU-08</dt><dd id="metrica-pasos">0</dd><dd class="metricas__meta">de 282 especificados</dd></div>
+          <div><dt>Estado del lead</dt><dd id="metrica-lead">Sin lead</dd><dd class="metricas__meta" id="metrica-prioridad">sin prioridad</dd></div>
+        </dl>
+        <ol class="traza" id="traza"></ol>
+      </div>
+
+      <div class="hoja" id="datos" role="tabpanel" aria-labelledby="tab-datos" hidden></div>
+
+      <div class="hoja" id="cooperativa" role="tabpanel" aria-labelledby="tab-cooperativa" hidden></div>
+
+      <div class="hoja" id="escenarios" role="tabpanel" aria-labelledby="tab-escenarios" hidden>
+        <section class="bloque">
+          <h2>Recorridos guiados</h2>
+          <p class="nota">July y el panel avanzan solos, a partir de los guiones de prueba.</p>
+          <ul class="guiones" id="guiones"></ul>
+        </section>
+        <section class="bloque">
+          <h2>Quién escribe</h2>
+          <p class="nota">Cambiar estos valores reinicia la conversación.</p>
+          <div class="campos">
+            <label>Canal
+              <select id="opcion-canal">
+                <option value="WHATSAPP">WhatsApp Business API</option>
+                <option value="WEB">Widget web</option>
+              </select>
+            </label>
+            <label>Prospecto
+              <select id="opcion-telefono">
+                <option value="0990000001">Persona nueva, no socia</option>
+                <option value="0990000002">Rosa, socia registrada</option>
+                <option value="0990000003">Manuel, socio de 79 años</option>
+              </select>
+            </label>
+            <label>Origen
+              <select id="opcion-campana">
+                <option value="Facebook · Crédito para tu negocio">Campaña de Facebook</option>
+                <option value="Google · Microcrédito">Campaña de Google</option>
+                <option value="">Directo, sin campaña</option>
+              </select>
+            </label>
+          </div>
+        </section>
+        <section class="bloque">
+          <h2>Condiciones</h2>
+          <div class="interruptores" id="interruptores"></div>
+        </section>
+        <section class="bloque">
+          <h2>Eventos</h2>
+          <div class="fila-botones">
+            <button type="button" class="boton boton--borde" id="evento-abandono">Vencer el plazo de respuesta</button>
+            <button type="button" class="boton boton--borde" id="evento-firma">Enviar un mensaje con firma falsa</button>
+          </div>
+        </section>
+        <section class="bloque">
+          <h2>Datos para probar</h2>
+          <table class="ayuda">
+            <tbody>
+              <tr><th scope="row"><code>1111111116</code></th><td>Cédula válida, sin registro en el core</td></tr>
+              <tr><th scope="row"><code>1212121212</code></th><td>Formato válido, el core no la habilita</td></tr>
+              <tr><th scope="row"><code>1234567890</code></th><td>Falla el dígito verificador</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">Prototipo académico con datos simulados. Los montos, tasas y reglas son ilustrativos. No es un canal oficial de la cooperativa.</footer>
+
+  <script src="js/pasos.js"></script>
+  <script src="js/datos.js"></script>
+  <script src="js/dominio.js"></script>
+  <script src="js/sistemas.js"></script>
+  <script src="js/july.js"></script>
+  <script src="js/guiones.js"></script>
+  <script src="js/interfaz.js"></script>
+</body>
+</html>

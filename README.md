@@ -31,7 +31,7 @@
 
 | Sección | Contenido |
 |---|---|
-| [1. Sobre nosotros](#sobre-nosotros) | [Quiénes somos](#quienes-somos) · [Misión](#mision) · [Visión](#vision) · [Conceptos clave](#conceptos) · [DevOps](#devops) · [Stack](#stack) · [Equipo](#equipo) · [Contacto](#contacto) |
+| [1. Sobre nosotros](#sobre-nosotros) | [Quiénes somos](#quienes-somos) · [Misión](#mision) · [Visión](#vision) · [Conceptos clave](#conceptos) · [DevOps](#devops) · [Normas y estándares](#normas) · [Stack](#stack) · [Equipo](#equipo) · [Contacto](#contacto) |
 | [2. El reto](#el-reto) | [En qué consiste](#en-que-consiste) · [Objetivo general](#objetivo) · [Alcance](#alcance) |
 | [3. Avance del proyecto](#avance) | [Cadena de trazabilidad](#cadena) · [01 Mapa de capacidades](#a01) · [02 Casos de uso](#a02) · [03 Especificación](#a03) · [04 Modelo de dominio](#a04) · [05 Diccionario de datos](#a05) · [06 Diagrama de clases](#a06) · [07 Secuencia](#a07) · [08 Robustez](#a08) · [Complementarios](#complementarios) |
 
@@ -112,6 +112,118 @@ flowchart LR
 | 🚀 **Deploy** | Se publica | Despliegue con Infraestructura como Código | Aprobación en acciones críticas |
 | ⚙️ **Operate** | Se opera el sistema | Resuelven incidentes rutinarios | Escalamiento a humanos |
 | 📊 **Monitor** | Se observa y se aprende | Detectan anomalías y proponen mejoras | Retroalimentación al plan |
+
+<a id="normas"></a>
+## 📜 Normas y estándares que fundamentan el trabajo
+
+Cada decisión de July se apoya en un marco de referencia, en tres niveles: la **ley ecuatoriana**, que es obligatoria; las **normas ISO**, que son voluntarias; y las **guías del sector**. Las normas propias de cada rol están en [Nuestro equipo](#equipo).
+
+> **Sobre el alcance de este marco**
+> - **No encontramos una ISO específica para la captación de prospectos financieros ni para chatbots.** Por eso combinamos normas de atención al cliente, inteligencia artificial, privacidad y modelado.
+> - **Son una referencia, no una certificación.** Ni July ni CoreSystems-AI están certificados. Las ISO se revisaron por sus resúmenes oficiales, porque su texto completo es de pago.
+
+**Estado en el proyecto:** ✅ reflejada en los artefactos · 🟡 parcial · ⏳ pendiente
+
+<details open>
+<summary><b>⚖️ Obligatorias en Ecuador</b></summary>
+
+<br/>
+
+| Norma | Qué exige | Dónde aplica en July | Estado |
+|---|---|---|---|
+| [LOPDP (2021)](https://seps.gob.ec/wp-content/uploads/Ley-Org%C3%A1nica-de-Protecci%C3%B3n-de-Datos-Personales-2022.pdf) y su Reglamento (Decreto 904, 2023) | Consentimiento y derechos del titular de los datos | CU 1.2.1.2 y reglas R1 y R2 de CU-08 | ✅ |
+| LOPDP, art. 20 | No ser sometido a decisiones basadas única o parcialmente en valoraciones automatizadas que produzcan efectos jurídicos o atenten contra sus derechos | Precalificación (CU 2.3.1.3): «a revisar» llega al Comité de crédito y «no apto» (A12) ofrece la revisión con un asesor (A6 del flujo 1) | ✅ |
+| [Resolución SPDP-SPD-2026-0009-R](https://www.fielweb.com/App_Themes/InformacionInteres/Resoluci_n_N_SPDP_SPD_2026_0009_R_1771459633.pdf), art. 5.1 | Informar al titular sobre el tratamiento con IA, sus finalidades y su carácter automatizado | Aviso de privacidad (pasos 16 a 19): CU-08 no especifica que mencione el carácter automatizado | 🟡 |
+| Misma resolución, arts. 5.2 y 6 | Gestión de riesgos y evaluación de impacto **antes** del desarrollo | Aún no existe ese documento | ⏳ |
+| Misma resolución, arts. 5.4, 5.5 y 7 | Registro de actividades de tratamiento (incluidas las decisiones automatizadas) y auditorías | Aún no existe ese registro | ⏳ |
+| COMF, LOEPS y normas de la JPRF y la SEPS | Marco de las cooperativas: tasas máximas, segmentos y gestión del riesgo de crédito | Catálogo de líneas (CU 2.2.2) y [NEG-01](Documentacion/Complementarios/negocio/guia-negocio-cooperativa-y-captacion.md); faltan confirmar los valores con la cooperativa | 🟡 |
+| Normativa de la UAFE | Debida diligencia: identificar, verificar y monitorear a los clientes | Por confirmar con la cooperativa en qué momento de la afiliación se hace | ⏳ |
+
+</details>
+
+<details>
+<summary><b>🏦 Captación y atención en servicios financieros</b></summary>
+
+<br/>
+
+| Norma | Para qué la usamos | Dónde aplica en July | Estado |
+|---|---|---|---|
+| [Principios G20/OCDE de protección del consumidor financiero (2022)](https://www.oecd.org/en/publications/g20-oecd-high-level-principles-on-financial-consumer-protection-2022_48cc3df0-en.html) | 12 principios aplicables al crédito, con la digitalización como tema transversal | Información clara antes de decidir: cuota, total a pagar y comparación de escenarios (CU 2.2.1) | ✅ |
+| [Estándares de protección al cliente SPTF/Cerise](https://www.finnfund.fi/en/impact/policies-and-statements/client-protection-in-microfinancing/) | Prevenir el sobreendeudamiento, transparencia, privacidad y resolución de reclamos | Capacidad de pago (CU 2.3.1.1) y alternativa que cabe en ella (paso 72l); los reclamos no están en el alcance | 🟡 |
+| [ISO 18295-1:2017](https://www.iso.org/standard/64739.html) | Requisitos y KPI para centros de contacto, incluidos los canales no telefónicos. La usamos por analogía; está en revisión | Meta de atención en menos de 2 minutos (flujo 1) | 🟡 |
+| [ISO 22458:2022](https://www.iso.org/standard/73261.html) | Servicio inclusivo para consumidores en situación de vulnerabilidad, incluidos los financieros | Sin definir en los flujos conversacionales | ⏳ |
+| [ISO 23592:2021](https://www.iso.org/standard/76358.html) e [ISO 10004:2018](https://www.iso.org/standard/71582.html) | Excelencia en el servicio y medición de la satisfacción | CU-08 todavía no mide la satisfacción | ⏳ |
+
+</details>
+
+<details>
+<summary><b>🤖 Chatbot e inteligencia artificial</b></summary>
+
+<br/>
+
+| Norma | Para qué la usamos | Dónde aplica en July | Estado |
+|---|---|---|---|
+| [ISO/IEC 22989:2022](https://www.iso.org/standard/74296.html) e [ISO/IEC 23053:2022](https://www.iso.org/standard/74438.html) | Vocabulario común de IA y marco de los sistemas con aprendizaje automático | Lenguaje para documentar la detección de intención (CU 1.2.2.1) | ⏳ |
+| [ISO/IEC 42001:2023](https://www.iso.org/standard/81230.html) | Sistema de gestión de IA | Gobierno de July en la cooperativa | ⏳ |
+| [ISO/IEC 23894:2023](https://scc-ccn.ca/standardsdb/standards/2052265) e [ISO/IEC 42005:2025](https://www.iso.org/standard/42005) | Gestión de riesgos de IA y evaluación de impacto | Base para cumplir los arts. 5.2 y 6 de la resolución de la SPDP | ⏳ |
+| ISO/IEC TR 24027:2021 | Sesgo en decisiones asistidas por IA | Revisar las reglas de precalificación (CU 2.3.1) | ⏳ |
+| ISO/IEC TS 8200:2024 | Controlabilidad de sistemas de IA | Derivar a un asesor humano (CU 1.2.1.3) y traspaso con contexto (CU 3.2.1.3) | 🟡 |
+| ISO/IEC 12792:2025 | Taxonomía de transparencia de sistemas de IA | Explicación del resultado (CU 2.3.2.1, `SolicitudCredito.explicarResultado()`) | 🟡 |
+| [ISO/IEC 25059:2023](https://www.iso.org/standard/80655.html) | Modelo de calidad para sistemas de IA; está en revisión | Vista de calidad del SAD, aún en blanco | ⏳ |
+| [ISO 9241-110:2020](https://www.iso.org/standard/75258.html) | Principios de interacción; no cubre aspectos propios de la IA | Diseño de los flujos conversacionales | 🟡 |
+| [ISO 24495-1:2023](https://www.iso.org/standard/78907.html) | Lenguaje claro en documentos de texto | Plantillas de mensajes y explicación del resultado | ⏳ |
+| [ISO 24617-2:2020](https://www.iso.org/standard/76443.html) | Anotación de actos de diálogo; la norma ISO más cercana al diálogo, aunque no sirve para construir chatbots | Etiquetado de conversaciones si se entrena un modelo | ⏳ |
+| [ISO/IEC 40500:2025](https://www.iso.org/standard/91029.html) (WCAG 2.2) | Accesibilidad web | Widget web (CU 1.1.1.2) | ⏳ |
+| [ISO/IEC 27090:2026](https://www.iso.org/standard/27090) y [OWASP Top 10 para LLM (2025)](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) | Amenazas propias de la IA, como *prompt injection* | Sin tratar todavía en los documentos de arquitectura | ⏳ |
+
+</details>
+
+<details>
+<summary><b>🔐 Privacidad y seguridad</b></summary>
+
+<br/>
+
+| Norma | Para qué la usamos | Dónde aplica en July | Estado |
+|---|---|---|---|
+| [ISO/IEC 29184:2020](https://www.iso.org/standard/70331.html) | Contenido de los avisos de privacidad en línea y forma de pedir el consentimiento | Aviso y aceptación antes de pedir datos (CU 1.2.1.2) | ✅ |
+| [ISO/IEC TS 27560:2023](https://www.iso.org/standard/80392.html) | Estructura del registro de consentimiento | `Prospecto.registrarConsentimiento(aceptado, versionAviso)` guarda la aceptación y la versión, no toda la estructura | 🟡 |
+| [ISO/IEC 29100:2024](https://www.iso.org/standard/85938.html) | Marco y vocabulario de privacidad | Reglas transversales R1 y R2 de CU-08 | ✅ |
+| [ISO/IEC 27701:2025](https://www.iso.org/standard/27701) | Sistema de gestión de la privacidad | Operación de July en la cooperativa | ⏳ |
+| [ISO/IEC 27001:2022](https://www.iso.org/standard/27001) | Sistema de gestión de seguridad de la información | Verificación de webhooks (CU 1.1.2.3); la vista de seguridad del SAD sigue en blanco | 🟡 |
+
+</details>
+
+<details>
+<summary><b>📐 Arquitectura y modelado</b></summary>
+
+<br/>
+
+| Norma | Para qué la usamos | Dónde aplica en July | Estado |
+|---|---|---|---|
+| [ArchiMate](https://pubs.opengroup.org/architecture/archimate3-doc/ch-Preface.html) (The Open Group) | Lenguaje de modelado empresarial; nuestra exportación usa la 3.1 y la versión vigente es la 3.2 | [01 Mapa de capacidades](#a01) | ✅ |
+| Ulrich y Rosen (2011) y BIZBOK Guide | Mapa de capacidades y flujos de valor | [01 Mapa de capacidades](#a01), a partir de REF-01 y REF-02 | ✅ |
+| [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) | Ingeniería de requisitos; hay una nueva edición en borrador | [02 Casos de uso](#a02) y [03 Especificación](#a03) | ✅ |
+| [ISO/IEC 19505-1](https://www.iso.org/standard/32624.html) y [19505-2:2012](https://www.iso.org/standard/52854.html) (UML) | Notación de los diagramas | [02 Casos de uso](#a02), [06 Clases](#a06) y [07 Secuencia](#a07) | ✅ |
+| [ISO/IEC 11179-1:2023](https://www.iso.org/standard/78914.html) | Marco para describir y registrar datos | [05 Diccionario de datos](#a05), como referencia conceptual | 🟡 |
+| [ISO/IEC/IEEE 42010:2022](https://www.iso.org/standard/74393.html) | Descripción de arquitectura mediante vistas | [SAD](#complementarios): faltan las vistas de procesos, implementación y despliegue | 🟡 |
+| [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) | Modelo de calidad del producto de software | Vista de calidad del SAD, aún en blanco | ⏳ |
+
+</details>
+
+<details>
+<summary><b>🚫 Evaluadas y no adoptadas</b></summary>
+
+<br/>
+
+| Norma | Por qué no la adoptamos |
+|---|---|
+| [ISO 22222:2005](https://www.iso.org/standard/43033.html) | Certifica a planificadores financieros personales, no procesos de captación ni asistentes |
+| [ISO 20022](https://www.iso.org/standard/20022-1) | Es para mensajería entre entidades financieras; July no ejecuta pagos ni transferencias |
+| [ISO 10008:2022](https://www.iso.org/standard/80594.html) | Orienta transacciones de comercio electrónico; July no cierra ninguna venta, solo capta y precalifica |
+| ISO 10002:2018 | Trata la gestión de reclamos, que no está en el alcance de July |
+| [ISO/IEC 19510:2013](https://www.iso.org/standard/62652.html) (BPMN) | El proyecto no modela con BPMN |
+
+</details>
 
 <a id="stack"></a>
 ## 🧱 Stack tecnológico (aplicación web + móvil)
@@ -465,6 +577,7 @@ El diccionario de datos llevado a **UML**: las clases con sus estereotipos, atri
 
 | Documento | ID | Para qué sirve |
 |---|---|---|
+| [Prototipo conversacional de July](Documentacion/Complementarios/prototipo/README.md) | PRO-01 | Chat funcional con los tres flujos de CU-08 y un panel que muestra cada paso en vivo. Se abre con doble clic en `index.html`. |
 | [Documento de Arquitectura de Software (SAD)](Documentacion/Complementarios/arquitectura/documento-arquitectura-software-july.docx) | SAD-01 | Reúne las vistas del sistema (casos de uso, lógica y datos) sobre la [plantilla SAD](Documentacion/Complementarios/plantillas/SAD_Template.docx). Versión 0.1. |
 | [Guía del negocio cooperativo y de la captación](Documentacion/Complementarios/negocio/guia-negocio-cooperativa-y-captacion.md) | NEG-01 | Modelo de negocio de una cooperativa, regulación en Ecuador, productos, ciclo del crédito, embudo de captación y KPI, y preguntas para los directivos. |
 | [Revisión de consistencia, etapa 3](Documentacion/Complementarios/revisiones/revision-consistencia-etapa3.md) | REV-01 | Consistencia, redundancia y trazabilidad entre documentos, con las decisiones tomadas. |

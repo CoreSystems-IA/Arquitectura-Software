@@ -1,6 +1,6 @@
 # Especificación de casos de uso · July · solo pasos
 
-**ID:** CU-09 · **Versión:** 2.0 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
+**ID:** CU-09 · **Versión:** 2.1 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
 **Deriva de:** CU-08 ([`especificaciones-casos-de-uso.md`](especificaciones-casos-de-uso.md))  
 
 Las tres especificaciones unificadas de CU-08, una por flujo de valor, solo con la oración de cada paso y el caso de nivel 3 que realiza. La descomposición en sujeto, método, entidad y relación está en CU-08.
@@ -88,7 +88,7 @@ Las tres especificaciones unificadas de CU-08, una por flujo de valor, solo con 
 | 22e | **July** consulta el menú básico vigente al **Administrador del asistente**. | 1.2.1.2 |
 | 23e | **Administrador del asistente** devuelve el menú básico publicado a **July**. | 1.2.1.2 |
 | 24e | **July** muestra el menú básico de información general al **Prospecto**. Fin. | 1.2.1.2 |
-| | *A6 · El prospecto pide hablar con una persona (reemplaza los pasos 25 a 34)* | |
+| | *A6 · El prospecto pide hablar con una persona (reemplaza los pasos 25 a 34; también se llega desde el paso 74l del flujo 2)* | |
 | 25f | **Prospecto** solicita hablar con un asesor a **July**. | 1.2.1.3 |
 | 26f | **July** envía la derivación con el historial de la conversación al **Asesor comercial**. | 1.2.1.3 |
 | 27f | **Asesor comercial** acepta la derivación a **July**. | 1.2.1.3 |
@@ -281,7 +281,7 @@ Las tres especificaciones unificadas de CU-08, una por flujo de valor, solo con 
 | 71l | **Solicitud de crédito** devuelve el motivo del resultado «no apto» a **July**. | 2.3.2.1 |
 | 72l | **July** sugiere un monto o plazo que quepa en la capacidad de pago en la **Simulación**. | 2.3.2.1 |
 | 73l | **Simulación** devuelve el escenario alternativo a **July**. | 2.3.2.1 |
-| 74l | **July** explica el motivo con el escenario alternativo al **Prospecto**. Fin. El prospecto puede volver a simular desde el paso 37. | 2.3.2.1 |
+| 74l | **July** explica el motivo con el escenario alternativo y la opción de revisión con un asesor al **Prospecto**. Fin. El prospecto puede volver a simular desde el paso 37 o pedir la revisión con un asesor en el flujo 1, paso 25f (A6). | 2.3.2.1 |
 | | *A13 · El prospecto no es socio (reemplaza el paso 75)* | |
 | 75m | **Línea de crédito** devuelve los documentos con los requisitos de afiliación a **July**. Continúa en el paso 76. | 2.3.2.2 |
 | | *A14 · No hay horarios libres en la fecha pedida (reemplaza los pasos 79 y 80)* | |
