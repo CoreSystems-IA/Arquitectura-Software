@@ -3,12 +3,12 @@
 | Campo | Valor |
 |---|---|
 | **ID** | CLS-01 |
-| **Versión** | 3.1 |
-| **Fecha** | 2026-11-04 |
-| **Deriva de** | [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y [CU-08 · Especificaciones de casos de uso](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) |
+| **Versión** | 3.2 |
+| **Fecha** | 2026-11-12 |
+| **Deriva de** | [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y [CU-08 · Especificaciones de casos de uso](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md). La capa de análisis de cada clase y el control que invoca cada método vienen de [ROB-01 · Diagramas de robustez](../08-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio) |
 | **Estado** | Borrador |
 
-Diccionario de datos del asistente July (Cooperativa Padre Julián Lorente): 17 clases, 53 métodos y 39 relaciones. Cada clase es un concepto del modelo de dominio o una clase del sistema; cada método es el verbo de un paso de CU-08, en la clase de su receptor; y cada relación sale de una pareja sujeto → receptor o de un concepto del dominio. La tabla de resumen está al final ([ir](#7-tabla-de-resumen)).
+Diccionario de datos del asistente July (Cooperativa Padre Julián Lorente): 18 clases, 53 métodos y 41 relaciones, repartidas en las tres capas de análisis que muestran ROB-01 y SEC-01: borde, control y entidad. Cada clase es un concepto del modelo de dominio o una clase del sistema; cada método es el verbo de un paso de CU-08, en la clase de su receptor; y cada relación sale de una pareja sujeto → receptor o de un concepto del dominio. La tabla de resumen está al final ([ir](#7-tabla-de-resumen)).
 
 ## Contenido
 
@@ -16,7 +16,7 @@ Diccionario de datos del asistente July (Cooperativa Padre Julián Lorente): 17 
 2. [Convenciones](#2-convenciones)
 3. [Enumeraciones](#3-enumeraciones)
 4. [Diccionario por entidad](#4-diccionario-por-entidad)
-5. [Relaciones](#5-relaciones)
+5. [Relaciones](#5-relaciones) y [controles de robustez](#controles-de-robustez-y-el-método-que-invocan)
 6. [Trazabilidad con CU-08](#6-trazabilidad-con-cu-08)
 7. [Tabla de resumen](#7-tabla-de-resumen)
 
@@ -26,7 +26,7 @@ El diccionario no consolida ni traduce nombres: toma de CU-08 los métodos tal c
 
 | # | Regla | Ejemplo en CU-08 | Queda como |
 |---|---|---|---|
-| 1 | **Las clases salen del dominio y de los participantes.** Cada concepto de DOM-01 es una clase «entidad»; July es «control»; WhatsApp Business API y el Widget web (una sola clase `Canal`), el Sistema core y el CRM son «interfaz». | «**July** registra el mensaje en formato común en la **Conversación**» | `Conversacion` |
+| 1 | **Las clases salen del dominio y de los participantes.** Cada concepto de DOM-01 es una clase «entidad»; July es «control»; WhatsApp Business API y el Widget web (una sola clase `Canal`), el Sistema core, el CRM y el Panel de la cooperativa son «interfaz». | «**July** registra el mensaje en formato común en la **Conversación**» | `Conversacion` |
 | 2 | **El método es de la clase del receptor**, con el sustantivo como parámetro. | «**July** consulta la condición de socio del prospecto al **Sistema core**» | `SistemaCore.consultarSocio(prospecto)` |
 | 3 | **Un retorno no es un método.** «**X** devuelve … a **Y**» es la salida del método del paso que lo llamó. | «**Sistema core** devuelve la condición de socio … a **July**» | Salida `CondicionSocio` de `consultarSocio()` |
 | 4 | **Los verbos sinónimos son un solo método.** Escribir, notificar, entregar, aceptar, pedir o confirmar a July es siempre `July.atender(mensaje)`; responder, mostrar, avisar, informar u ofrecer a una persona es siempre `recibir(mensaje)`. | 33 pasos «… a **July**» de personas | `July.atender(mensaje)` |
@@ -36,7 +36,7 @@ El diccionario no consolida ni traduce nombres: toma de CU-08 los métodos tal c
 | 8 | **Lo que es 1 a 1 con otra clase es atributo suyo.** El consentimiento y la condición de socio son del `Prospecto`; la precalificación y el caso de revisión, de la `SolicitudCredito`; el origen y el token de sesión, de la `Conversacion`. | «**July** registra el consentimiento aceptado en el **Prospecto**» | `Prospecto.consentimientoAceptado` |
 | 9 | **Cada pareja sujeto → receptor es una relación.** Si no hay ya una asociación o composición entre las dos clases, es una dependencia «llama» hacia la clase dueña del método. | `Prospecto` → `Canal` (flujo 1, paso 1) | Relación 24 |
 
-Resultado: 17 clases (una abstracta), 53 métodos y 39 relaciones, para 183 llamadas y 99 retornos de CU-08. Frente a la versión 2.3 (15 clases y 55 métodos consolidados desde 46 entidades y 185 métodos), ya no hay tabla de conversión: la sección [6](#6-trazabilidad-con-cu-08) es la correspondencia 1:1 paso → método.
+Resultado: 18 clases (una abstracta), 53 métodos y 41 relaciones, para 183 llamadas y 99 retornos de CU-08. Frente a la versión 2.3 (15 clases y 55 métodos consolidados desde 46 entidades y 185 métodos), ya no hay tabla de conversión: la sección [6](#6-trazabilidad-con-cu-08) es la correspondencia 1:1 paso → método.
 
 ## 2. Convenciones
 
@@ -58,7 +58,9 @@ Resultado: 17 clases (una abstracta), 53 métodos y 39 relaciones, para 183 llam
 |---|---|---|
 | «entidad» | Guarda información del negocio que persiste más allá de una conversación. | `Prospecto`, `Colaborador`, `AsesorComercial`, `Conversacion`, `Mensaje`, `Lead`, `SolicitudCredito`, `Simulacion`, `Cita`, `Configuracion`, `LineaCredito`, `PlantillaMensaje`, `ReglaNegocio` |
 | «control» | Coordina el flujo de los casos de uso; no guarda datos de negocio. | `July` |
-| «interfaz» | Frontera con un sistema externo; se modela solo lo que July le pide. | `Canal`, `SistemaCore`, `CRMCooperativa` |
+| «interfaz» | Frontera con un sistema externo o con la vista de los colaboradores; se modela solo lo que July le pide. | `Canal`, `SistemaCore`, `CRMCooperativa`, `PanelCooperativa` |
+
+Las tres naturalezas son las tres capas de ROB-01 y de SEC-01: el actor escribe por un **borde** («interfaz»), el borde avisa al **control** con `July.atender()` y el control llama a las **entidades**. Los 51 controles de ROB-01 son acciones de July: cada uno delega en un método de la clase borde o entidad que lo implementa, y esa correspondencia está en [Controles de robustez](#controles-de-robustez-y-el-método-que-invocan).
 
 **Categoría** de cada clase, dentro de su naturaleza:
 
@@ -230,6 +232,24 @@ CRM comercial donde se registra el lead y se gestiona el embudo de ventas.
 
 - **Dependencia** «usa» hacia `Lead` (relación 20): Crea y actualiza el lead.
 - **Dependencia** «llama» desde `July` (relación 39): `buscarLead()`, `sincronizarLead()`.
+
+#### PanelCooperativa
+
+**Naturaleza:** «interfaz» · **Categoría:** Sistema externo  
+Panel web de la cooperativa: las bandejas y los avisos con los que los colaboradores ven los leads, las fichas y las publicaciones. Es el borde «Panel de la cooperativa» de ROB-01.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `urlPanel` | `String` | Dirección del panel. |
+| `rolesConAcceso` | `List<RolColaborador>` | Roles que ven cada bandeja. |
+| `tiempoRefresco` | `Duration` | Cada cuánto el panel recarga los avisos pendientes. |
+
+**Sin métodos.** Ningún paso de CU-08 tiene el panel como receptor: el receptor es siempre el `Colaborador`, y el panel es el medio por el que recibe el aviso (`Colaborador.recibir()`), consulta la publicación vigente (`Colaborador.consultarPublicacion()`) y mira la agenda de la agencia (`Colaborador.consultarAgenda()`). Se modela como clase para que el borde que ROB-01 dibuja tenga su clase en CLS-02; sus operaciones se escribirán cuando se especifiquen los casos de uso del panel, que hoy quedan fuera del alcance del reto.
+
+**Relaciones:**
+
+- **Dependencia** «usa» desde `Colaborador` (relación 40): El colaborador trabaja en el panel.
+- **Dependencia** «usa» desde `July` (relación 41): July publica ahí los avisos, las fichas y los leads.
 
 ### Personas
 
@@ -671,8 +691,70 @@ Sin métodos propios (los hereda de su superclase).
 | 37 | `July` | Dependencia | `PlantillaMensaje` | «llama» | → | Compone plantillas y busca preguntas frecuentes. |
 | 38 | `July` | Dependencia | `SistemaCore` | «llama» | → | `validarCedula()`, `consultarSocio()`. |
 | 39 | `July` | Dependencia | `CRMCooperativa` | «llama» | → | `buscarLead()`, `sincronizarLead()`. |
+| 40 | `Colaborador` | Dependencia | `PanelCooperativa` | «usa» | → | El colaborador trabaja en el panel: bandejas, avisos y agenda. |
+| 41 | `July` | Dependencia | `PanelCooperativa` | «usa» | → | July publica ahí los avisos, las fichas y los leads. |
 
 Navegación: → de origen a destino; ← de destino a origen; ↔ en ambos sentidos. Cada extremo navegable es un atributo de la clase que lo recorre.
+
+### Controles de robustez y el método que invocan
+
+ROB-01 dibuja **51 controles**, uno por acción de July. July no es uno más: el control «Atender mensaje» (`July.atender()`) recibe cada mensaje y coordina a los demás, y cada uno de los otros 50 delega en el método de la clase borde o entidad que lo implementa. Por eso el modelo tiene una sola clase «control»: los controles de robustez no son clases, son el punto del flujo en el que July llama a un método. En CLS-02 cada método lleva anotado con ◂ el control que lo invoca.
+
+| Control de ROB-01 | Método de CLS-02 | Capa y clase que lo implementa | Flujos |
+|---|---|---|---|
+| Atender mensaje | `July.atender()` | «control» `July` | F1, F2, F3 |
+| Verificar autenticidad | `Canal.verificarAutenticidad()` | «interfaz» `Canal` | F1 |
+| Registrar mensaje | `Conversacion.registrarMensaje()` | «entidad» `Conversacion` | F1 |
+| Etiquetar origen | `Conversacion.etiquetarOrigen()` | «entidad» `Conversacion` | F1 |
+| Avisar al colaborador | `Colaborador.recibir()` | «entidad» `Colaborador` | F1, F2, F3 |
+| Enviar por el canal | `Canal.enviar()` | «interfaz» `Canal` | F1, F2, F3 |
+| Poner en espera | `Conversacion.encolar()` | «entidad» `Conversacion` | F1 |
+| Consultar publicación | `Colaborador.consultarPublicacion()` | «entidad» `Colaborador` | F1, F2, F3 |
+| Componer plantilla | `PlantillaMensaje.componer()` | «entidad» `PlantillaMensaje` | F1, F2, F3 |
+| Enviar al prospecto | `Prospecto.recibir()` | «entidad» `Prospecto` | F1, F2, F3 |
+| Registrar consentimiento | `Prospecto.registrarConsentimiento()` | «entidad» `Prospecto` | F1 |
+| Identificar intención | `LineaCredito.buscar()` | «entidad» `LineaCredito` | F1 |
+| Consultar socio | `SistemaCore.consultarSocio()` | «interfaz» `SistemaCore` | F1, F2 |
+| Registrar lead | `Lead.registrar()` | «entidad» `Lead` | F1 |
+| Traspasar conversación | `Conversacion.traspasar()` | «entidad» `Conversacion` | F1, F3 |
+| Buscar pregunta frecuente | `PlantillaMensaje.buscarRespuesta()` | «entidad» `PlantillaMensaje` | F1 |
+| Iniciar solicitud | `SolicitudCredito.iniciar()` | «entidad» `SolicitudCredito` | F2 |
+| Pedir dato pendiente | `SolicitudCredito.campoPendiente()` | «entidad» `SolicitudCredito` | F2 |
+| Registrar y validar dato | `SolicitudCredito.registrarDato()` | «entidad» `SolicitudCredito` | F2 |
+| Guardar avance | `Conversacion.guardarAvance()` | «entidad» `Conversacion` | F2 |
+| Validar cédula | `SistemaCore.validarCedula()` | «interfaz» `SistemaCore` | F2 |
+| Resumir solicitud | `SolicitudCredito.resumir()` | «entidad» `SolicitudCredito` | F2 |
+| Actualizar estado de solicitud de crédito | `SolicitudCredito.actualizarEstado()` | «entidad» `SolicitudCredito` | F2, F3 |
+| Vencer plazo | `July.vencerPlazo()` | «control» `July` | F2, F3 |
+| Marcar abandonada | `Conversacion.marcarAbandonada()` | «entidad» `Conversacion` | F2 |
+| Retomar conversación | `Conversacion.retomar()` | «entidad» `Conversacion` | F2 |
+| Calcular simulación | `Simulacion.calcular()` | «entidad» `Simulacion` | F2 |
+| Generar amortización | `Simulacion.generarTablaAmortizacion()` | «entidad» `Simulacion` | F2 |
+| Elegir escenario | `Simulacion.elegir()` | «entidad» `Simulacion` | F2 |
+| Elegir línea | `Lead.elegirLinea()` | «entidad» `Lead` | F2 |
+| Validar condiciones | `LineaCredito.validarCondiciones()` | «entidad» `LineaCredito` | F2 |
+| Precalificar | `SolicitudCredito.precalificar()` | «entidad» `SolicitudCredito` | F2 |
+| Explicar resultado | `SolicitudCredito.explicarResultado()` | «entidad» `SolicitudCredito` | F2 |
+| Consultar requisitos | `LineaCredito.requisitosPara()` | «entidad» `LineaCredito` | F2 |
+| Consultar agenda | `Colaborador.consultarAgenda()` | «entidad» `Colaborador` | F2, F3 |
+| Reservar cita | `Cita.reservar()` | «entidad» `Cita` | F2 |
+| Derivar a revisión | `SolicitudCredito.derivarARevision()` | «entidad» `SolicitudCredito` | F2 |
+| Sugerir alternativa | `Simulacion.sugerirAlternativa()` | «entidad» `Simulacion` | F2 |
+| Priorizar lead | `Lead.priorizar()` | «entidad» `Lead` | F3 |
+| Generar ficha | `Lead.generarFicha()` | «entidad» `Lead` | F3 |
+| Buscar lead en el CRM | `CRMCooperativa.buscarLead()` | «interfaz» `CRMCooperativa` | F3 |
+| Sincronizar con el CRM | `CRMCooperativa.sincronizarLead()` | «interfaz» `CRMCooperativa` | F3 |
+| Vincular id del CRM | `Lead.vincularCRM()` | «entidad» `Lead` | F3 |
+| Asignar asesor | `Lead.asignar()` | «entidad» `Lead` | F3 |
+| Aceptar asignación | `Lead.aceptarAsignacion()` | «entidad» `Lead` | F3 |
+| Programar recordatorio | `Cita.programarRecordatorio()` | «entidad» `Cita` | F3 |
+| Actualizar estado de cita | `Cita.actualizarEstado()` | «entidad» `Cita` | F3 |
+| Registrar documentos | `SolicitudCredito.registrarDocumento()` | «entidad» `SolicitudCredito` | F3 |
+| Actualizar estado de lead | `Lead.actualizarEstado()` | «entidad» `Lead` | F3 |
+| Reactivar lead | `Lead.reactivar()` | «entidad» `Lead` | F3 |
+| Reprogramar cita | `Cita.reprogramar()` | «entidad» `Cita` | F3 |
+
+Dos métodos de `Canal` no tienen control porque no los llama July sino el actor, directamente sobre el borde: `recibir(mensaje)`, cuando el prospecto escribe por WhatsApp o por el widget (F1: 1, 1a), y `abrirSesion(paginaOrigen)`, cuando abre el widget web (F1: 3a). Los 53 métodos del diccionario son, entonces, 51 con control más estos dos.
 
 ## 6. Trazabilidad con CU-08
 
@@ -914,6 +996,7 @@ Las 183 llamadas de CU-08, en orden. Los 99 retornos no tienen método: son la s
 | [`Canal`](#canal) | Canal digital por el que entra y sale la conversación: WhatsApp Business API o el widget web. | Sistema externo | `tipo`: `TipoCanal`<br>`credencial`: `String` | `recibir(mensaje: Mensaje)` → `void`<br>`verificarAutenticidad(mensaje: Mensaje)` → `Boolean`<br>`enviar(mensaje: Mensaje)` → `void`<br>`abrirSesion(paginaOrigen: String)` → `String` | Dependencia → July [«llama»]<br>Dependencia ← Prospecto [«llama»]<br>Dependencia ← July [«llama»]<br>Dependencia → Prospecto [«llama»] | «interfaz» |
 | [`SistemaCore`](#sistemacore) | Sistema transaccional de la cooperativa: fuente oficial de socios y de identidad. | Sistema externo | `urlServicio`: `String`<br>`tiempoMaximoRespuesta`: `Duration` | `validarCedula(cedula: String)` → `Boolean`<br>`consultarSocio(prospecto: Prospecto)` → `CondicionSocio` | Dependencia → Prospecto [«usa»]<br>Dependencia ← July [«llama»] | «interfaz» |
 | [`CRMCooperativa`](#crmcooperativa) | CRM comercial donde se registra el lead y se gestiona el embudo de ventas. | Sistema externo | `urlServicio`: `String`<br>`maxIntentos`: `Integer` | `buscarLead(cedula: String, telefono: String)` → `String \| null`<br>`sincronizarLead(lead: Lead)` → `String` | Dependencia → Lead [«usa»]<br>Dependencia ← July [«llama»] | «interfaz» |
+| [`PanelCooperativa`](#panelcooperativa) | Panel web de la cooperativa: las bandejas y los avisos con los que los colaboradores ven los leads, las fichas y las publicaciones. Es el borde «Panel de la cooperativa» de ROB-01. | Sistema externo | `urlPanel`: `String`<br>`rolesConAcceso`: `List<RolColaborador>`<br>`tiempoRefresco`: `Duration` | — | Dependencia ← Colaborador [«usa»]<br>Dependencia ← July [«usa»] | «interfaz» |
 | [`Prospecto`](#prospecto) | Persona que contacta a la cooperativa. | Actor (entidad) | `idProspecto`: `UUID`<br>`nombres`: `String [0..1]`<br>`cedula`: `String [0..1]`<br>`telefono`: `String [0..1]`<br>`correo`: `String [0..1]`<br>`condicionSocio`: `CondicionSocio`<br>`fechaIngresoSocio`: `Date [0..1]`<br>`edad`: `Integer [0..1]`<br>`actividadRegistrada`: `String [0..1]`<br>`consentimientoAceptado`: `Boolean`<br>`versionAviso`: `String [0..1]`<br>`fechaConsentimiento`: `DateTime [0..1]` | `recibir(mensaje: Mensaje)` → `void`<br>`registrarConsentimiento(aceptado: Boolean, versionAviso: String)` → `void` | Asociación ← Conversacion [* — 1]<br>Asociación ← Lead [* — 1]<br>Dependencia ← SistemaCore [«usa»]<br>Dependencia → July [«llama»]<br>Dependencia → Canal [«llama»]<br>Dependencia ← Canal [«llama»]<br>Dependencia → Colaborador [«llama»]<br>Dependencia ← Colaborador [«llama»]<br>Dependencia ← July [«llama»] | «entidad» |
 | [`Colaborador`](#colaborador) | Persona de la cooperativa que participa en los flujos: publica configuración (guiones, catálogo, reglas, agenda), recibe avisos y registra la atención o la resolución. | Actor (entidad) | `idColaborador`: `UUID`<br>`nombre`: `String`<br>`rol`: `RolColaborador`<br>`agencia`: `String [0..1]`<br>`correo`: `String` | `recibir(mensaje: Mensaje)` → `void`<br>`consultarPublicacion(tipo: TipoPublicacion)` → `List<Configuracion>`<br>`consultarAgenda(agencia: String, desde: Date, hasta: Date)` → `List<DateTime>` | Asociación ← Configuracion [* — 1]<br>Generalización ← AsesorComercial [—]<br>Dependencia → July [«llama»]<br>Dependencia ← Prospecto [«llama»]<br>Dependencia → Prospecto [«llama»]<br>Dependencia ← July [«llama»] | «entidad» |
 | [`AsesorComercial`](#asesorcomercial) | Colaborador que atiende leads. | Actor (entidad) | `productos`: `List<String>`<br>`disponible`: `Boolean`<br>`leads`: `List<Lead>`<br>`/cargaActual`: `Integer` | — | Asociación ← Conversacion [* — 0..1]<br>Asociación ← Lead [* — 0..1]<br>Generalización → Colaborador [—] | «entidad» |
