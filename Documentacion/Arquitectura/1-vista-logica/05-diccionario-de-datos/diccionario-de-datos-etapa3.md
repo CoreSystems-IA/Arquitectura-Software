@@ -5,7 +5,7 @@
 | **ID** | CLS-01 |
 | **Versión** | 3.2 |
 | **Fecha** | 2026-11-12 |
-| **Deriva de** | [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y [CU-08 · Especificaciones de casos de uso](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md). La capa de análisis de cada clase y el control que invoca cada método vienen de [ROB-01 · Diagramas de robustez](../08-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio) |
+| **Deriva de** | [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y [CU-08 · Especificaciones de casos de uso](../../0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md). La capa de análisis de cada clase y el control que invoca cada método vienen de [ROB-01 · Diagramas de robustez](../08-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio) |
 | **Estado** | Borrador |
 
 Diccionario de datos del asistente July (Cooperativa Padre Julián Lorente): 18 clases, 53 métodos y 41 relaciones, repartidas en las tres capas de análisis que muestran ROB-01 y SEC-01: borde, control y entidad. Cada clase es un concepto del modelo de dominio o una clase del sistema; cada método es el verbo de un paso de CU-08, en la clase de su receptor; y cada relación sale de una pareja sujeto → receptor o de un concepto del dominio. La tabla de resumen está al final ([ir](#7-tabla-de-resumen)).

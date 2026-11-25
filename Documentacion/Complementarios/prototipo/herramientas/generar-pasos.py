@@ -14,8 +14,8 @@ import re
 AQUI = os.path.dirname(os.path.abspath(__file__))
 PROTOTIPO = os.path.dirname(AQUI)
 ARQ = os.path.join(PROTOTIPO, '..', '..', 'Arquitectura')
-CU09 = os.path.join(ARQ, '03-especificacion-casos-de-uso', 'especificacion-casos-de-uso-solo-pasos.md')
-CLS01 = os.path.join(ARQ, '05-diccionario-de-datos', 'diccionario-de-datos-etapa3.md')
+CU09 = os.path.join(ARQ, '0-escenarios', '03-especificacion-casos-de-uso', 'especificacion-casos-de-uso-solo-pasos.md')
+CLS01 = os.path.join(ARQ, '1-vista-logica', '05-diccionario-de-datos', 'diccionario-de-datos-etapa3.md')
 SALIDA = os.path.join(PROTOTIPO, 'js', 'pasos.js')
 
 

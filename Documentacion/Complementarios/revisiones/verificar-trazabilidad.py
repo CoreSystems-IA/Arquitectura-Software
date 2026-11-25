@@ -26,13 +26,13 @@ import xml.etree.ElementTree as ET
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 ARQ = os.path.join(RAIZ, 'Arquitectura')
-CU06 = os.path.join(ARQ, '02-casos-de-uso', 'casos-de-uso-por-flujo.md')
-CU08 = os.path.join(ARQ, '03-especificacion-casos-de-uso', 'especificaciones-casos-de-uso.md')
-DOM01 = os.path.join(ARQ, '04-modelo-de-dominio', 'modelo-de-dominio-etapa3.drawio')
-CLS01 = os.path.join(ARQ, '05-diccionario-de-datos', 'diccionario-de-datos-etapa3.md')
-CLS02 = os.path.join(ARQ, '06-diagrama-de-clases', 'diagrama-de-clases-etapa3.drawio')
-SEC01 = os.path.join(ARQ, '07-diagrama-de-secuencia', 'diagramas-de-secuencia-etapa3.drawio')
-ROB01 = os.path.join(ARQ, '08-diagrama-de-robustez', 'diagramas-de-robustez-etapa3.drawio')
+CU06 = os.path.join(ARQ, '0-escenarios', '02-casos-de-uso', 'casos-de-uso-por-flujo.md')
+CU08 = os.path.join(ARQ, '0-escenarios', '03-especificacion-casos-de-uso', 'especificaciones-casos-de-uso.md')
+DOM01 = os.path.join(ARQ, '1-vista-logica', '04-modelo-de-dominio', 'modelo-de-dominio-etapa3.drawio')
+CLS01 = os.path.join(ARQ, '1-vista-logica', '05-diccionario-de-datos', 'diccionario-de-datos-etapa3.md')
+CLS02 = os.path.join(ARQ, '1-vista-logica', '06-diagrama-de-clases', 'diagrama-de-clases-etapa3.drawio')
+SEC01 = os.path.join(ARQ, '2-vista-de-procesos', '07-diagrama-de-secuencia', 'diagramas-de-secuencia-etapa3.drawio')
+ROB01 = os.path.join(ARQ, '1-vista-logica', '08-diagrama-de-robustez', 'diagramas-de-robustez-etapa3.drawio')
 
 # Clases del sistema que no son conceptos del dominio.
 CLASES_SISTEMA = {'July', 'Canal', 'SistemaCore', 'CRMCooperativa'}

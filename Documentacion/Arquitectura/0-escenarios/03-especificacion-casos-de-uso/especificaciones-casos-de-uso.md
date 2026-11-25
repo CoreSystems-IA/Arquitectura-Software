@@ -1,7 +1,7 @@
 # Especificaciones de casos de uso · July
 
 **ID:** CU-08 · **Versión:** 2.1 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
-**Deriva de:** CU-03 a CU-06 ([`casos-de-uso-por-flujo.md`](../02-casos-de-uso/casos-de-uso-por-flujo.md)), CAP-03 y las decisiones de [REV-02](../../Complementarios/revisiones/plan-trazabilidad-flujos-unificados.md)  
+**Deriva de:** CU-03 a CU-06 ([`casos-de-uso-por-flujo.md`](../02-casos-de-uso/casos-de-uso-por-flujo.md)), CAP-03 y las decisiones de [REV-02](../../../Complementarios/revisiones/plan-trazabilidad-flujos-unificados.md)  
 **Uso:** fuente del modelo de dominio (DOM-01), del diccionario de datos (CLS-01) y de los diagramas de secuencia (SEC-01)  
 
 Especificación unificada de los casos de uso de July: **una por flujo de valor**, con un solo flujo principal numerado de corrido que recorre sus casos de nivel 1 y 2 en el orden de CU-06 y llega hasta los actores y sistemas externos. Cada paso es una oración con un solo verbo y cita el caso de nivel 3 de CU-06 que realiza. En total hay 282 pasos: 183 llamadas a un método y 99 retornos.

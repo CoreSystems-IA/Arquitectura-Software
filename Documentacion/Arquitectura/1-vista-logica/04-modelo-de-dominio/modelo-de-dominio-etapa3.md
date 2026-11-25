@@ -5,7 +5,7 @@
 | **ID** | DOM-02 |
 | **Versión** | 2.0 |
 | **Fecha** | 2026-11-04 |
-| **Deriva de** | [DOM-01 · Diagrama del modelo de dominio](modelo-de-dominio-etapa3.drawio), [CU-08 · Especificaciones de casos de uso](../03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) |
+| **Deriva de** | [DOM-01 · Diagrama del modelo de dominio](modelo-de-dominio-etapa3.drawio), [CU-08 · Especificaciones de casos de uso](../../0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) |
 | **Estado** | Borrador |
 
 Guía breve del modelo de dominio del asistente July (Cooperativa Padre Julián Lorente). El modelo muestra **los conceptos del negocio y cómo se relacionan**, sin métodos, sin tipos y sin las clases que forman el sistema. Sale de la especificación unificada (CU-08) y es la entrada del diccionario de datos ([CLS-01](../05-diccionario-de-datos/diccionario-de-datos-etapa3.md)), que le agrega tipos, métodos y las clases del sistema.
@@ -82,4 +82,4 @@ El diagrama sigue el embudo de captación de arriba abajo:
 
 ## 6. Mantenimiento
 
-La fuente es el archivo [`modelo-de-dominio-etapa3.drawio`](modelo-de-dominio-etapa3.drawio) (DOM-01), y el PNG se exporta desde él. Si un paso de CU-08 agrega o cambia un sustantivo, un participante o una pareja sujeto → receptor, se actualizan en el mismo cambio el diagrama, su PNG, este documento y después CLS-01. La regla V3 de [`verificar-trazabilidad.py`](../../Complementarios/revisiones/verificar-trazabilidad.py) comprueba que todo sustantivo y participante de CU-08 sea un concepto de este modelo o una clase del sistema.
+La fuente es el archivo [`modelo-de-dominio-etapa3.drawio`](modelo-de-dominio-etapa3.drawio) (DOM-01), y el PNG se exporta desde él. Si un paso de CU-08 agrega o cambia un sustantivo, un participante o una pareja sujeto → receptor, se actualizan en el mismo cambio el diagrama, su PNG, este documento y después CLS-01. La regla V3 de [`verificar-trazabilidad.py`](../../../Complementarios/revisiones/verificar-trazabilidad.py) comprueba que todo sustantivo y participante de CU-08 sea un concepto de este modelo o una clase del sistema.

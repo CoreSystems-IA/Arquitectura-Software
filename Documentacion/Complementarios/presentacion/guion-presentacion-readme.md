@@ -1,7 +1,7 @@
 # Guion de presentación del README
 
 **ID:** PRE-01 · **Versión:** 1.0 · **Fecha:** 2026-11-05 · **Estado:** Borrador  
-**Deriva de:** [`README.md`](../../../README.md) del repositorio, [PRO-01](../prototipo/README.md), [CU-08](../../Arquitectura/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md), [CLS-01](../../Arquitectura/05-diccionario-de-datos/diccionario-de-datos-etapa3.md) y el [índice de documentación](../../README.md)
+**Deriva de:** [`README.md`](../../../README.md) del repositorio, [PRO-01](../prototipo/README.md), [CU-08](../../Arquitectura/0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md), [CLS-01](../../Arquitectura/1-vista-logica/05-diccionario-de-datos/diccionario-de-datos-etapa3.md) y el [índice de documentación](../../README.md)
 
 Guion hablado para presentar el README completo, en su mismo orden. Cada bloque dice quién habla, qué se muestra en pantalla y qué se dice. Los turnos se repartieron según el rol de cada integrante y se pueden cambiar.
 

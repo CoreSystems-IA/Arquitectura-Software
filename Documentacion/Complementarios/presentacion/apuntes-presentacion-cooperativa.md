@@ -1,7 +1,7 @@
 # Apuntes para presentar July a la Cooperativa Padre Julián Lorente
 
 **ID:** PRE-02 · **Versión:** 1.0 · **Fecha:** 2026-11-11 · **Estado:** Borrador  
-**Deriva de:** [NEG-01](../negocio/guia-negocio-cooperativa-y-captacion.md), [PRO-01](../prototipo/README.md), [CLS-01](../../Arquitectura/05-diccionario-de-datos/diccionario-de-datos-etapa3.md), [CLS-02](../../Arquitectura/06-diagrama-de-clases/diagrama-de-clases-etapa3.drawio), [CU-08](../../Arquitectura/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md), [REV-01](../revisiones/revision-consistencia-etapa3.md), la sección «Normas y estándares» del [`README.md`](../../../README.md) y [PRE-01](guion-presentacion-readme.md)
+**Deriva de:** [NEG-01](../negocio/guia-negocio-cooperativa-y-captacion.md), [PRO-01](../prototipo/README.md), [CLS-01](../../Arquitectura/1-vista-logica/05-diccionario-de-datos/diccionario-de-datos-etapa3.md), [CLS-02](../../Arquitectura/1-vista-logica/06-diagrama-de-clases/diagrama-de-clases-etapa3.drawio), [CU-08](../../Arquitectura/0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md), [REV-01](../revisiones/revision-consistencia-etapa3.md), la sección «Normas y estándares» del [`README.md`](../../../README.md) y [PRE-01](guion-presentacion-readme.md)
 
 Apuntes de apoyo para una reunión con directivos y colaboradores de la cooperativa. No es un guion palabra por palabra (para eso está PRE-01): cada sección tiene el **mensaje clave**, los **datos** que conviene tener a mano y lo que **no hay que prometer**.
 
@@ -330,9 +330,9 @@ Azul `#0069b2` y tinte `#e6eff4` (oficiales, de lorente.fin.ec), blanco, y verde
 
 ## 4. El diagrama de clases, clase por clase
 
-![Diagrama de clases de July](../../Arquitectura/06-diagrama-de-clases/diagrama-de-clases-etapa3.png)
+![Diagrama de clases de July](../../Arquitectura/1-vista-logica/06-diagrama-de-clases/diagrama-de-clases-etapa3.png)
 
-**Cifras:** 17 clases (una abstracta), 53 métodos, 16 enumeraciones y 39 relaciones. Fuente: [CLS-02](../../Arquitectura/06-diagrama-de-clases/diagrama-de-clases-etapa3.drawio), con el detalle en [CLS-01](../../Arquitectura/05-diccionario-de-datos/diccionario-de-datos-etapa3.md).
+**Cifras:** 17 clases (una abstracta), 53 métodos, 16 enumeraciones y 39 relaciones. Fuente: [CLS-02](../../Arquitectura/1-vista-logica/06-diagrama-de-clases/diagrama-de-clases-etapa3.drawio), con el detalle en [CLS-01](../../Arquitectura/1-vista-logica/05-diccionario-de-datos/diccionario-de-datos-etapa3.md).
 
 ### 4.1 Cómo nacieron las clases (por qué no son arbitrarias)
 

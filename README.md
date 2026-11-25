@@ -428,8 +428,8 @@ La configuración que publican las áreas de la cooperativa (guiones, catálogo 
 
 Todo el trabajo se documenta en [`Documentacion/`](Documentacion/README.md), cuyo índice registra cada artefacto con su ID, de qué deriva, su fecha y su estado. La documentación se divide en dos carpetas:
 
-- **[`Arquitectura/`](Documentacion/Arquitectura/)** — los artefactos de la **cadena de trazabilidad**, numerados en el orden en que cada uno deriva del anterior.
-- **[`Complementarios/`](Documentacion/Complementarios/)** — material de apoyo: referencias, revisiones, guía del negocio, el documento de arquitectura (SAD) y plantillas.
+- **[`Documentacion/Arquitectura/`](Documentacion/Arquitectura/)** — los artefactos de la **cadena de trazabilidad**, numerados en el orden en que cada uno deriva del anterior.
+- **[`Documentacion/Complementarios/`](Documentacion/Complementarios/)** — material de apoyo: referencias, revisiones, guía del negocio, el documento de arquitectura (SAD) y plantillas.
 
 <a id="cadena"></a>
 ## 🔗 Cadena de trazabilidad
@@ -455,16 +455,16 @@ Todo el modelo se organiza en **3 flujos de valor** y **7 etapas**, que se repit
 | **2 · Captura, simulación y precalificación** | Perfilamiento → Simulación financiera → Precalificación |
 | **3 · Entrega, seguimiento y conversión** | Entrega de oportunidades → Asignación y seguimiento |
 
-| # | Artefacto | ID | Carpeta | Estado |
-|---|---|---|---|---|
-| 01 | Mapa de capacidades (ArchiMate) | CAP-03, CAP-04, CAP-05 | [`01-mapa-capacidades/`](Documentacion/Arquitectura/01-mapa-capacidades/) | Borrador |
-| 02 | Diagramas de casos de uso | CU-02 a CU-06 | [`02-casos-de-uso/`](Documentacion/Arquitectura/02-casos-de-uso/) | Borrador |
-| 03 | Especificación de casos de uso | CU-08, CU-09 | [`03-especificacion-casos-de-uso/`](Documentacion/Arquitectura/03-especificacion-casos-de-uso/) | Borrador |
-| 04 | Modelo de dominio | DOM-01, DOM-02 | [`04-modelo-de-dominio/`](Documentacion/Arquitectura/04-modelo-de-dominio/) | Borrador |
-| 05 | Diccionario de datos | CLS-01 | [`05-diccionario-de-datos/`](Documentacion/Arquitectura/05-diccionario-de-datos/) | Borrador |
-| 06 | Diagrama de clases | CLS-02 | [`06-diagrama-de-clases/`](Documentacion/Arquitectura/06-diagrama-de-clases/) | Borrador |
-| 07 | Diagramas de secuencia | SEC-01 | [`07-diagrama-de-secuencia/`](Documentacion/Arquitectura/07-diagrama-de-secuencia/) | Borrador |
-| 08 | Diagramas de robustez | ROB-01 | [`08-diagrama-de-robustez/`](Documentacion/Arquitectura/08-diagrama-de-robustez/) | Borrador |
+| # | Artefacto | ID | Vista 4+1 | Carpeta | Estado |
+|---|---|---|---|---|---|
+| 01 | Mapa de capacidades (ArchiMate) | CAP-03, CAP-04, CAP-05 | +1 Escenarios | [`01-mapa-capacidades/`](Documentacion/Arquitectura/0-escenarios/01-mapa-capacidades/) | Borrador |
+| 02 | Diagramas de casos de uso | CU-02 a CU-06 | +1 Escenarios | [`02-casos-de-uso/`](Documentacion/Arquitectura/0-escenarios/02-casos-de-uso/) | Borrador |
+| 03 | Especificación de casos de uso | CU-08, CU-09 | +1 Escenarios | [`03-especificacion-casos-de-uso/`](Documentacion/Arquitectura/0-escenarios/03-especificacion-casos-de-uso/) | Borrador |
+| 04 | Modelo de dominio | DOM-01, DOM-02 | Lógica | [`04-modelo-de-dominio/`](Documentacion/Arquitectura/1-vista-logica/04-modelo-de-dominio/) | Borrador |
+| 05 | Diccionario de datos | CLS-01 | Lógica | [`05-diccionario-de-datos/`](Documentacion/Arquitectura/1-vista-logica/05-diccionario-de-datos/) | Borrador |
+| 06 | Diagrama de clases | CLS-02 | Lógica | [`06-diagrama-de-clases/`](Documentacion/Arquitectura/1-vista-logica/06-diagrama-de-clases/) | Borrador |
+| 07 | Diagramas de secuencia | SEC-01 | Procesos | [`07-diagrama-de-secuencia/`](Documentacion/Arquitectura/2-vista-de-procesos/07-diagrama-de-secuencia/) | Borrador |
+| 08 | Diagramas de robustez | ROB-01 | Lógica | [`08-diagrama-de-robustez/`](Documentacion/Arquitectura/1-vista-logica/08-diagrama-de-robustez/) | Borrador |
 
 <a id="a01"></a>
 ## 01 · 🗺️ Mapa de capacidades de negocio
@@ -473,10 +473,10 @@ Basado en *The Business Capability Map: The «Rosetta Stone» of Business/IT Ali
 
 Cada etapa del flujo de valor se apoya en una capacidad de nivel 1, que se divide en **dos capacidades de nivel 2** y estas en **tres de nivel 3**: **7 capacidades de nivel 1, 14 de nivel 2 y 42 de nivel 3**.
 
-![Mapa de capacidades de July con su flujo de valor](Documentacion/Arquitectura/01-mapa-capacidades/mapa-capacidades-y-casos-de-uso-etapa3.png)
+![Mapa de capacidades de July con su flujo de valor](Documentacion/Arquitectura/0-escenarios/01-mapa-capacidades/mapa-capacidades-y-casos-de-uso-etapa3.png)
 
-- 📦 Modelo nativo (fuente): [`mapa-capacidades-y-casos-de-uso-etapa3.archimate`](Documentacion/Arquitectura/01-mapa-capacidades/Archi/mapa-capacidades-y-casos-de-uso-etapa3.archimate)
-- 🔄 Exportación Open Exchange (XML), regenerada con [`archi-a-open-exchange.py`](Documentacion/Arquitectura/01-mapa-capacidades/Archi/archi-a-open-exchange.py): [`mapa-capacidades-y-casos-de-uso-etapa3.xml`](Documentacion/Arquitectura/01-mapa-capacidades/Archi/mapa-capacidades-y-casos-de-uso-etapa3.xml)
+- 📦 Modelo nativo (fuente): [`mapa-capacidades-y-casos-de-uso-etapa3.archimate`](Documentacion/Arquitectura/0-escenarios/01-mapa-capacidades/Archi/mapa-capacidades-y-casos-de-uso-etapa3.archimate)
+- 🔄 Exportación Open Exchange (XML), regenerada con [`archi-a-open-exchange.py`](Documentacion/Arquitectura/0-escenarios/01-mapa-capacidades/Archi/archi-a-open-exchange.py): [`mapa-capacidades-y-casos-de-uso-etapa3.xml`](Documentacion/Arquitectura/0-escenarios/01-mapa-capacidades/Archi/mapa-capacidades-y-casos-de-uso-etapa3.xml)
 
 <a id="a02"></a>
 ## 02 · 👤 Casos de uso
@@ -485,44 +485,44 @@ Los casos de uso salen **directamente del mapa**: cada capacidad se convierte en
 
 | Flujo 1 · Atracción y primer contacto | Flujo 2 · Captura, simulación y precalificación | Flujo 3 · Entrega, seguimiento y conversión |
 |---|---|---|
-| ![CU flujo 1](Documentacion/Arquitectura/02-casos-de-uso/casos-de-uso-flujo-01-atraccion-y-primer-contacto.png) | ![CU flujo 2](Documentacion/Arquitectura/02-casos-de-uso/casos-de-uso-flujo-02-captura-simulacion-y-precalificacion.png) | ![CU flujo 3](Documentacion/Arquitectura/02-casos-de-uso/casos-de-uso-flujo-03-entrega-seguimiento-y-conversion.png) |
+| ![CU flujo 1](Documentacion/Arquitectura/0-escenarios/02-casos-de-uso/casos-de-uso-flujo-01-atraccion-y-primer-contacto.png) | ![CU flujo 2](Documentacion/Arquitectura/0-escenarios/02-casos-de-uso/casos-de-uso-flujo-02-captura-simulacion-y-precalificacion.png) | ![CU flujo 3](Documentacion/Arquitectura/0-escenarios/02-casos-de-uso/casos-de-uso-flujo-03-entrega-seguimiento-y-conversion.png) |
 
-- 📝 Descripción por flujo con sus actores: [`casos-de-uso-por-flujo.md`](Documentacion/Arquitectura/02-casos-de-uso/casos-de-uso-por-flujo.md) (CU-06)
-- 🧩 Diagrama general: [`casos-de-uso-july.drawio`](Documentacion/Arquitectura/02-casos-de-uso/casos-de-uso-july.drawio) (CU-02)
+- 📝 Descripción por flujo con sus actores: [`casos-de-uso-por-flujo.md`](Documentacion/Arquitectura/0-escenarios/02-casos-de-uso/casos-de-uso-por-flujo.md) (CU-06)
+- 🧩 Diagrama general: [`casos-de-uso-july.drawio`](Documentacion/Arquitectura/0-escenarios/02-casos-de-uso/casos-de-uso-july.drawio) (CU-02)
 
 <a id="a03"></a>
 ## 03 · 📋 Especificación de casos de uso
 
 Una especificación **por flujo de valor**, con un flujo principal numerado de corrido que recorre sus casos de nivel 1 y 2 hasta llegar a los actores y sistemas externos, más sus flujos alternativos. Cada paso es **una oración con un solo verbo** que cita el caso de nivel 3 que realiza; de esa oración salen el **sujeto**, el **método** (verbo), la **entidad** (sustantivo) y la **relación**, que alimentan el resto de la cadena. Incluye la correspondencia con los servicios SA-01 a SA-25, el alcance del reto y las reglas transversales de protección de datos (consentimiento previo y retiro del consentimiento).
 
-- 📄 Especificación completa: [`especificaciones-casos-de-uso.md`](Documentacion/Arquitectura/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) (CU-08)
-- 📄 Versión de lectura, solo con la oración de cada paso: [`especificacion-casos-de-uso-solo-pasos.md`](Documentacion/Arquitectura/03-especificacion-casos-de-uso/especificacion-casos-de-uso-solo-pasos.md) (CU-09)
+- 📄 Especificación completa: [`especificaciones-casos-de-uso.md`](Documentacion/Arquitectura/0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md) (CU-08)
+- 📄 Versión de lectura, solo con la oración de cada paso: [`especificacion-casos-de-uso-solo-pasos.md`](Documentacion/Arquitectura/0-escenarios/03-especificacion-casos-de-uso/especificacion-casos-de-uso-solo-pasos.md) (CU-09)
 
 <a id="a04"></a>
 ## 04 · 🧩 Modelo de dominio
 
 Los **conceptos del negocio** que aparecen en la especificación (prospecto, conversación, solicitud, simulación, precalificación, lead, asesor, línea de crédito…) con sus atributos y asociaciones, **sin métodos, sin tipos y sin las clases del sistema**.
 
-![Modelo de dominio de July](Documentacion/Arquitectura/04-modelo-de-dominio/modelo-de-dominio-etapa3.png)
+![Modelo de dominio de July](Documentacion/Arquitectura/1-vista-logica/04-modelo-de-dominio/modelo-de-dominio-etapa3.png)
 
-- 🖊️ Diagrama: [`modelo-de-dominio-etapa3.drawio`](Documentacion/Arquitectura/04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) (DOM-01)
-- 📝 Guía de lectura: [`modelo-de-dominio-etapa3.md`](Documentacion/Arquitectura/04-modelo-de-dominio/modelo-de-dominio-etapa3.md) (DOM-02)
+- 🖊️ Diagrama: [`modelo-de-dominio-etapa3.drawio`](Documentacion/Arquitectura/1-vista-logica/04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) (DOM-01)
+- 📝 Guía de lectura: [`modelo-de-dominio-etapa3.md`](Documentacion/Arquitectura/1-vista-logica/04-modelo-de-dominio/modelo-de-dominio-etapa3.md) (DOM-02)
 
 <a id="a05"></a>
 ## 05 · 📖 Diccionario de datos
 
 Toma los conceptos del dominio y les agrega **tipos, métodos y las clases del sistema**: July como «control»; el Canal (WhatsApp y web), el Sistema core y el CRM como «interfaz»; y los conceptos del dominio como «entidad». Cada método es el verbo de un paso de la especificación, en la clase de quien lo recibe. Incluye enumeraciones con sus transiciones de estado, relaciones con tipo, multiplicidad y navegación, y la trazabilidad paso a paso con CU-08.
 
-- 📄 [`diccionario-de-datos-etapa3.md`](Documentacion/Arquitectura/05-diccionario-de-datos/diccionario-de-datos-etapa3.md) (CLS-01)
+- 📄 [`diccionario-de-datos-etapa3.md`](Documentacion/Arquitectura/1-vista-logica/05-diccionario-de-datos/diccionario-de-datos-etapa3.md) (CLS-01)
 
 <a id="a06"></a>
 ## 06 · 🏛️ Diagrama de clases
 
 El diccionario de datos llevado a **UML**: las clases con sus estereotipos, atributos y métodos, las relaciones con su multiplicidad y navegación, y las enumeraciones.
 
-![Diagrama de clases de July](Documentacion/Arquitectura/06-diagrama-de-clases/diagrama-de-clases-etapa3.png)
+![Diagrama de clases de July](Documentacion/Arquitectura/1-vista-logica/06-diagrama-de-clases/diagrama-de-clases-etapa3.png)
 
-- 🖊️ [`diagrama-de-clases-etapa3.drawio`](Documentacion/Arquitectura/06-diagrama-de-clases/diagrama-de-clases-etapa3.drawio) (CLS-02)
+- 🖊️ [`diagrama-de-clases-etapa3.drawio`](Documentacion/Arquitectura/1-vista-logica/06-diagrama-de-clases/diagrama-de-clases-etapa3.drawio) (CLS-02)
 
 <a id="a07"></a>
 ## 07 · 🔁 Diagramas de secuencia
@@ -534,19 +534,19 @@ El diccionario de datos llevado a **UML**: las clases con sus estereotipos, atri
 
 **Flujo 1 · Atracción y primer contacto**
 
-![Secuencia flujo 1](Documentacion/Arquitectura/07-diagrama-de-secuencia/diagrama-de-secuencia-flujo-01-atraccion-y-primer-contacto.png)
+![Secuencia flujo 1](Documentacion/Arquitectura/2-vista-de-procesos/07-diagrama-de-secuencia/diagrama-de-secuencia-flujo-01-atraccion-y-primer-contacto.png)
 
 **Flujo 2 · Captura, simulación y precalificación**
 
-![Secuencia flujo 2](Documentacion/Arquitectura/07-diagrama-de-secuencia/diagrama-de-secuencia-flujo-02-captura-simulacion-y-precalificacion.png)
+![Secuencia flujo 2](Documentacion/Arquitectura/2-vista-de-procesos/07-diagrama-de-secuencia/diagrama-de-secuencia-flujo-02-captura-simulacion-y-precalificacion.png)
 
 **Flujo 3 · Entrega, seguimiento y conversión**
 
-![Secuencia flujo 3](Documentacion/Arquitectura/07-diagrama-de-secuencia/diagrama-de-secuencia-flujo-03-entrega-seguimiento-y-conversion.png)
+![Secuencia flujo 3](Documentacion/Arquitectura/2-vista-de-procesos/07-diagrama-de-secuencia/diagrama-de-secuencia-flujo-03-entrega-seguimiento-y-conversion.png)
 
 </details>
 
-- 🖊️ [`diagramas-de-secuencia-etapa3.drawio`](Documentacion/Arquitectura/07-diagrama-de-secuencia/diagramas-de-secuencia-etapa3.drawio) (SEC-01, una página por flujo)
+- 🖊️ [`diagramas-de-secuencia-etapa3.drawio`](Documentacion/Arquitectura/2-vista-de-procesos/07-diagrama-de-secuencia/diagramas-de-secuencia-etapa3.drawio) (SEC-01, una página por flujo)
 
 <a id="a08"></a>
 ## 08 · 🧱 Diagramas de robustez
@@ -558,19 +558,19 @@ El diccionario de datos llevado a **UML**: las clases con sus estereotipos, atri
 
 **Flujo 1 · Atracción y primer contacto**
 
-![Robustez flujo 1](Documentacion/Arquitectura/08-diagrama-de-robustez/diagrama-de-robustez-flujo-01-atraccion-y-primer-contacto.png)
+![Robustez flujo 1](Documentacion/Arquitectura/1-vista-logica/08-diagrama-de-robustez/diagrama-de-robustez-flujo-01-atraccion-y-primer-contacto.png)
 
 **Flujo 2 · Captura, simulación y precalificación**
 
-![Robustez flujo 2](Documentacion/Arquitectura/08-diagrama-de-robustez/diagrama-de-robustez-flujo-02-captura-simulacion-y-precalificacion.png)
+![Robustez flujo 2](Documentacion/Arquitectura/1-vista-logica/08-diagrama-de-robustez/diagrama-de-robustez-flujo-02-captura-simulacion-y-precalificacion.png)
 
 **Flujo 3 · Entrega, seguimiento y conversión**
 
-![Robustez flujo 3](Documentacion/Arquitectura/08-diagrama-de-robustez/diagrama-de-robustez-flujo-03-entrega-seguimiento-y-conversion.png)
+![Robustez flujo 3](Documentacion/Arquitectura/1-vista-logica/08-diagrama-de-robustez/diagrama-de-robustez-flujo-03-entrega-seguimiento-y-conversion.png)
 
 </details>
 
-- 🖊️ [`diagramas-de-robustez-etapa3.drawio`](Documentacion/Arquitectura/08-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio) (ROB-01, una página por flujo)
+- 🖊️ [`diagramas-de-robustez-etapa3.drawio`](Documentacion/Arquitectura/1-vista-logica/08-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio) (ROB-01, una página por flujo)
 
 <a id="complementarios"></a>
 ## 📚 Material complementario

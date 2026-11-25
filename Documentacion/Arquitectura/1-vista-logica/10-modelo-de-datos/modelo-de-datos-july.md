@@ -3,12 +3,13 @@
 | Campo | Valor |
 |---|---|
 | **ID** | DAT-01 |
-| **Versión** | 1.0 |
-| **Fecha** | 2026-11-12 |
+| **Versión** | 1.1 |
+| **Fecha** | 2026-11-18 |
 | **Estado** | Borrador |
-| **Deriva de** | [LIN-01 · Linaje de datos](../09-linaje-de-datos/linaje-de-datos-july.md), [CLS-01 · Diccionario de datos](../05-diccionario-de-datos/diccionario-de-datos-etapa3.md) (v3.2), [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y las decisiones de datos de [REV-01, sección 5](../../Complementarios/revisiones/revision-consistencia-etapa3.md) |
+| **Deriva de** | [LIN-01 · Linaje de datos](../09-linaje-de-datos/linaje-de-datos-july.md), [CLS-01 · Diccionario de datos](../05-diccionario-de-datos/diccionario-de-datos-etapa3.md) (v3.2), [DOM-01 · Modelo de dominio](../04-modelo-de-dominio/modelo-de-dominio-etapa3.drawio) y las decisiones de datos de [REV-01, sección 5](../../../Complementarios/revisiones/revision-consistencia-etapa3.md) |
 | **Implementación** | [DAT-02 · Script DDL para PostgreSQL 16](modelo-de-datos-july.sql) |
-| **Relacionado con** | [SAD-02 · Seguridad](../../Complementarios/arquitectura/seguridad-bots-suplantacion-y-veracidad.md) (cifrado, índice ciego, bitácora), [SAD-01](../../Complementarios/arquitectura/documento-arquitectura-software-july.docx) (vista de datos) |
+| **Diagrama** | [DAT-03 · Diagrama entidad-relación en draw.io](modelo-de-datos-july.drawio): las 26 tablas con todas sus columnas, las relaciones con notación pata de gallo y los tipos enumerados, en una sola página |
+| **Relacionado con** | [SAD-02 · Seguridad](../../../Complementarios/arquitectura/seguridad-bots-suplantacion-y-veracidad.md) (cifrado, índice ciego, bitácora), [SAD-01](../../../Complementarios/arquitectura/documento-arquitectura-software-july.docx) (vista de datos) |
 
 > **Propósito.** Este documento lleva el diccionario de datos (CLS-01) a un **modelo lógico y físico relacional**, guiado por el linaje de datos (LIN-01): cada tabla sale de una clase «entidad», cada columna de un atributo o de una brecha de linaje (B-NN), y cada restricción de un punto de control de calidad (PC-NN) o de una regla de CLS-01. El script DAT-02 lo implementa y fue ejecutado en PostgreSQL 16 ([sección 11](#11-verificación)).
 >
@@ -115,6 +116,8 @@
 PC-01, PC-04, PC-05, PC-06 y PC-09 ocurren antes de que el dato llegue a la base (en el canal, en la conversación o contra el core) y quedan en la aplicación.
 
 ## 5. Diagramas entidad-relación
+
+Las dos vistas Mermaid de esta sección resumen el modelo para leerlo en el repositorio. La vista completa, con el tipo y la clave de cada columna, los dominios de datos y los tipos enumerados, es [DAT-03](modelo-de-datos-july.drawio).
 
 ### 5.1 Operación: prospecto, conversación, lead, solicitud y cita
 
@@ -759,4 +762,4 @@ Los diagramas Mermaid de la sección 5 no se verificaron en un visor.
 | Una brecha o un punto de control de LIN-01 | Las secciones 4 y 8 |
 | El script DAT-02 | Volver a ejecutarlo en un PostgreSQL 16 limpio y actualizar la sección 11 |
 
-Cada cambio se registra en [`Documentacion/README.md`](../../README.md) con su nueva versión.
+Cada cambio se registra en [`Documentacion/README.md`](../../../README.md) con su nueva versión.

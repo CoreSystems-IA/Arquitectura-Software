@@ -1,7 +1,7 @@
 # Prototipo conversacional de July
 
 **ID:** PRO-01 · **Versión:** 0.1 · **Fecha:** 2026-11-04 · **Estado:** Borrador  
-**Deriva de:** [CU-08](../../Arquitectura/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md), [CU-09](../../Arquitectura/03-especificacion-casos-de-uso/especificacion-casos-de-uso-solo-pasos.md), [CLS-01](../../Arquitectura/05-diccionario-de-datos/diccionario-de-datos-etapa3.md), CLS-02, [NEG-01](../negocio/guia-negocio-cooperativa-y-captacion.md) y [REV-01](../revisiones/revision-consistencia-etapa3.md)
+**Deriva de:** [CU-08](../../Arquitectura/0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md), [CU-09](../../Arquitectura/0-escenarios/03-especificacion-casos-de-uso/especificacion-casos-de-uso-solo-pasos.md), [CLS-01](../../Arquitectura/1-vista-logica/05-diccionario-de-datos/diccionario-de-datos-etapa3.md), CLS-02, [NEG-01](../negocio/guia-negocio-cooperativa-y-captacion.md) y [REV-01](../revisiones/revision-consistencia-etapa3.md)
 
 Primer prototipo funcional del chatbot: un prospecto conversa con July mientras un panel muestra, en vivo, qué paso de CU-08 se ejecuta, qué método de CLS-02 lo realiza y qué le toca hacer a cada colaborador de la cooperativa.
 
