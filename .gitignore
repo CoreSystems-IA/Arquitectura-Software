@@ -1,2 +1,32 @@
 # Copias de respaldo que crea Archi al guardar
 *.bak
+
+# .NET (SAD-07, paso 0.2)
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+*.trx
+coverage/
+artifacts/
+
+# Node
+node_modules/
+dist/
+.angular/
+
+# Secretos y configuración local: solo se versionan las plantillas .sample
+.env
+.env.*
+!.env.sample
+!.env.*.sample
+*.private.env.json
+appsettings.*.local.json
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

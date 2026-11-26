@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\BuildingBlocks\July.BuildingBlocks.Core\July.BuildingBlocks.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\BuildingBlocks\July.BuildingBlocks.Persistence.Oracle\July.BuildingBlocks.Persistence.Oracle.csproj" />
+    <ProjectReference Include="..\..\..\src\BuildingBlocks\July.BuildingBlocks.Messaging.RabbitMQ\July.BuildingBlocks.Messaging.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\..\src\BuildingBlocks\July.BuildingBlocks.Security\July.BuildingBlocks.Security.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Shared\July.Services.Shared\July.Services.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NetArchTest.Rules" />
+  </ItemGroup>
+</Project>

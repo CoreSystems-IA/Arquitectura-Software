@@ -231,7 +231,7 @@ Las fases 0 a 9 se ejecutaron el 2026-11-04. Al final, `python3 verificar-trazab
 | Fase | Resultado |
 |---|---|
 | 0 | `Documentacion/` quedó en `Arquitectura/` (01- a 08-) y `Complementarios/`. Se corrigieron los enlaces, el README y `CLAUDE.md`. |
-| 1 | [`verificar-trazabilidad.py`](verificar-trazabilidad.py) con las reglas V1 a V8. La V4 también comprueba que cada pareja sujeto → receptor tenga su relación en CLS-01. |
+| 1 | [`verificar-trazabilidad.py`](../revisiones/verificar-trazabilidad.py) con las reglas V1 a V8. La V4 también comprueba que cada pareja sujeto → receptor tenga su relación en CLS-01. |
 | 2 | CU-02 a CU-06 sin cambios: 42 casos de nivel 3 (12, 18 y 12 por flujo). |
 | 3 | CU-08 v2.0 y CU-09 v2.0: 282 pasos (68, 133 y 81 por flujo), 183 llamadas y 99 retornos. Antes eran 457 filas de pasos en 63 casos. |
 | 4 | DOM-01 y DOM-02 derivados de CU-08: 12 conceptos (se agrega `Colaborador`), 14 asociaciones, una generalización y 2 dependencias. |

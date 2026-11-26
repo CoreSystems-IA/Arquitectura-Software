@@ -1,0 +1,37 @@
+{
+  "$schema": "https://alirezanet.github.io/Husky.Net/schema.json",
+  "tasks": [
+    {
+      "name": "formato-csharp",
+      "group": "pre-commit",
+      "command": "dotnet",
+      "args": ["csharpier", "check", "${staged}"],
+      "include": ["**/*.cs"]
+    },
+    {
+      "name": "secretos",
+      "group": "pre-commit",
+      "command": "bash",
+      "args": ["scripts/verificar-secretos.sh"]
+    },
+    {
+      "name": "trazabilidad",
+      "group": "pre-commit",
+      "command": "python3",
+      "args": ["Documentacion/Complementarios/revisiones/verificar-trazabilidad.py"],
+      "include": ["Documentacion/Arquitectura/**"]
+    },
+    {
+      "name": "compilacion-y-dependencias",
+      "group": "pre-push",
+      "command": "make",
+      "args": ["check"]
+    },
+    {
+      "name": "mensaje-de-commit",
+      "group": "commit-msg",
+      "command": "bash",
+      "args": ["scripts/verificar-mensaje-commit.sh", "${args}"]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+# Sobre común de los eventos de integración de July (SAD-07, paso 0.4).
+# Es la forma en el cable de July.BuildingBlocks.Core.Messaging.IntegrationEvent. Cada asyncapi.yaml de
+# servicio referencia estas cabeceras y define el payload de sus eventos.
+asyncapi: 3.0.0
+info:
+  title: July · sobre común de eventos
+  version: 1.0.0
+defaultContentType: application/json
+components:
+  messageTraits:
+    EventoJuly:
+      headers:
+        type: object
+        properties:
+          traceparent:
+            type: string
+            description: Cabecera W3C del paso que originó el evento (trazabilidad de MS-14).
+      correlationId:
+        location: $message.header#/traceparent
+  schemas:
+    EventoBase:
+      type: object
+      required: [id, ocurridoEn]
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID v7. El consumidor lo usa para descartar duplicados (inbox).
+        ocurridoEn:
+          type: string
+          format: date-time
+        traceparent:
+          type: string
+  operationTraits:
+    ExchangeJuly:
+      bindings:
+        amqp:
+          bindingVersion: 0.3.0
+          exchange:
+            name: july.eventos
+            type: topic
+            durable: true

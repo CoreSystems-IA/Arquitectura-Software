@@ -3,8 +3,8 @@
 | Campo | Valor |
 |---|---|
 | **ID** | SAD-05 |
-| **Versión** | 1.0 |
-| **Fecha** | 2026-11-25 |
+| **Versión** | 1.1 |
+| **Fecha** | 2026-11-26 |
 | **Estado** | Borrador |
 | **Deriva de** | SAD-04 (stack tecnológico de July, v2.0), SAD-03 (14 microservicios y plataforma), SAD-02 (controles de seguridad por rol), DAT-01 y DAT-02 (modelo y DDL de datos), CLS-01 (`PanelCooperativa`, `Canal`, `RolColaborador`) |
 | **Alimenta a** | SAD-01, vistas de implementación y despliegue |
@@ -50,7 +50,7 @@
 | K1 | Un lenguaje por capa. | TypeScript en el navegador (Angular y React), C# en el servidor, SQL y PL/SQL solo para integridad en Oracle, Groovy solo en integración y entrega. |
 | K2 | API-first. | Cada microservicio publica su contrato OpenAPI 3.1 (lo genera ASP.NET Core); el gateway lo importa y Angular, React y la app existente generan su cliente desde él. |
 | K3 | El backend es la única fuente de verdad de la seguridad (SAD-02, 6.2). | El gateway filtra y limita; los servicios .NET vuelven a validar y autorizar. |
-| K4 | Despliegue progresivo de SAD-03 (D5). | Se empieza con 6 desplegables (una solución .NET con un proyecto por módulo) y una base Oracle con un esquema por módulo; el mismo stack sirve para los 14 servicios. |
+| K4 | Microservicios desde el inicio (D5 de SAD-03). | Los 14 servicios se despliegan por separado desde la etapa 1: una solución .NET con un proyecto y un host por servicio, y una base Oracle con un esquema por servicio. |
 
 ## 2. Vista general por capas
 
@@ -247,7 +247,7 @@ Los componentes, las APIs expuestas (`canal-whatsapp`, `canal-widget`, `panel`, 
 |---|---|---|
 | Plataforma | **.NET 10 (LTS)**, C# | Soporte hasta noviembre de 2028; contenedores Linux. |
 | BFF del panel | ASP.NET Core + SignalR | Une las bandejas de varios servicios, enmascara según el rol y mantiene el canal en tiempo real. Es el único servicio que el panel ve. |
-| Microservicios MS-01 a MS-14 | ASP.NET Core (*Minimal APIs*) | Una solución con un proyecto por módulo: los módulos de la fase 1 (monolito modular, D5 de SAD-03) se separan después como servicios sin reescribir. |
+| Microservicios MS-01 a MS-14 | ASP.NET Core (*Minimal APIs*) | Una solución con un proyecto de servicio y un host `.Api` por microservicio, cada uno con su imagen (D5 de SAD-03, SAD-07). |
 | Motor financiero y de reglas (MS-07, MS-09) | C# con el tipo `decimal` | Aritmética decimal exacta de la plataforma; nunca `double` para dinero. Corresponde a `NUMBER(p,s)` en Oracle. |
 | Acceso a datos | EF Core 10 con el proveedor oficial `Oracle.EntityFrameworkCore` (ODP.NET Core); Dapper para consultas de lectura pesadas | Un `DbContext` por servicio, apuntando a su propio esquema. |
 | Migraciones | Migraciones de EF Core revisadas por el DBA, o Liquibase si la cooperativa ya lo usa | El DDL de DAT-02 traducido a Oracle es la base de la primera migración (sección 6.2). |
@@ -315,7 +315,7 @@ Groovy aparece donde la cooperativa ya lo usa en la JVM, y no en la lógica de n
 | Área | Tecnología |
 |---|---|
 | Contenedores | Docker; imágenes oficiales de .NET (`chiseled`, sin shell) firmadas con Cosign |
-| Orquestación | Kubernetes y Helm (incluidos los charts de WSO2); si la cooperativa no opera Kubernetes, la fase 1 (6 desplegables) puede correr en contenedores sobre sus servidores actuales |
+| Orquestación | Kubernetes y Helm (incluidos los charts de WSO2); con 15 desplegables (14 servicios y el BFF) desde el inicio, Kubernetes es necesario; si la cooperativa no lo opera, hay que acordar un clúster gestionado o una instalación propia antes de la etapa 1 |
 | Base de datos | Oracle en la infraestructura de la cooperativa, administrado por su DBA; July recibe una PDB o un conjunto de esquemas |
 | Nube o local | Por decidir (P5 de SAD-04); la LOPDP regula la transferencia internacional de datos |
 | Frontend estático | Panel (Angular) y widget (React) como archivos estáticos en Nginx o IIS detrás del WAF, con las cabeceras de seguridad de la sección 3.4 |
@@ -377,7 +377,7 @@ Si la cooperativa aprueba este documento, SAD-04 pasa a `Obsoleto` y hay que act
 | 8 | **WSO2 Identity Server 7.3** | Transversal | Key Manager nativo; MFA; puede usar el directorio de la cooperativa | Usuarios, roles y agencias de los colaboradores | NIST SP 800-63-4; SAD-02 6.4; B-10 de LIN-01 |
 | 9 | **WSO2 Micro Integrator + Groovy** | Negocio (N3) | Aísla al dominio de los protocolos del core y del CRM; Groovy para transformaciones puntuales | Adaptador de MS-04 (core) y MS-11 (CRM) | Capa anticorrupción (DDD); *Enterprise Integration Patterns*; R1 |
 | 10 | **AI Gateway de WSO2** | Negocio (N3) | Controla costo y abuso del LLM | Salida de MS-03 con tope de tokens | OWASP Top 10 para LLM (2025) |
-| 11 | **.NET 10 LTS + ASP.NET Core** | Negocio (N2) | Tecnología de la cooperativa; soporte largo; módulos que se separan como servicios | BFF y MS-01 a MS-14 | R1; K4; D5 de SAD-03 |
+| 11 | **.NET 10 LTS + ASP.NET Core** | Negocio (N2) | Tecnología de la cooperativa; soporte largo; un host por servicio con poco código de arranque | BFF y MS-01 a MS-14 | R1; K4; D5 de SAD-03 |
 | 12 | **SignalR (solo WebSocket)** | Negocio (N2) | Tiempo real nativo de .NET con cliente para Angular | Toma de la conversación y avisos al asesor | CLS-01 (`Conversacion.traspasar()`) |
 | 13 | **`Microsoft.Extensions.AI`** | Negocio (N2) | Abstracción del proveedor de LLM sin salir de .NET | MS-03 Comprensión del lenguaje | REV-01 (el LLM solo clasifica y extrae) |
 | 14 | **EF Core 10 + `Oracle.EntityFrameworkCore`** | Negocio (N2) | Proveedor oficial de Oracle; un contexto por esquema | Acceso a datos de cada servicio | L2; C3 de SAD-03 |

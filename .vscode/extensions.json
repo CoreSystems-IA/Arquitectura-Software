@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csdevkit",
+    "csharpier.csharpier-vscode",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "humao.rest-client",
+    "redhat.vscode-yaml",
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ]
+}

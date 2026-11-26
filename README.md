@@ -33,7 +33,7 @@
 |---|---|
 | [1. Sobre nosotros](#sobre-nosotros) | [Quiénes somos](#quienes-somos) · [Misión](#mision) · [Visión](#vision) · [Conceptos clave](#conceptos) · [DevOps](#devops) · [Normas y estándares](#normas) · [Stack](#stack) · [Equipo](#equipo) · [Contacto](#contacto) |
 | [2. El reto](#el-reto) | [En qué consiste](#en-que-consiste) · [Objetivo general](#objetivo) · [Alcance](#alcance) |
-| [3. Avance del proyecto](#avance) | [Cadena de trazabilidad](#cadena) · [01 Mapa de capacidades](#a01) · [02 Casos de uso](#a02) · [03 Especificación](#a03) · [04 Modelo de dominio](#a04) · [05 Diccionario de datos](#a05) · [06 Diagrama de clases](#a06) · [07 Secuencia](#a07) · [08 Robustez](#a08) · [Complementarios](#complementarios) |
+| [3. Avance del proyecto](#avance) | [Cadena de trazabilidad](#cadena) · [01 Mapa de capacidades](#a01) · [02 Casos de uso](#a02) · [03 Especificación](#a03) · [04 Modelo de dominio](#a04) · [05 Diccionario de datos](#a05) · [06 Diagrama de clases](#a06) · [07 Secuencia](#a07) · [08 Robustez](#a08) · [Complementarios](#complementarios) · [Organización del monorrepositorio](#organizacion-monorepo) |
 
 ---
 
@@ -230,7 +230,7 @@ Cada decisión de July se apoya en un marco de referencia, en tres niveles: la *
 
 | Rol | 🌐 Web | 📱 Móvil | 🤖 Agentes / IA |
 |---|---|---|---|
-| 🏗️ Arquitectura | Monolito modular → microservicios | API-first compartida con web | Orquestación y MCP |
+| 🏗️ Arquitectura | Microservicios por capacidad desde el inicio | API-first compartida con web | Orquestación y MCP |
 | 🛡️ Seguridad | OWASP ASVS, OAuth 2.0 / OIDC | OWASP MASVS, almacenamiento seguro | Guardrails y auditoría |
 | 🗄️ Base de datos | PostgreSQL, Redis | SQLite local (modo offline) | Memoria y búsqueda vectorial |
 | ⚙️ Backend | FastAPI, NestJS | Misma API REST / WebSockets | Bucle de agente y herramientas |
@@ -581,10 +581,30 @@ El diccionario de datos llevado a **UML**: las clases con sus estereotipos, atri
 | [Documento de Arquitectura de Software (SAD)](Documentacion/Complementarios/arquitectura/documento-arquitectura-software-july.docx) | SAD-01 | Reúne las vistas del sistema (casos de uso, lógica y datos) sobre la [plantilla SAD](Documentacion/Complementarios/plantillas/SAD_Template.docx). Versión 0.1. |
 | [Guía del negocio cooperativo y de la captación](Documentacion/Complementarios/negocio/guia-negocio-cooperativa-y-captacion.md) | NEG-01 | Modelo de negocio de una cooperativa, regulación en Ecuador, productos, ciclo del crédito, embudo de captación y KPI, y preguntas para los directivos. |
 | [Revisión de consistencia, etapa 3](Documentacion/Complementarios/revisiones/revision-consistencia-etapa3.md) | REV-01 | Consistencia, redundancia y trazabilidad entre documentos, con las decisiones tomadas. |
-| [Plan de trazabilidad unificada por flujo](Documentacion/Complementarios/revisiones/plan-trazabilidad-flujos-unificados.md) | REV-02 | Plan en curso para alinear toda la cadena por flujo de valor, con sus reglas de verificación. |
+| [Plan de trazabilidad unificada por flujo](Documentacion/Complementarios/planes/plan-trazabilidad-flujos-unificados.md) | REV-02 | Plan en curso para alinear toda la cadena por flujo de valor, con sus reglas de verificación. |
 | [El mapa de capacidades de negocio (traducción)](Documentacion/Complementarios/referencias/Bibliografia/el-mapa-de-capacidades-de-negocio.md) | REF-02 | Marco teórico del mapa de capacidades (Ulrich y Rosen, 2011). |
 
 > 📑 El índice completo, con la matriz de trazabilidad y el historial de cambios, está en [`Documentacion/README.md`](Documentacion/README.md).
+
+<a id="organizacion-monorepo"></a>
+## 🗂️ Organización del monorrepositorio
+
+Este repositorio es también el monorrepositorio de July ([SAD-07](Documentacion/Complementarios/planes/plan-organizacion-monorepositorio.md)): la documentación sigue en `Documentacion/` y el código se organiza al lado, como en food-delivery-microservices (REF-04). Va por la **etapa 0-A, organización**: el árbol está completo y cada carpeta tiene un `README.md` que dice qué va ahí, quién responde y en qué etapa recibe su contenido. La configuración (0-B) y la base de código (0-C) vienen después.
+
+| Carpeta | Qué va |
+|---|---|
+| [`src/Services/`](src/Services) | Los 14 microservicios, una carpeta por servicio (`Ms01.Canales` a `Ms14.Auditoria`), y los tipos compartidos (`Shared`) |
+| [`src/Bffs/`](src/Bffs) | BFF del panel de la cooperativa |
+| [`src/UIs/`](src/UIs) | Panel de la cooperativa (Angular) y widget del prospecto (React) |
+| [`src/BuildingBlocks/`](src/BuildingBlocks) | Bibliotecas técnicas compartidas |
+| [`src/Contracts/`](src/Contracts) | Contratos OpenAPI y AsyncAPI |
+| [`src/Aspire/`](src/Aspire) | Entorno local con .NET Aspire |
+| [`tests/`](tests) | Pruebas por servicio, de contrato, de punta a punta y evaluaciones del modelo de lenguaje |
+| [`deployments/`](deployments) | Docker Compose, Helm, Terraform, WSO2 y archivos de configuración de la infraestructura |
+| [`scripts/`](scripts) | Scripts del `Makefile`, los hooks y Jenkins |
+| [`_httpclients/`](_httpclients) | Archivos `.http` para probar las APIs a mano |
+
+En la raíz están los archivos que fijan cómo se compila y con qué herramientas (`July.slnx`, `global.json`, `Directory.*.props`, `Makefile`, `Jenkinsfile`). Hay una primera versión de esa configuración y de la base de código, **en pausa** hasta su etapa ([SAD-07, sección 10.1](Documentacion/Complementarios/planes/plan-organizacion-monorepositorio.md#101-avance-de-la-etapa-0)).
 
 ---
 

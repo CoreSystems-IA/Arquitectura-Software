@@ -1,0 +1,73 @@
+# Estilo de July (SAD-07, sección 4). El formato de C# lo decide csharpier;
+# este archivo fija nombres, avisos de analizadores y lo que csharpier no cubre.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{json,yaml,yml,xml,csproj,props,targets,slnx,config,toml}]
+indent_size = 2
+
+[*.{ts,tsx,js,html,scss,css}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
+
+[*.cs]
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_using_directive_placement = outside_namespace:warning
+dotnet_sort_system_directives_first = true
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+
+# Campos privados con guion bajo; interfaces con I.
+dotnet_naming_rule.campos_privados.symbols = campos_privados
+dotnet_naming_rule.campos_privados.style = guion_bajo
+dotnet_naming_rule.campos_privados.severity = warning
+dotnet_naming_symbols.campos_privados.applicable_kinds = field
+dotnet_naming_symbols.campos_privados.applicable_accessibilities = private
+dotnet_naming_style.guion_bajo.required_prefix = _
+dotnet_naming_style.guion_bajo.capitalization = camel_case
+
+# StyleCop: se desactivan las reglas que chocan con csharpier o con las convenciones de SAD-06.
+dotnet_diagnostic.SA1101.severity = none   # prefijo this.
+dotnet_diagnostic.SA1309.severity = none   # campos con guion bajo (sí se usan)
+dotnet_diagnostic.SA1633.severity = none   # encabezado de licencia en cada archivo
+dotnet_diagnostic.SA1600.severity = none   # documentar todos los miembros
+dotnet_diagnostic.SA1602.severity = none   # documentar valores de enumeración
+dotnet_diagnostic.SA1500.severity = none   # llaves: las decide csharpier
+dotnet_diagnostic.SA1516.severity = none   # líneas en blanco: las decide csharpier
+dotnet_diagnostic.SA1413.severity = none   # coma final: la decide csharpier
+dotnet_diagnostic.SA1009.severity = none   # espacios en paréntesis: csharpier
+dotnet_diagnostic.SA1111.severity = none   # paréntesis de cierre: csharpier
+dotnet_diagnostic.SA1118.severity = none   # parámetros en varias líneas: csharpier
+dotnet_diagnostic.SA1649.severity = none   # nombre de archivo = primer tipo (records agrupados)
+dotnet_diagnostic.SA1402.severity = none   # un tipo por archivo (records pequeños agrupados)
+dotnet_diagnostic.SA1201.severity = none   # orden de tipos en un archivo: tipo principal primero
+dotnet_diagnostic.SA1502.severity = none   # interfaces marcadoras en una línea
+dotnet_diagnostic.SA1515.severity = none   # comentario de una línea: lo decide csharpier
+# La documentación XML se escribe en español y donde aporta: sin las fórmulas en inglés de StyleCop
+# («Gets or sets…») ni la obligación de documentar cada parámetro.
+dotnet_diagnostic.SA0001.severity = none
+dotnet_diagnostic.SA1611.severity = none
+dotnet_diagnostic.SA1615.severity = none
+dotnet_diagnostic.SA1618.severity = none
+dotnet_diagnostic.SA1623.severity = none
+dotnet_diagnostic.SA1642.severity = none
+# Error es el nombre del tipo de resultado de July; no se consume desde VB.
+dotnet_diagnostic.CA1716.severity = none
+
+# Proyectos de prueba: los nombres de métodos describen el paso de CU-08 con guiones bajos.
+[tests/**.cs]
+dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.SA1310.severity = none

@@ -1,0 +1,35 @@
+<Project>
+  <!--
+    Contrato de compilación de July (SAD-07, sección 4).
+    Todo proyecto de src/ y tests/ hereda estas propiedades; no se repiten en los .csproj.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <SatelliteResourceLanguages>es</SatelliteResourceLanguages>
+    <Company>Cooperativa Padre Julián Lorente</Company>
+    <Product>July</Product>
+    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+
+    <!-- Analizadores: los avisos se corrigen; en Jenkins (CI=true) rompen la compilación. -->
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <TreatWarningsAsErrors Condition="'$(CI)' == 'true'">true</TreatWarningsAsErrors>
+
+    <!-- Compilación reproducible para que la imagen firmada con Cosign sea verificable. -->
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Un solo sistema de versionado: nbgv (lección L-06). -->
+    <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" />
+    <PackageReference Include="Roslynator.Analyzers" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+# Formato de C# (SAD-07, lección L-05): la misma comprobación en local, en el hook y en Jenkins.
+printWidth: 120
+useTabs: false
+indentSize: 4
+endOfLine: lf
+overrides:
+  - files: "*.{csproj,props,targets,slnx,config}"
+    formatter: "xml"
+    indentSize: 2

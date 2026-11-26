@@ -3,8 +3,8 @@
 | Campo | Valor |
 |---|---|
 | **ID** | SAD-04 |
-| **Versión** | 2.0 |
-| **Fecha** | 2026-11-18 |
+| **Versión** | 2.1 |
+| **Fecha** | 2026-11-26 |
 | **Estado** | Borrador |
 | **Deriva de** | SAD-03 (14 microservicios y plataforma), SAD-02 (controles de seguridad por rol), DAT-01 y DAT-02 (PostgreSQL 16), CLS-01 (`PanelCooperativa`, `Canal`, `RolColaborador`), REV-01 (vista de desarrollo), portada del repositorio (stack del equipo) |
 | **Alimenta a** | SAD-01, vistas de implementación y despliegue (hoy en blanco) |
@@ -37,7 +37,7 @@
 | K1 | Un lenguaje de punta a punta donde se pueda. | TypeScript en el frontend, en el BFF y en la mayoría de los microservicios; Python solo donde aporta (LLM). |
 | K2 | API-first. | Cada microservicio publica su contrato OpenAPI 3.1; el gateway lo importa y el frontend (y la app existente) genera su cliente desde él. |
 | K3 | El backend es la única fuente de verdad de la seguridad (SAD-02, 6.2). | El gateway filtra y limita; los servicios vuelven a validar y autorizar. |
-| K4 | Despliegue progresivo de SAD-03 (D5). | Se empieza con 6 desplegables y un PostgreSQL con un esquema por módulo; el stack sirve igual para el monolito modular y para los 14 servicios. |
+| K4 | Microservicios desde el inicio (D5 de SAD-03). | Los 14 servicios se despliegan por separado desde la etapa 1, con un PostgreSQL y un esquema por servicio. |
 
 ## 2. Vista general por capas
 
@@ -309,7 +309,7 @@ Solo pasa por el gateway el tráfico **norte-sur** (desde fuera). Las llamadas e
 | Pieza | Tecnología | Detalle |
 |---|---|---|
 | BFF del panel | NestJS (TypeScript) | Une las bandejas de varios servicios para el panel, enmascara datos según el rol y mantiene el WebSocket. Es el único servicio que el panel ve. |
-| Microservicios MS-01, MS-02, MS-04 a MS-14 | NestJS | Mismo lenguaje que el frontend; módulos de NestJS = módulos del monolito modular de D5. |
+| Microservicios MS-01, MS-02, MS-04 a MS-14 | NestJS | Mismo lenguaje que el frontend; una aplicación NestJS por microservicio (D5 de SAD-03). |
 | MS-03 Comprensión del lenguaje | FastAPI (Python) | Ecosistema de LLM y evaluación en Python; sin estado. |
 | Motor financiero y de reglas (MS-07, MS-09) | NestJS con `decimal.js`; nunca coma flotante | Mismo criterio que DAT-01 (`NUMERIC`). |
 | Contratos | OpenAPI 3.1 por servicio; AsyncAPI 3 para los eventos | Fuente del gateway, del cliente del panel y del de la app existente (K2). |
@@ -321,7 +321,7 @@ Solo pasa por el gateway el tráfico **norte-sur** (desde fuera). Las llamadas e
 
 | Pieza | Tecnología | Uso |
 |---|---|---|
-| Base transaccional | PostgreSQL 16 (DAT-02) | Un esquema por servicio desde la fase 1 (SAD-03 P1). Cifrado por columna de cédula y teléfono con `pgcrypto` y llave en Vault. |
+| Base transaccional | PostgreSQL 16 (DAT-02) | Un esquema por servicio desde el inicio (SAD-03 P1). Cifrado por columna de cédula y teléfono con `pgcrypto` y llave en Vault. |
 | Caché y colas cortas | Redis 7 | Cola de entrada y deduplicación por `idExterno` (MS-01), caché del catálogo (MS-08), colas de BullMQ. |
 | Broker de eventos | RabbitMQ 4 (*quorum queues*), con patrón *outbox* en cada servicio | Eventos de SAD-03 (`LeadPrecalificado`, `AsesorAsignado`…). Kafka solo si el volumen o la reproducción de eventos lo exigen (decisión P4). |
 | Búsqueda vectorial | `pgvector` en PostgreSQL | Preguntas frecuentes de MS-03, si se usa recuperación. |
@@ -360,7 +360,7 @@ Solo pasa por el gateway el tráfico **norte-sur** (desde fuera). Las llamadas e
 | Móvil: React Native + Expo; SQLite local | No se construye app móvil; se integra la existente | R3 |
 | Seguridad móvil: OWASP MASVS | Responsabilidad de la app existente; July asegura sus APIs con OWASP API Security y ASVS | R3 |
 | Identidad: Keycloak | WSO2 Identity Server | R2: es el Key Manager nativo de WSO2 API Manager; Keycloak también se puede conectar como Key Manager externo, pero suma un producto más |
-| Mensajería: RabbitMQ o Kafka | RabbitMQ en la fase 1 | Volumen moderado de una cooperativa; Kafka queda como opción (P4) |
+| Mensajería: RabbitMQ o Kafka | RabbitMQ desde el inicio | Volumen moderado de una cooperativa; Kafka queda como opción (P4) |
 | Backend: FastAPI y NestJS | NestJS para casi todo; FastAPI solo en MS-03 | K1 y D5 de SAD-03 |
 
 Si estos cambios se aprueban, hay que actualizar la sección «Stack tecnológico» de la portada. La vista de desarrollo de REV-01 (panel en Next.js) también cambia a React con Vite.
@@ -402,7 +402,7 @@ Cada tecnología con la capa donde vive, por qué se elige, cómo se aplica en J
 | 12 | **WSO2 Identity Server 7.3** | Transversal | Key Manager nativo del gateway; MFA resistente al *phishing*; federación con el proveedor de la app | Usuarios, roles `RolColaborador` y agencias de los colaboradores; FIDO2 para Comité y Administrador | NIST SP 800-63-4; ISO/IEC 29115; SAD-02 6.4; brecha B-10 de LIN-01 |
 | 13 | **WSO2 Micro Integrator** | Negocio (N3) | El core y el CRM suelen hablar protocolos propios; la mediación los aísla del dominio | Adaptador de MS-04 (core) y MS-11 (CRM) con tiempo máximo, reintentos y bandeja de salida | Capa anticorrupción (DDD); *Enterprise Integration Patterns*; CU 3.1.2.3 |
 | 14 | **AI Gateway de WSO2** | Negocio (N3) | Controla costo y abuso del LLM sin código propio | Salida de MS-03 al proveedor: llave guardada, tope de tokens por conversación, registro de consumo | OWASP Top 10 para LLM (2025); SAD-02 (tope de tokens pendiente) |
-| 15 | **NestJS (TypeScript)** | Negocio (N2) | Mismo lenguaje que el frontend; módulos que se separan como microservicios sin reescribir | BFF del panel y MS-01, MS-02, MS-04 a MS-14 | K1; D5 de SAD-03 (monolito modular → microservicios) |
+| 15 | **NestJS (TypeScript)** | Negocio (N2) | Mismo lenguaje que el frontend; una aplicación por microservicio | BFF del panel y MS-01, MS-02, MS-04 a MS-14 | K1; D5 de SAD-03 (microservicios desde el inicio) |
 | 16 | **FastAPI (Python)** | Negocio (N2) | El ecosistema de LLM y de evaluación está en Python | MS-03 Comprensión del lenguaje, sin estado | D5 de SAD-03; REV-01 (el LLM solo clasifica y extrae) |
 | 17 | **OpenAPI 3.1 y AsyncAPI 3** | Negocio | Contratos legibles por máquina para gateway, frontend y app | Un contrato por servicio; clientes generados; eventos documentados | K2; OpenAPI Initiative; AsyncAPI |
 | 18 | **RabbitMQ 4 + patrón *outbox*** | Negocio (N3) | Entrega fiable de eventos sin perder mensajes si un servicio cae | Eventos de SAD-03 (`LeadPrecalificado`, `AsesorAsignado`, `CitaReservada`…) | SAD-03 (coreografía, D1); *Enterprise Integration Patterns* |

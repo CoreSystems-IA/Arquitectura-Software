@@ -3,8 +3,8 @@
 | Campo | Valor |
 |---|---|
 | **ID** | SAD-06 |
-| **Versión** | 1.0 |
-| **Fecha** | 2026-11-25 |
+| **Versión** | 1.1 |
+| **Fecha** | 2026-11-26 |
 | **Estado** | Borrador |
 | **Deriva de** | SAD-01 (sección 7, vista de implementación), SAD-03 (microservicios), SAD-04 (stack del equipo), SAD-05 (stack sobre las tecnologías de la cooperativa), CLS-01 y CLS-02 (clases y métodos), ROB-01 (controles), DAT-01 (tablas), REV-01 (sección 5, vista de desarrollo) |
 | **Alimenta a** | SAD-01 (sección 7), vista física (despliegue), PRO-01 cuando el prototipo pase a construcción |
@@ -55,7 +55,7 @@ Kruchten (1995) define la vista de desarrollo como la **organización estática 
 | **+1 · Escenarios** ([CU-08](../0-escenarios/03-especificacion-casos-de-uso/especificaciones-casos-de-uso.md)) | Los 282 pasos de los tres flujos. | Cada paso tiene un caso de uso de aplicación y una prueba de extremo a extremo (sección 10). |
 | **Lógica** ([CLS-01](../1-vista-logica/05-diccionario-de-datos/diccionario-de-datos-etapa3.md), [ROB-01](../1-vista-logica/08-diagrama-de-robustez/diagramas-de-robustez-etapa3.drawio), [DAT-01](../1-vista-logica/10-modelo-de-datos/modelo-de-datos-july.md)) | 18 clases, 53 métodos, 51 controles y 26 tablas. | Cada clase y cada método tiene un componente dueño (sección 5); cada tabla, un esquema de servicio. |
 | **De procesos** ([SEC-01](../2-vista-de-procesos/07-diagrama-de-secuencia/diagramas-de-secuencia-etapa3.drawio)) | Las llamadas síncronas, los eventos y los temporizadores. | Contratos OpenAPI y AsyncAPI que fijan esas llamadas y eventos (sección 8). |
-| **Física** ([despliegue](../4-vista-fisica/imagenes/despliegue-july.png)) | Los nodos y los entornos. | Los 6 desplegables de la fase 1, sus imágenes y sus charts de Helm (secciones 4 y 8). |
+| **Física** ([despliegue](../4-vista-fisica/imagenes/despliegue-july.png)) | Los nodos y los entornos. | Los 15 desplegables (14 microservicios y el BFF), sus imágenes y sus charts de Helm (secciones 4 y 8). |
 
 ## 2. Capas y reglas entre capas
 
@@ -112,7 +112,7 @@ flowchart LR
 |---|---|---|
 | Lenguajes de servidor | TypeScript (NestJS); Python (FastAPI) solo en MS-03 | C# (.NET 10) en todos los servicios, incluido MS-03 con `Microsoft.Extensions.AI` |
 | Lenguajes de presentación | TypeScript con React en el panel y en el widget | TypeScript con Angular en el panel y React en el widget |
-| Organización del código de servidor | Monorrepositorio con un paquete por servicio (`services/ms06-solicitud/`) | Monorrepositorio con una solución .NET y un proyecto por módulo (`services/Ms06.Solicitud/`); la solución agrupa los 6 desplegables de la fase 1 |
+| Organización del código de servidor | Monorrepositorio con un paquete por servicio (`services/ms06-solicitud/`) | Monorrepositorio con una solución .NET y, por microservicio, un proyecto de servicio y su host `.Api` (`services/Ms06.Solicitud/`) |
 | Carpetas hexagonales de cada servicio (sección 7) | Carpetas dentro de `src/` | Las mismas carpetas como espacios de nombres, o proyectos separados (`.Dominio`, `.Aplicacion`, `.Infraestructura`, `.Api`) si el equipo prefiere que el compilador impida las dependencias prohibidas |
 | Compartido (`packages/`) | Paquetes de TypeScript (`packages/dominio`) | Proyectos de biblioteca de .NET (`Shared.Dominio`) y una librería de TypeScript para los tipos que usan Angular y React |
 | Contratos | OpenAPI 3.1 escrito primero; controladores generados | OpenAPI 3.1 generado por ASP.NET Core y revisado como artefacto; AsyncAPI 3 para los eventos |
@@ -131,25 +131,25 @@ flowchart LR
 
 El detalle de cada microservicio (capacidades, servicios SA, tablas, eventos y sistemas externos) está en [SAD-03, sección 2](microservicios-july.md#2-tabla-resumen-de-microservicios). Aquí se resume lo que importa para construirlos.
 
-| Componente | Carpeta | Tipo (DDD) | Lenguaje (SAD-04 · SAD-05) | Desplegable de la fase 1 | Clases de CLS-01 que posee |
+| Componente | Carpeta | Tipo (DDD) | Lenguaje (SAD-04 · SAD-05) | Desplegable (imagen) | Clases de CLS-01 que posee |
 |---|---|---|---|---|---|
 | Widget del prospecto | `apps/widget` | Presentación | React · React | Estáticos en el CDN | Borde de `Canal` (lado web) |
 | Panel de la cooperativa | `apps/panel` | Presentación | React · Angular | Estáticos en el CDN | `PanelCooperativa` |
-| BFF del panel | `services/bff-panel` | Plataforma | NestJS · ASP.NET Core | Junto a los desplegables | — (une bandejas y enmascara por rol) |
-| MS-01 Canales | `services/ms01-canales` | Genérico | NestJS · .NET | 1 · Canales | `Canal`, `Mensaje` (formato común) |
-| MS-02 Conversación | `services/ms02-conversacion` | Núcleo | NestJS · .NET | 3 · Núcleo de captación | `July` (orquestador), `Conversacion`, `Mensaje`, `PlantillaMensaje` |
-| MS-03 Comprensión del lenguaje | `services/ms03-comprension` | Soporte | FastAPI · .NET | 2 · Comprensión del lenguaje | — (sin estado) |
-| MS-04 Prospectos y consentimiento | `services/ms04-prospectos` | Núcleo | NestJS · .NET | 3 · Núcleo de captación | `Prospecto`; cliente de `SistemaCore` |
-| MS-05 Leads | `services/ms05-leads` | Núcleo | NestJS · .NET | 3 · Núcleo de captación | `Lead` (único escritor) |
-| MS-06 Solicitud de crédito | `services/ms06-solicitud` | Núcleo | NestJS · .NET | 3 · Núcleo de captación | `SolicitudCredito` |
-| MS-07 Simulación financiera | `services/ms07-simulacion` | Núcleo | NestJS · .NET | 4 · Motor financiero | `Simulacion` |
-| MS-08 Catálogo de productos | `services/ms08-catalogo` | Soporte | NestJS · .NET | 4 · Motor financiero | `LineaCredito` |
-| MS-09 Precalificación | `services/ms09-precalificacion` | Núcleo | NestJS · .NET | 4 · Motor financiero | `ReglaNegocio` (PRECALIFICACION) |
-| MS-10 Agenda y citas | `services/ms10-agenda` | Soporte | NestJS · .NET | 5 · Gestión comercial | `Cita` |
-| MS-11 Entrega de oportunidades | `services/ms11-entrega` | Núcleo | NestJS · .NET | 5 · Gestión comercial | `ReglaNegocio` (PRIORIDAD); cliente de `CRMCooperativa` |
-| MS-12 Asignación y seguimiento | `services/ms12-asignacion` | Núcleo | NestJS · .NET | 5 · Gestión comercial | `AsesorComercial`, `ReglaNegocio` (ENRUTAMIENTO) |
-| MS-13 Notificaciones | `services/ms13-notificaciones` | Genérico | NestJS · .NET | 5 · Gestión comercial | — (registro de envíos) |
-| MS-14 Auditoría y trazabilidad | `services/ms14-auditoria` | Genérico | NestJS · .NET | 6 · Auditoría | — (tabla `evento`) |
+| BFF del panel | `services/bff-panel` | Plataforma | NestJS · ASP.NET Core | `bff-panel` | — (une bandejas y enmascara por rol) |
+| MS-01 Canales | `services/ms01-canales` | Genérico | NestJS · .NET | `ms01-canales` | `Canal`, `Mensaje` (formato común) |
+| MS-02 Conversación | `services/ms02-conversacion` | Núcleo | NestJS · .NET | `ms02-conversacion` | `July` (orquestador), `Conversacion`, `Mensaje`, `PlantillaMensaje` |
+| MS-03 Comprensión del lenguaje | `services/ms03-comprension` | Soporte | FastAPI · .NET | `ms03-comprension` | — (sin estado) |
+| MS-04 Prospectos y consentimiento | `services/ms04-prospectos` | Núcleo | NestJS · .NET | `ms04-prospectos` | `Prospecto`; cliente de `SistemaCore` |
+| MS-05 Leads | `services/ms05-leads` | Núcleo | NestJS · .NET | `ms05-leads` | `Lead` (único escritor) |
+| MS-06 Solicitud de crédito | `services/ms06-solicitud` | Núcleo | NestJS · .NET | `ms06-solicitud` | `SolicitudCredito` |
+| MS-07 Simulación financiera | `services/ms07-simulacion` | Núcleo | NestJS · .NET | `ms07-simulacion` | `Simulacion` |
+| MS-08 Catálogo de productos | `services/ms08-catalogo` | Soporte | NestJS · .NET | `ms08-catalogo` | `LineaCredito` |
+| MS-09 Precalificación | `services/ms09-precalificacion` | Núcleo | NestJS · .NET | `ms09-precalificacion` | `ReglaNegocio` (PRECALIFICACION) |
+| MS-10 Agenda y citas | `services/ms10-agenda` | Soporte | NestJS · .NET | `ms10-agenda` | `Cita` |
+| MS-11 Entrega de oportunidades | `services/ms11-entrega` | Núcleo | NestJS · .NET | `ms11-entrega` | `ReglaNegocio` (PRIORIDAD); cliente de `CRMCooperativa` |
+| MS-12 Asignación y seguimiento | `services/ms12-asignacion` | Núcleo | NestJS · .NET | `ms12-asignacion` | `AsesorComercial`, `ReglaNegocio` (ENRUTAMIENTO) |
+| MS-13 Notificaciones | `services/ms13-notificaciones` | Genérico | NestJS · .NET | `ms13-notificaciones` | — (registro de envíos) |
+| MS-14 Auditoría y trazabilidad | `services/ms14-auditoria` | Genérico | NestJS · .NET | `ms14-auditoria` | — (tabla `evento`) |
 | Contratos | `packages/contratos` | Compartido | YAML (OpenAPI 3.1, AsyncAPI 3) | — | — |
 | Tipos del dominio | `packages/dominio` | Compartido | TypeScript · C# (y TypeScript para el frontend) | — | Enumeraciones de CLS-01 y la clase abstracta `Configuracion` |
 | Observabilidad | `packages/observabilidad` | Compartido | TypeScript · C# | — | — |
@@ -157,18 +157,7 @@ El detalle de cada microservicio (capacidades, servicios SA, tablas, eventos y s
 
 `Colaborador` no tiene un servicio propio: la identidad y el rol los emite WSO2 Identity Server y MS-12 mantiene los asesores (pendiente P2 de SAD-03). `Configuracion` es abstracta: cada subclase vive con el servicio que la usa (criterio C5 de SAD-03).
 
-Los seis desplegables de la fase 1 agrupan módulos que cambian juntos, y cada módulo usa su propio esquema de base de datos (PostgreSQL con SAD-04, usuario de Oracle con SAD-05) desde el inicio para poder separarlo después sin reescribir (decisión DA-06 de SAD-01):
-
-| # | Desplegable | Módulos | Por qué juntos |
-|---|---|---|---|
-| 1 | Canales | MS-01 | Frontera con WhatsApp y el widget; escala con el tráfico de entrada. |
-| 2 | Comprensión del lenguaje | MS-03 | Habla con el LLM; sin estado (en Python con SAD-04). |
-| 3 | Núcleo de captación | MS-02, MS-04, MS-05, MS-06 | Conversación, prospecto, lead y solicitud cambian juntos. |
-| 4 | Motor financiero | MS-07, MS-08, MS-09 | Cálculo y reglas deterministas sobre el catálogo. |
-| 5 | Gestión comercial | MS-10, MS-11, MS-12, MS-13 | Citas, CRM, asignación y avisos. |
-| 6 | Auditoría | MS-14 | Bitácora de solo inserción, aislada por integridad. |
-
-Dentro de un desplegable, los módulos se llaman por la misma interfaz que usarían en red (puerto de aplicación), nunca leyendo las tablas del otro. Así la separación de la fase 2 cambia solo el adaptador.
+Cada microservicio es un desplegable propio desde la etapa 1 (D5 de SAD-03): tiene su host, su imagen, su chart y su propio esquema de base de datos (PostgreSQL con SAD-04, usuario de Oracle con SAD-05). No hay fase de monolito modular. Los servicios solo se hablan por red, con las tres formas de la sección 6; ninguno lee las tablas de otro ni referencia su código. Cómo se organiza esto en el repositorio y cómo se contiene el costo operativo de empezar con 15 desplegables está en [SAD-07, sección 6](../../Complementarios/planes/plan-organizacion-monorepositorio.md#6-un-desplegable-por-microservicio).
 
 ## 5. De la vista lógica a la de desarrollo
 
@@ -239,7 +228,7 @@ Reglas de dependencia (propuesta, verificables en la tubería):
 |---|---|---|
 | R-D1 | Las llamadas síncronas forman un árbol con raíz en MS-02: ningún otro servicio llama de forma síncrona a MS-02, y no hay ciclos síncronos. | Evita bloqueos y cascadas de fallas en la conversación. |
 | R-D2 | Solo MS-02 coordina llamadas síncronas a varios servicios en un mismo paso; los demás solo hacen consultas de lectura a otro servicio (por ejemplo, al catálogo de MS-08) o emiten comandos y eventos. | El orquestador es único (D1 de SAD-03). |
-| R-D3 | Ningún servicio importa otro servicio; lo compartido vive en `packages/`. | Permite separar los desplegables sin reescribir. |
+| R-D3 | Ningún servicio importa otro servicio; lo compartido vive en `packages/`. | Cada servicio se construye y se despliega solo; un cambio no obliga a recompilar otro. |
 | R-D4 | `packages/dominio` solo contiene tipos, enumeraciones y transiciones de CLS-01, sin lógica de un servicio. | Evita un «monolito compartido» disfrazado de paquete. |
 | R-D5 | Un evento lo publica un solo servicio, el dueño de la entidad que cambió, mediante el outbox de su esquema. | Un solo escritor por entidad (criterio C3 de SAD-03). |
 
@@ -328,8 +317,8 @@ Cada componente entrega los mismos artefactos:
 | Contrato de API | OpenAPI 3.1 en `packages/contratos` | Se escribe antes que el código (API-first, K2 de SAD-04). El gateway lo importa y el panel y la app móvil generan su cliente desde él. |
 | Contrato de eventos | AsyncAPI 3 en `packages/contratos` | Cada evento lleva su versión y el identificador de correlación (`traceparent`). |
 | Migraciones | Prisma o Drizzle, Alembic en MS-03 (SAD-04) · EF Core o Liquibase (SAD-05) | La primera migración de cada esquema sale de DAT-02 (traducido a Oracle con SAD-05); solo se avanza, nunca se edita una migración publicada. |
-| Imagen de contenedor | Docker, imagen mínima (Node.js o Python · .NET `chiseled`) firmada con Cosign | Una por desplegable. |
-| Chart de Helm | `infra/helm` | Uno por desplegable, con los valores por entorno. |
+| Imagen de contenedor | Docker, imagen mínima (Node.js o Python · .NET `chiseled`) firmada con Cosign | Una por microservicio y una para el BFF. |
+| Chart de Helm | `infra/helm` | Uno por microservicio sobre un chart de biblioteca común, con los valores por entorno. |
 | Pruebas | Jest o Pytest, Testcontainers, Pact | Unitarias, de integración y de contrato en el mismo cambio que el código. |
 
 ### Versionado
@@ -405,16 +394,15 @@ Con SAD-05 entra un actor más: el **equipo de TI de la cooperativa**, que mante
 
 ## 12. Orden de construcción
 
-El orden sigue los flujos de valor (REV-01, sección 5) y el despliegue progresivo (D5 de SAD-03):
+El orden sigue los flujos de valor (REV-01, sección 5). Cada microservicio se despliega por separado desde la etapa en que se construye (D5 de SAD-03):
 
 | Etapa | Qué se construye | Desplegables | Condición para empezar |
 |---|---|---|---|
 | 0 · Base | Monorrepositorio, `packages/`, tubería, gateway y Identity Server en desarrollo, DDL de DAT-02 | — | Aprobación de este documento |
-| 1 · Flujo 1 | MS-01, MS-02, MS-03, MS-04, MS-05 y el widget | 1, 2 y 3 (parcial) | Etapa 0. Mide la meta de responder en menos de 2 minutos. |
-| 2 · Flujo 2 | MS-06, MS-07, MS-08, MS-09 y MS-10 (citas) | 3 y 4 | Reglas de precalificación acordadas con el Comité de crédito |
-| 3 · Flujo 3 | MS-11, MS-12, MS-13, BFF y panel | 5 | Contrato del CRM y reglas de prioridad y enrutamiento (P-02 de SAD-01) |
-| 4 · Transversal | MS-14 y el embudo | 6 | Puede ir en paralelo desde la etapa 1 |
-| 5 · Separación | Partir los desplegables 3, 4 y 5 en sus microservicios | 14 | Volumen real (P-03 de SAD-01) |
+| 1 · Flujo 1 | MS-01, MS-02, MS-03, MS-04, MS-05 y el widget | 5 | Etapa 0. Mide la meta de responder en menos de 2 minutos. |
+| 2 · Flujo 2 | MS-06, MS-07, MS-08, MS-09 y MS-10 (citas) | 5 | Reglas de precalificación acordadas con el Comité de crédito |
+| 3 · Flujo 3 | MS-11, MS-12, MS-13, BFF y panel | 4 | Contrato del CRM y reglas de prioridad y enrutamiento (P-02 de SAD-01) |
+| 4 · Transversal | MS-14 y el embudo | 1 | Puede ir en paralelo desde la etapa 1 |
 
 ## 13. Decisiones y pendientes
 
@@ -424,11 +412,11 @@ Esta vista aplica las decisiones ya tomadas en SAD-01, SAD-03, SAD-04 y SAD-05 y
 |---|---|---|---|
 | DA-01, DA-03 | Un servicio dueño por capacidad y un solo escritor por entidad. | Sección 5: cada método tiene un componente que lo implementa y un dueño del dato. | SAD-01, SAD-03 |
 | DA-02 | MS-02 orquesta; desde la precalificación, coreografía por eventos. | Sección 6: árbol de llamadas síncronas con raíz en MS-02. | SAD-01, SAD-03 (D1) |
-| DA-06 | Monolito modular con 6 desplegables y un esquema por servicio. | Secciones 4 y 12. | SAD-01, SAD-03 (D5) |
+| DA-06 | Microservicios desde el inicio: 14 servicios y el BFF como desplegables propios, con un esquema por servicio. | Secciones 4 y 12. | SAD-01, SAD-03 (D5, v1.2), SAD-07 (DO-04) |
 | DV-01 | **Monorrepositorio** con `apps/`, `services/` y `packages/`. | Contratos y tipos compartidos sin acoplar servicios. | SAD-01 (sección 7.3) |
 | DV-02 | **Arquitectura hexagonal en cada servicio** con las mismas carpetas. | Cada paso de CU-08 tiene un lugar fijo en `aplicacion/`. | Esta vista |
 | DV-03 | **Los nombres de CLS-01 y DAT-01 no se traducen ni se cambian en el código.** | Trazabilidad paso → método → código → prueba. | Esta vista |
-| DV-04 | **Reglas de dependencia R-D1 a R-D5 verificadas en la tubería.** | Que la separación de la fase 2 no exija reescribir. | Esta vista |
+| DV-04 | **Reglas de dependencia R-D1 a R-D5 verificadas en la tubería.** | Que cada servicio pueda cambiar y desplegarse sin arrastrar a otro. | Esta vista |
 | DV-05 | **La organización del desarrollo no depende del stack.** | Componentes, dueños de cada método, reglas de dependencia, repositorio, artefactos y pruebas valen igual con SAD-04 o SAD-05; solo cambia la tabla de la sección 3. | Esta vista |
 | PV-01 | Aprobar el stack: SAD-04 o SAD-05. Con SAD-04 falta elegir la herramienta del monorrepositorio (Nx, Turborepo o pnpm workspaces) y la de migraciones (Prisma o Drizzle); con SAD-05, si las capas hexagonales son carpetas o proyectos de .NET y si las migraciones van con EF Core o Liquibase. | Condiciona la sección 3 y cómo se comprueban R-D1 a R-D4. | Equipo de backend |
 | PV-02 | DAT-01 es una base única: hace falta repartirlo por esquema de servicio. | Las claves foráneas entre servicios pasan a ser referencias por identificador. | SAD-03 (P1) |

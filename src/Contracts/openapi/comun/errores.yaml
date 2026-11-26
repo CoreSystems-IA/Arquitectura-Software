@@ -1,0 +1,70 @@
+# Esquema común de errores de las APIs de July (SAD-07, paso 0.4).
+# Cada openapi.yaml de servicio lo referencia: $ref: '../comun/errores.yaml#/components/responses/…'
+# Es la forma en JSON de July.BuildingBlocks.Core.Results.Error, con el formato de RFC 9457 (problem+json).
+openapi: 3.1.0
+info:
+  title: July · componentes comunes
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Problema:
+      type: object
+      description: Error que devuelve un caso de uso. Nunca incluye datos personales.
+      required: [type, title, status, codigo]
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          example: https://july.coopjulianlorente.ec/errores/MS06.MONTO_FUERA_DE_RANGO
+        title:
+          type: string
+          example: El monto está fuera del rango de la línea de crédito.
+        status:
+          type: integer
+          enum: [400, 401, 403, 404, 409, 502]
+        codigo:
+          type: string
+          description: Código estable con el prefijo del servicio (Error.Codigo).
+          pattern: '^MS(0[1-9]|1[0-4])\.[A-Z0-9_]+$|^BFF\.[A-Z0-9_]+$'
+          example: MS06.MONTO_FUERA_DE_RANGO
+        traceId:
+          type: string
+          description: Identificador de traza W3C para buscar el caso en la observabilidad y en MS-14.
+        errores:
+          type: object
+          description: Errores de validación por campo (solo con status 400).
+          additionalProperties:
+            type: array
+            items: { type: string }
+  responses:
+    Validacion:
+      description: Los datos no cumplen las reglas del caso de uso.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problema' }
+    NoAutorizado:
+      description: Falta el JWT interno o no es válido (regla L5 de SAD-06).
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problema' }
+    Prohibido:
+      description: El rol del JWT no puede ejecutar este paso.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problema' }
+    NoEncontrado:
+      description: El recurso no existe en este servicio.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problema' }
+    Conflicto:
+      description: El estado actual no permite el paso (por ejemplo, una transición de EstadoLead inválida).
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problema' }
+    Externo:
+      description: Falló un sistema externo (core, CRM, proveedor de LLM) detrás del Micro Integrator o del AI Gateway.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problema' }

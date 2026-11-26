@@ -1,0 +1,4 @@
+# csharpier solo formatea el código del monorrepositorio. La documentación (incluida la exportación
+# Open Exchange de Archi, que se regenera desde el .archimate) y los binarios no se tocan.
+Documentacion/
+Assets/

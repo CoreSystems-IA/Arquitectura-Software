@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Publicador del outbox y consumidor idempotente sobre RabbitMQ.Client (SAD-05; sin Wolverine). -->
+  <ItemGroup>
+    <ProjectReference Include="..\July.BuildingBlocks.Core\July.BuildingBlocks.Core.csproj" />
+    <ProjectReference Include="..\July.BuildingBlocks.Persistence.Oracle\July.BuildingBlocks.Persistence.Oracle.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+  </ItemGroup>
+</Project>

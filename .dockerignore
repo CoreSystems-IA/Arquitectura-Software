@@ -1,0 +1,17 @@
+# Contexto de las imágenes: solo el código necesario para compilar.
+**/bin/
+**/obj/
+**/node_modules/
+**/.vs/
+**/.vscode/
+**/*.user
+**/.env
+**/*.private.env.json
+.git/
+.husky/
+Documentacion/
+Assets/
+deployments/
+tests/
+_httpclients/
+*.md

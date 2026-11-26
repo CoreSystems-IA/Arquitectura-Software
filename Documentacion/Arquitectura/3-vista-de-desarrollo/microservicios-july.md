@@ -3,8 +3,8 @@
 | Campo | Valor |
 |---|---|
 | **ID** | SAD-03 |
-| **Versión** | 1.1 |
-| **Fecha** | 2026-11-25 |
+| **Versión** | 1.2 |
+| **Fecha** | 2026-11-26 |
 | **Estado** | Borrador |
 | **Deriva de** | CAP-03 (capacidades, flujos de valor y servicios SA-01 a SA-25), CAP-04, LIN-01 (dominios de datos y matriz capacidad × entidad), DAT-01 (tablas), REV-01 (vista de desarrollo) |
 | **Alimenta a** | SAD-01, vistas de implementación y despliegue (hoy en blanco) |
@@ -134,7 +134,7 @@ Las flechas continuas son llamadas síncronas o comandos. Las etiquetadas son ev
 | D2 | **`Lead` tiene un solo escritor (MS-05).** | Prioridad (MS-11), asesor (MS-12) y reactivación (MS-12) llegan como comandos. Así se evita la inconsistencia que LIN-01 señala para la entidad más disputada. |
 | D3 | **La precalificación no escribe la solicitud.** | MS-09 publica el resultado con la versión de la regla (brecha B-02 de LIN-01) y MS-06 lo guarda en `solicitud_credito`. |
 | D4 | **La ficha no se persiste como entidad.** | MS-11 mantiene una proyección de lectura (CQRS) a partir de los eventos, igual que `v_ficha_lead` en DAT-01 (brecha B-07). |
-| D5 | **Despliegue progresivo.** | La portada del repositorio fija «monolito modular → microservicios». Fase 1 con 6 desplegables: MS-01; MS-03 (Python, LLM); núcleo de captación (MS-02, MS-04, MS-05, MS-06); motor financiero (MS-07, MS-08, MS-09); gestión comercial (MS-10, MS-11, MS-12, MS-13); y MS-14. Cada módulo usa su propio esquema de PostgreSQL desde el inicio para poder separarlo después. |
+| D5 | **Microservicios desde el inicio.** | Cada uno de los 14 microservicios se despliega por separado desde que se construye, con su host, su imagen y su propio esquema de base de datos; no hay fase de monolito modular. Sustituye a la versión 1.1 de esta decisión (6 desplegables en una fase 1). La organización en el repositorio y cómo se contiene el costo operativo están en [SAD-07, sección 6](../../Complementarios/planes/plan-organizacion-monorepositorio.md#6-un-desplegable-por-microservicio). |
 | P1 | **DAT-01 es una base única.** | Las claves foráneas de DAT-01 que cruzan de un servicio a otro (por ejemplo `lead` → `prospecto` o `simulacion` → `linea_credito_version`) pasan a ser referencias por identificador entre servicios. Hace falta una versión de DAT-01 por servicio. |
 | P2 | **Colaboradores y asesores (B-10).** | MS-12 mantiene los asesores. Los colaboradores se resuelven en el IAM. Falta el servicio de CAP-03 que los publique. |
 | P3 | **CAP-03 no modela los microservicios.** | Si se aprueba esta propuesta, conviene añadir los 14 componentes de aplicación al modelo Archi y regenerar CAP-05. |

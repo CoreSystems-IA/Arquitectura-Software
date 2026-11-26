@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Solo tipos compartidos entre microservicios (regla R-D4 de SAD-06): enumeraciones de CLS-01,
+    la clase abstracta Configuracion, los roles del panel, los nombres de recursos de Aspire y,
+    desde la etapa 1, los contratos de eventos (un espacio de nombres por servicio publicador).
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\July.BuildingBlocks.Core\July.BuildingBlocks.Core.csproj" />
+  </ItemGroup>
+</Project>

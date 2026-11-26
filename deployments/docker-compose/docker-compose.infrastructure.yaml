@@ -1,0 +1,80 @@
+# Infraestructura local de July (SAD-07, paso 0.5). Uso: make infra-up (y make infra-wso2 para WSO2).
+# Las imágenes son las mismas que usan el AppHost de Aspire y Testcontainers.
+name: july
+
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim-faststart
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:?falta en .env}
+      JULY_SCHEMA_PASSWORD: ${JULY_SCHEMA_PASSWORD:?falta en .env}
+    ports: ["1521:1521"]
+    volumes:
+      - oracle-datos:/opt/oracle/oradata
+      - ../configs/oracle/init:/container-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  rabbitmq:
+    image: rabbitmq:4.1-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:?falta en .env}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?falta en .env}
+    ports: ["5672:5672", "15672:15672"]
+    volumes:
+      - rabbitmq-datos:/var/lib/rabbitmq
+      - ../configs/rabbitmq/rabbitmq.conf:/etc/rabbitmq/conf.d/20-july.conf:ro
+      - ../configs/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  redis:
+    image: redis:8-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  vault:
+    image: hashicorp/vault:1.20
+    command: ["server", "-dev"]
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_TOKEN:?falta en .env}
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    cap_add: [IPC_LOCK]
+    ports: ["8200:8200"]
+    healthcheck:
+      test: ["CMD", "vault", "status", "-address=http://127.0.0.1:8200"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  # WSO2 (requisito fijo de SAD-05). Son pesados: solo arrancan con `make infra-wso2` (perfil wso2).
+  # Su configuración versionada vive en deployments/wso2/ y se monta cuando exista (etapa 1).
+  wso2-apim:
+    image: wso2/wso2am:4.5.0
+    profiles: [wso2]
+    ports: ["9443:9443", "8243:8243", "8280:8280"]
+
+  wso2-is:
+    image: wso2/wso2is:7.1.0
+    profiles: [wso2]
+    ports: ["9444:9443"]
+
+  wso2-mi:
+    image: wso2/wso2mi:4.4.0
+    profiles: [wso2]
+    ports: ["8290:8290", "8253:8253"]
+
+volumes:
+  oracle-datos:
+  rabbitmq-datos:

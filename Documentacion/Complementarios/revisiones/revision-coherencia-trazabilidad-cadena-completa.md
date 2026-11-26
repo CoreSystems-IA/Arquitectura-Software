@@ -7,7 +7,7 @@
 | **Fecha** | 2026-11-18 |
 | **Estado** | Borrador |
 | **Deriva de** | CAP-03, CAP-05, CU-02 a CU-09, DOM-01, DOM-02, CLS-01, CLS-02, SEC-01, ROB-01, LIN-01, DAT-01, DAT-02, SAD-01 a SAD-03, PRE-01, PRE-02, PRO-01, NEG-01, REV-01, REV-02 y el README del repositorio |
-| **Relacionado con** | [REV-02](plan-trazabilidad-flujos-unificados.md) (reglas V1 a V8), [`Documentacion/README.md`](../../README.md) |
+| **Relacionado con** | [REV-02](../planes/plan-trazabilidad-flujos-unificados.md) (reglas V1 a V8), [`Documentacion/README.md`](../../README.md) |
 
 Revisión de toda la documentación en busca de incoherencias y de eslabones de trazabilidad rotos. Las reglas V1 a V8 de REV-02 cubren la cadena hasta ROB-01 y hoy salen en OK; esta revisión mira lo que esas reglas no cubren: el mapa contra los casos de uso, los diagramas de casos de uso, el linaje, el modelo de datos, los documentos complementarios, la portada y el índice. **Ningún documento se modificó**: cada hallazgo trae una propuesta de corrección.
 

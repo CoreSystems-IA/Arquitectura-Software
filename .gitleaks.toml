@@ -1,0 +1,40 @@
+# Reglas de Gitleaks de July (SAD-07, paso 0.3). Se usan en el hook pre-commit y en Jenkins.
+title = "July"
+
+[extend]
+useDefault = true
+
+# Cédula ecuatoriana: 10 dígitos que empiezan por el código de provincia (01–24 o 30).
+# Ninguna cédula real debe llegar al repositorio, ni siquiera como dato de prueba.
+[[rules]]
+id = "cedula-ecuador"
+description = "Posible número de cédula ecuatoriana"
+regex = '''(?:cedula|cédula|identificacion|identificación)["'\s:=]{1,6}((?:0[1-9]|1[0-9]|2[0-4]|30)[0-5]\d{7})\b'''
+secretGroup = 1
+keywords = ["cedula", "cédula", "identificacion", "identificación"]
+
+# Celular ecuatoriano: 09XXXXXXXX o +5939XXXXXXXX.
+[[rules]]
+id = "telefono-ecuador"
+description = "Posible número de celular ecuatoriano"
+regex = '''(?:\+593\s?9\d{8}|\b09\d{8}\b)'''
+keywords = ["+593", "09"]
+
+# Llave de cifrado por columna escrita en un archivo (debe vivir en Vault).
+[[rules]]
+id = "llave-cifrado-columna"
+description = "Llave de cifrado por columna fuera de Vault"
+regex = '''(?i)(?:llave|key)[_-]?(?:cifrado|cipher|indice|index)["'\s:=]{1,6}([A-Za-z0-9+/]{40,}={0,2})'''
+secretGroup = 1
+keywords = ["llave", "key"]
+
+[allowlist]
+description = "Documentación de arquitectura y valores de ejemplo"
+paths = [
+  '''^Documentacion/''',
+  '''\.sample$''',
+]
+regexes = [
+  '''0999999999''',
+  '''\+593999999999''',
+]

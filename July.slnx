@@ -1,0 +1,34 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="nuget.config" />
+    <File Path="version.json" />
+    <File Path="Makefile" />
+    <File Path="Jenkinsfile" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Aspire/">
+    <Project Path="src/Aspire/July.AppHost/July.AppHost.csproj" />
+    <Project Path="src/Aspire/July.ServiceDefaults/July.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/July.BuildingBlocks.Core/July.BuildingBlocks.Core.csproj" />
+    <Project Path="src/BuildingBlocks/July.BuildingBlocks.Messaging.RabbitMQ/July.BuildingBlocks.Messaging.RabbitMQ.csproj" />
+    <Project Path="src/BuildingBlocks/July.BuildingBlocks.Persistence.Oracle/July.BuildingBlocks.Persistence.Oracle.csproj" />
+    <Project Path="src/BuildingBlocks/July.BuildingBlocks.Security/July.BuildingBlocks.Security.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Shared/">
+    <Project Path="src/Services/Shared/July.Services.Shared/July.Services.Shared.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/BuildingBlocks/">
+    <Project Path="tests/BuildingBlocks/July.BuildingBlocks.UnitTests/July.BuildingBlocks.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/tests/Shared/">
+    <Project Path="tests/Shared/Tests.Shared/Tests.Shared.csproj" />
+  </Folder>
+</Solution>

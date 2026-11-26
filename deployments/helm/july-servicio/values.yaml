@@ -1,0 +1,34 @@
+# Plantilla de values.yaml de un servicio de July. Un chart de biblioteca no aporta valores al chart
+# que lo usa: cada chart de servicio copia este archivo, llena lo suyo y añade values-desarrollo.yaml,
+# values-pruebas.yaml y values-produccion.yaml (SAD-06, sección 9).
+servicio:
+  nombre: ""            # ms06-solicitud
+  esquema: ""           # ms06 (vacío en ms03-comprension y bff-panel)
+
+imagen:
+  repositorio: ""       # registro de la cooperativa/july/ms06-solicitud
+  etiqueta: ""          # versión de nbgv; la pone Jenkins
+  politica: IfNotPresent
+
+replicas: 1
+
+autoescalado:
+  activo: false         # solo en produccion, empezando por MS-01, MS-02 y MS-03
+  minimo: 2
+  maximo: 6
+  cpuObjetivo: 70
+
+recursos:
+  requests: { cpu: 100m, memory: 192Mi }
+  limits:   { cpu: 500m, memory: 384Mi }
+
+puerto: 8080
+
+vault:
+  activo: true
+  rol: ""               # rol de Kubernetes en Vault; por omisión, el nombre del servicio
+  secretos: []          # - { archivo: oracle, ruta: "database/creds/ms06" }
+
+# Servicios a los que puede llamar (árbol de SAD-06, sección 6). Todo lo demás queda bloqueado.
+llamaA: []
+entorno: {}

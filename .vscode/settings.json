@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "[csharp]": { "editor.defaultFormatter": "csharpier.csharpier-vscode" },
+  "dotnet.defaultSolution": "July.slnx",
+  "files.eol": "\n"
+}

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Fixtures de Oracle, RabbitMQ y Redis con Testcontainers, y tokens de prueba de los 8 roles. -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Services\Shared\July.Services.Shared\July.Services.Shared.csproj" />
+    <ProjectReference Include="..\..\..\src\BuildingBlocks\July.BuildingBlocks.Security\July.BuildingBlocks.Security.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.extensibility.core" />
+    <PackageReference Include="Testcontainers.Oracle" />
+    <PackageReference Include="Testcontainers.RabbitMq" />
+    <PackageReference Include="Testcontainers.Redis" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+  </ItemGroup>
+</Project>

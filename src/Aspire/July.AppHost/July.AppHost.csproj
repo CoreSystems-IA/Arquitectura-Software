@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Orquestación local (SAD-07, PO-02). Producción no usa Aspire: Kubernetes y Helm (SAD-05). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>july-apphost</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.Dotnet" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" />
+    <PackageReference Include="Aspire.Hosting.Redis" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Solo para leer los nombres de recursos; no es un servicio que Aspire deba levantar. -->
+    <ProjectReference
+      Include="..\..\Services\Shared\July.Services.Shared\July.Services.Shared.csproj"
+      IsAspireProjectResource="false"
+    />
+  </ItemGroup>
+</Project>

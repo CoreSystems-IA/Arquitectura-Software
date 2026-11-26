@@ -1,0 +1,22 @@
+{
+  "exchanges": [
+    { "name": "july.eventos", "vhost": "/", "type": "topic", "durable": true, "auto_delete": false, "internal": false, "arguments": {} },
+    { "name": "july.fallidos", "vhost": "/", "type": "fanout", "durable": true, "auto_delete": false, "internal": false, "arguments": {} }
+  ],
+  "queues": [
+    { "name": "july.fallidos", "vhost": "/", "durable": true, "auto_delete": false, "arguments": { "x-queue-type": "quorum" } }
+  ],
+  "bindings": [
+    { "source": "july.fallidos", "vhost": "/", "destination": "july.fallidos", "destination_type": "queue", "routing_key": "", "arguments": {} }
+  ],
+  "policies": [
+    {
+      "vhost": "/",
+      "name": "july-mensajes-fallidos",
+      "pattern": "^ms[0-9]{2}-.*",
+      "apply-to": "queues",
+      "priority": 0,
+      "definition": { "dead-letter-exchange": "july.fallidos" }
+    }
+  ]
+}

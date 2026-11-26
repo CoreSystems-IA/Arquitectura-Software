@@ -1,0 +1,5 @@
+apiVersion: v2
+name: july-servicio
+description: Plantilla común de los 15 desplegables de July (SAD-07, sección 6). Cada chart de servicio la usa como dependencia y solo declara sus valores.
+type: library
+version: 0.1.0

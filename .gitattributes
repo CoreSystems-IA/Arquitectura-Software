@@ -1,0 +1,6 @@
+# Finales de línea normalizados; los binarios de la documentación no se tocan.
+* text=auto eol=lf
+*.{cmd,bat,ps1} text eol=crlf
+*.{png,jpg,jpeg,gif,ico,pdf,docx,xlsx,pptx,zip} binary
+*.drawio text
+*.archimate text
